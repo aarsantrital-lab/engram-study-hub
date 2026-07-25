@@ -1,0 +1,69 @@
+{
+  "topics": [
+    {
+      "id": "mole-concept",
+      "name": "Mole Concept",
+      "subject": "Chemistry",
+      "badge": "chemistry",
+      "description": "Flashcards from Mole-Concept-flashcards",
+      "pages": "Teaching notes",
+      "flashcards": [
+        {
+          "q": "What is a mole?",
+          "a": "A mole is a counting unit for atoms/molecules. 1 mole = 6.022 × 10²³ particles (Avogadro's number).",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "What is Avogadro's number?",
+          "a": "6.022 × 10²³ — the number of particles (atoms, molecules, ions) in one mole of any substance.",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "What is molar mass?",
+          "a": "The mass of 1 mole of a substance, in grams per mole (g/mol). Equal to the sum of atomic masses from the periodic table.",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "What is the formula connecting moles, mass, and molar mass?",
+          "a": "n = m ÷ M (moles = mass ÷ molar mass)",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "How many moles are in 36 g of water (H₂O)?",
+          "a": "Molar mass of H₂O = 18 g/mol. n = 36 ÷ 18 = 2 mol.",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "How many particles are in 1 mole of any substance?",
+          "a": "6.022 × 10²³ particles.",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "What is the molar mass of CO₂?",
+          "a": "C = 12, O = 2 × 16 = 32. Total = 44 g/mol.",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "How do you find the number of particles from moles?",
+          "a": "Particles = n × Nₐ = n × 6.022 × 10²³",
+          "interval": 7,
+          "due": "2026-07-26"
+        },
+        {
+          "q": "What is the molar mass of NaCl?",
+          "a": "Na = 23, Cl = 35.5. Total = 58.5 g/mol.",
+          "interval": 7,
+          "due": "2026-07-26"
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-07-25T12:56:32.272483"
+}
