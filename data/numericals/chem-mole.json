@@ -1,0 +1,979 @@
+{
+  "subject": "Chemistry",
+  "note": "Mole-concept drill templates for Teaching/Mole-Concept lessons 0001-0005. Every expr is written for the hand-rolled parser in js/numericals.js: + - * / ^ ( ) , numbers, and the named constants only (N_A = 6.022 x 10^23). There is no eval here, so Math.pow, string literals and JS functions do not work and silently produce NaN. Atomic masses used: H 1, C 12, N 14, O 16, Na 23, S 32, Cl 35.5, Ca 40. Limiting-reagent problems are deliberately absent; they live in chemistry.json and belong to a later lesson.",
+  "templates": [
+    {
+      "id": "chem-mole-001",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "mass-to-moles",
+      "problemTypeLabel": "Mass ↔ moles",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "Calculate the amount, in mol, in {m} g of water, H₂O. (H = 1, O = 16 g/mol.)",
+      "vars": {
+        "m": { "min": 4.5, "max": 90, "step": 4.5, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m = {m} g. Atomic masses: H = 1 g/mol, O = 16 g/mol.",
+          "justification": "The balance reads grams. The question asks for mol. Those are two different quantities and the molar mass is the only thing that connects them."
+        },
+        {
+          "statement": "M(H₂O) = 2(1) + 16 = 18 g/mol",
+          "justification": "Every atom in the formula contributes, and the subscript 2 belongs to hydrogen alone. Written as 18 amu it would be the mass of one molecule; written as 18 g/mol it is the mass of one mole of them.",
+          "expr": "18",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "n = m ÷ M = {m} g ÷ 18 g/mol",
+          "justification": "g ÷ g/mol cancels to mol, which is the check that the division ran the right way round.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/18",
+          "unit": "mol",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/18", "unit": "mol", "sigfigs": 3, "label": "amount of water" },
+      "misconceptionTags": ["CH-M01", "CH-M03"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "18/m",
+          "statement": "Divided the molar mass by the mass.",
+          "feedback": "The ratio is upside down. Check the unit: g/mol ÷ g leaves mol⁻¹, not mol. Writing the unit on every line catches this before the mark is gone.",
+          "whyItFeelsRight": "Both numbers look like masses, so the order feels arbitrary when you are moving quickly."
+        },
+        {
+          "id": "CH-M08",
+          "trap": "m*N_A",
+          "statement": "Multiplied the mass straight by the Avogadro constant.",
+          "feedback": "The Avogadro constant converts mol to particles, never g to particles. The mass has to become an amount in mol first, and that answer would also be a count rather than the mol the question asked for.",
+          "whyItFeelsRight": "6.022 × 10²³ is the only large number in sight, so it looks like the one multiplication the question wants."
+        }
+      ],
+      "confusableWith": ["moles-to-mass", "mass-to-particles"]
+    },
+    {
+      "id": "chem-mole-002",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "mass-to-moles",
+      "problemTypeLabel": "Mass ↔ moles",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "Calculate the amount, in mol, in {m} g of carbon dioxide, CO₂. (C = 12, O = 16 g/mol.)",
+      "vars": {
+        "m": { "min": 11, "max": 220, "step": 11, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m = {m} g. Atomic masses: C = 12 g/mol, O = 16 g/mol.",
+          "justification": "Build the molar mass from the board before anything else happens — it is a mark of its own and it is the number every later line depends on."
+        },
+        {
+          "statement": "M(CO₂) = 12 + 2(16) = 44 g/mol",
+          "justification": "The subscript 2 sits on the oxygen, so oxygen contributes 32 g/mol of the total and carbon 12 g/mol.",
+          "expr": "44",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "n = m ÷ M = {m} g ÷ 44 g/mol",
+          "justification": "Mass divided by molar mass is the only arrow from the gram world to the mole world.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/44",
+          "unit": "mol",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/44", "unit": "mol", "sigfigs": 3, "label": "amount of carbon dioxide" },
+      "misconceptionTags": ["CH-M01", "CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "44/m",
+          "statement": "Divided the molar mass by the mass.",
+          "feedback": "Upside down. g/mol ÷ g gives mol⁻¹. The unit on the line is what tells you which way the division goes.",
+          "whyItFeelsRight": "44 is the number that was worked out, so it feels like the one that should lead."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "m/12",
+          "statement": "Used carbon's 12 g/mol as the molar mass of carbon dioxide.",
+          "feedback": "That is the molar mass of the carbon atoms alone. The sample is CO₂, so both oxygens are on the balance too and M = 44 g/mol.",
+          "whyItFeelsRight": "Carbon is the first element named in the formula, and 12 is the number you have used most often."
+        }
+      ],
+      "confusableWith": ["moles-to-mass", "percentage-composition"]
+    },
+    {
+      "id": "chem-mole-003",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "moles-to-mass",
+      "problemTypeLabel": "Moles → mass",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "Find the mass, in g, of {n} mol of sodium chloride, NaCl. (Na = 23, Cl = 35.5 g/mol.)",
+      "vars": {
+        "n": { "min": 0.1, "max": 3, "step": 0.1, "unit": "mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "n = {n} mol. Atomic masses: Na = 23 g/mol, Cl = 35.5 g/mol.",
+          "justification": "This question runs the other way from the usual one: the amount is given and the balance reading is wanted."
+        },
+        {
+          "statement": "M(NaCl) = 23 + 35.5 = 58.5 g/mol",
+          "justification": "Chlorine's 35.5 g/mol is a decimal because chlorine is a mixture of two isotopes. It stays a decimal — rounding it to 35 costs accuracy marks later.",
+          "expr": "58.5",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "m = n × M = {n} mol × 58.5 g/mol",
+          "justification": "mol × g/mol leaves g. Going back to the balance reverses the arrow, so the operation multiplies.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "n*58.5",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "n*58.5", "unit": "g", "sigfigs": 3, "label": "mass of sodium chloride" },
+      "misconceptionTags": ["CH-M01", "CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "n/58.5",
+          "statement": "Divided by the molar mass instead of multiplying.",
+          "feedback": "n = m ÷ M was applied without being rearranged. Going from mol to g multiplies: mol × g/mol leaves g, while mol ÷ g/mol leaves mol² /g, which is not a quantity that exists.",
+          "whyItFeelsRight": "n = m ÷ M is the formula you have practised most, so the division comes out automatically."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "n*23",
+          "statement": "Used only sodium's 23 g/mol.",
+          "feedback": "A formula unit of NaCl carries one sodium and one chlorine, so both are on the balance. M = 23 + 35.5 = 58.5 g/mol.",
+          "whyItFeelsRight": "Sodium is named first and 23 is a whole number, so it is the easier of the two to reach for."
+        }
+      ],
+      "confusableWith": ["mass-to-moles", "molar-mass-from-data"]
+    },
+    {
+      "id": "chem-mole-004",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "moles-to-particles",
+      "problemTypeLabel": "Moles → particles",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "How many molecules are there in {n} mol of a molecular substance? (Nₐ = 6.022 × 10²³ mol⁻¹.)",
+      "vars": {
+        "n": { "min": 0.1, "max": 4, "step": 0.1, "unit": "mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "n = {n} mol, Nₐ = 6.022 × 10²³ mol⁻¹.",
+          "justification": "The substance is never named because it does not matter. One mole of anything holds the same number of particles."
+        },
+        {
+          "statement": "N = n × Nₐ = {n} mol × 6.022 × 10²³ mol⁻¹",
+          "justification": "The Avogadro constant is a count per mole, so mol × mol⁻¹ cancels and leaves a bare count.",
+          "formulaTeX": "N = n \\times N_A",
+          "expr": "n*N_A",
+          "unit": "",
+          "dimensionless": true,
+          "sigfigs": 4
+        },
+        {
+          "statement": "The answer is a count of molecules and carries no unit.",
+          "justification": "Writing g or mol after a particle count is marked wrong even when the digits are right."
+        }
+      ],
+      "answer": { "expr": "n*N_A", "unit": "", "dimensionless": true, "sigfigs": 4, "label": "number of molecules" },
+      "misconceptionTags": ["CH-M08", "CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-M08",
+          "trap": "n/N_A",
+          "statement": "Divided by the Avogadro constant.",
+          "feedback": "Division is the return journey, from particles back to mol. Going from mol out to particles multiplies, and the answer must be larger than 6.022 × 10²³ whenever the amount is more than 1 mol.",
+          "whyItFeelsRight": "6.022 × 10²³ is enormous, so dividing feels like the safe move to keep the answer a sensible size."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "N_A",
+          "statement": "Gave 6.022 × 10²³, the count for exactly 1 mol.",
+          "feedback": "That is the answer only when n = 1 mol. The amount given here scales it: N = n × Nₐ.",
+          "whyItFeelsRight": "The Avogadro constant is the number the question is testing, so writing it down feels like answering."
+        }
+      ],
+      "confusableWith": ["particles-to-mass", "atoms-within-a-formula"]
+    },
+    {
+      "id": "chem-mole-005",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "mass-to-particles",
+      "problemTypeLabel": "Mass → particles",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "How many molecules of water are there in {m} g of H₂O? (H = 1, O = 16 g/mol, Nₐ = 6.022 × 10²³ mol⁻¹.)",
+      "vars": {
+        "m": { "min": 1.8, "max": 90, "step": 1.8, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m = {m} g, Nₐ = 6.022 × 10²³ mol⁻¹.",
+          "justification": "Grams at one end, a particle count at the other. There is no single formula between them — the road passes through the mole box, and that is worth two separate lines."
+        },
+        {
+          "statement": "M(H₂O) = 2(1) + 16 = 18 g/mol",
+          "justification": "The molar mass is built from the atomic-mass board before any arrow is drawn.",
+          "expr": "18",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "n = {m} g ÷ 18 g/mol",
+          "justification": "First arrow: grams to mol. Skipping it is misconception CH-S06, the missing bridge between the lab bench and the particles.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/18",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "N = n × 6.022 × 10²³ mol⁻¹",
+          "justification": "Second arrow: mol to particles. Two arrows means two lines, and combining them into one loses the method mark even when the final digits are right.",
+          "formulaTeX": "N = n \\times N_A",
+          "expr": "m/18*N_A",
+          "unit": "",
+          "dimensionless": true,
+          "sigfigs": 4
+        }
+      ],
+      "answer": { "expr": "m/18*N_A", "unit": "", "dimensionless": true, "sigfigs": 4, "label": "number of water molecules" },
+      "misconceptionTags": ["CH-S06", "CH-M08"],
+      "misconceptions": [
+        {
+          "id": "CH-S06",
+          "trap": "m*N_A",
+          "statement": "Multiplied the grams straight by the Avogadro constant.",
+          "feedback": "This is the missing bridge. Nₐ counts particles per MOLE, so it can only be applied after the grams have become mol. Grams × mol⁻¹ is not a count of anything.",
+          "whyItFeelsRight": "The question says grams and asks for molecules, and Nₐ is the only conversion number given, so it looks like a one-step problem."
+        },
+        {
+          "id": "CH-M01",
+          "trap": "18/m*N_A",
+          "statement": "Inverted the first step, then multiplied correctly.",
+          "feedback": "The second arrow is right and the first one is upside down. 18 g/mol ÷ {m} g gives mol⁻¹, so the count comes out on the wrong side. One wrong line costs the whole answer mark here.",
+          "whyItFeelsRight": "With two numbers and one division, the order is a coin toss unless the units are written down."
+        }
+      ],
+      "confusableWith": ["moles-to-particles", "particles-to-mass"]
+    },
+    {
+      "id": "chem-mole-006",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "particles-to-mass",
+      "problemTypeLabel": "Particles → mass",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A sample of carbon dioxide contains {Nmult} × 10²³ molecules. Find its mass in g. (C = 12, O = 16 g/mol, Nₐ = 6.022 × 10²³ mol⁻¹.)",
+      "vars": {
+        "Nmult": { "min": 0.5, "max": 12, "step": 0.5, "unit": "× 10²³ molecules", "sigfigs": 4 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "N = {Nmult} × 10²³ molecules, Nₐ = 6.022 × 10²³ mol⁻¹.",
+          "justification": "Both numbers carry × 10²³, so that part cancels and the arithmetic is smaller than it looks."
+        },
+        {
+          "statement": "n = N ÷ Nₐ = ({Nmult} × 10²³) ÷ (6.022 × 10²³ mol⁻¹)",
+          "justification": "Coming from the particle end is a division. Multiplying by 6.022 × 10⁻²³ instead is the sign-flip error: it is a different operation and it gives a number that fits no unit.",
+          "formulaTeX": "n = \\frac{N}{N_A}",
+          "expr": "Nmult/6.022",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "M(CO₂) = 12 + 2(16) = 44 g/mol",
+          "justification": "Its own line, its own mark.",
+          "expr": "44",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "m = n × M, in g",
+          "justification": "mol × g/mol leaves g, which is what the question asked for.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "Nmult/6.022*44",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "Nmult/6.022*44", "unit": "g", "sigfigs": 3, "label": "mass of carbon dioxide" },
+      "misconceptionTags": ["CH-M08", "CH-S06"],
+      "misconceptions": [
+        {
+          "id": "CH-M08",
+          "trap": "Nmult*6.022*44",
+          "statement": "Multiplied by 6.022 × 10⁻²³ instead of dividing by 6.022 × 10²³.",
+          "feedback": "This is the sign error on the power of ten. Dividing by 10²³ and multiplying by 10⁻²³ look alike on a calculator and are the same move, but multiplying by 6.022 rather than dividing is not. The count is larger than Nₐ here, so the amount must come out larger than 1 mol.",
+          "whyItFeelsRight": "Both forms of the constant appear in textbooks and the negative power reads as though it has already done the dividing for you."
+        },
+        {
+          "id": "CH-S06",
+          "trap": "Nmult/6.022",
+          "statement": "Stopped at the amount in mol.",
+          "feedback": "That is a correct middle line and the question asked for grams. One more step, m = n × 44 g/mol, and the marks are complete.",
+          "whyItFeelsRight": "The hard part of the calculation is finished at that point, so it feels like the answer."
+        }
+      ],
+      "confusableWith": ["mass-to-particles", "moles-to-mass"]
+    },
+    {
+      "id": "chem-mole-007",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "atoms-within-a-formula",
+      "problemTypeLabel": "Atoms inside a formula",
+      "cognitive": "higher",
+      "difficulty": 2,
+      "template": "How many oxygen atoms are there in {n} mol of sulphuric acid, H₂SO₄? (Nₐ = 6.022 × 10²³ mol⁻¹.)",
+      "vars": {
+        "n": { "min": 0.1, "max": 3, "step": 0.1, "unit": "mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "n(H₂SO₄) = {n} mol, Nₐ = 6.022 × 10²³ mol⁻¹.",
+          "justification": "Read what is being counted before counting it. The question asks for atoms of one element, not for molecules."
+        },
+        {
+          "statement": "Each H₂SO₄ molecule holds 4 oxygen atoms, so n(O) = {n} mol × 4",
+          "justification": "The subscript multiplies the amount while the sample is still in the mole world. Doing it here, rather than at the end, keeps the line readable.",
+          "expr": "n*4",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "N(O) = n(O) × 6.022 × 10²³ mol⁻¹",
+          "justification": "The Avogadro constant is applied last, to the amount of oxygen ATOMS rather than to the amount of molecules.",
+          "formulaTeX": "N = n \\times N_A",
+          "expr": "n*4*N_A",
+          "unit": "",
+          "dimensionless": true,
+          "sigfigs": 4
+        }
+      ],
+      "answer": { "expr": "n*4*N_A", "unit": "", "dimensionless": true, "sigfigs": 4, "label": "number of oxygen atoms" },
+      "misconceptionTags": ["CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-M04",
+          "trap": "n*N_A",
+          "statement": "Counted molecules rather than oxygen atoms.",
+          "feedback": "That is the number of H₂SO₄ molecules. Each one carries 4 oxygen atoms, so the oxygen count is four times larger. The subscript in the formula is the whole question here.",
+          "whyItFeelsRight": "n × Nₐ is the move this topic drills most, and it runs before the wording has been re-read."
+        },
+        {
+          "id": "CH-S08",
+          "trap": "n*4",
+          "statement": "Stopped at the amount of oxygen in mol.",
+          "feedback": "A correct middle line: {n} mol × 4 is the amount of oxygen atoms in mol. The question asked for a number of atoms, so it still needs × 6.022 × 10²³ mol⁻¹.",
+          "whyItFeelsRight": "The 4 is the clever part of the question, so applying it feels like the finish."
+        }
+      ],
+      "confusableWith": ["moles-to-particles", "percentage-composition"]
+    },
+    {
+      "id": "chem-mole-008",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "percentage-composition",
+      "problemTypeLabel": "Percentage composition",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A {m} g sample of calcium carbonate, CaCO₃, is analysed. Find the mass of calcium it contains. (Ca = 40, C = 12, O = 16 g/mol.)",
+      "vars": {
+        "m": { "min": 10, "max": 200, "step": 10, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m(CaCO₃) = {m} g. Atomic masses: Ca = 40, C = 12, O = 16 g/mol.",
+          "justification": "A percentage by mass compares one element's contribution with the whole molar mass, so the molar mass has to be built first."
+        },
+        {
+          "statement": "M(CaCO₃) = 40 + 12 + 3(16) = 100 g/mol",
+          "justification": "The subscript 3 belongs to oxygen alone, giving 48 g/mol of the total. Calcium contributes 40 g/mol and carbon 12 g/mol.",
+          "expr": "100",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "Calcium's share = 40 g/mol ÷ 100 g/mol = 40.0% by mass",
+          "justification": "A percentage by mass is one element's share of the molar mass. It is not a count of atoms: CaCO₃ is 40.0% calcium by mass while calcium is only 1 atom in 5.",
+          "expr": "40",
+          "unit": "%",
+          "sigfigs": 3
+        },
+        {
+          "statement": "m(Ca) = {m} g × 40 ÷ 100",
+          "justification": "The share is a fraction of the sample mass, so the answer stays in grams and must be smaller than the sample.",
+          "expr": "m*40/100",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m*40/100", "unit": "g", "sigfigs": 3, "label": "mass of calcium" },
+      "misconceptionTags": ["CH-M01", "CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "m*100/40",
+          "statement": "Inverted the share.",
+          "feedback": "That answer is larger than the sample itself, so a part of the sample would outweigh the whole of it. A percentage-by-mass answer must always come out smaller than the mass you started with.",
+          "whyItFeelsRight": "100 and 40 are both on the page and the fraction is written down before it is read."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "m*40/68",
+          "statement": "Dropped the subscript 3 on oxygen: M taken as 40 + 12 + 16 = 68 g/mol.",
+          "feedback": "CaCO₃ carries three oxygens, worth 48 g/mol, so M = 100 g/mol. Reading the subscripts is the first mark in every molar-mass question.",
+          "whyItFeelsRight": "One symbol, one number is the habit built by NaCl and H₂O, and a small subscript 3 goes unread at speed."
+        },
+        {
+          "id": "CH-M02",
+          "trap": "m/5",
+          "statement": "Used the atom count instead of the mass share: 1 calcium out of 5 atoms.",
+          "feedback": "Atoms of different elements have very different masses, so a share of the atoms is not a share of the grams. Calcium is 1 atom in 5 and 40.0% by mass.",
+          "whyItFeelsRight": "Counting the atoms in the formula is quicker than building the molar mass, and both feel like ways of saying 'how much calcium'."
+        }
+      ],
+      "confusableWith": ["empirical-formula-ratio", "mass-to-moles"]
+    },
+    {
+      "id": "chem-mole-009",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "empirical-formula-ratio",
+      "problemTypeLabel": "Empirical formula",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A hydrocarbon sample contains {12*k} g of carbon and {k*r} g of hydrogen. (C = 12, H = 1 g/mol.) Find how many hydrogen atoms the empirical formula carries for every one carbon atom.",
+      "vars": {
+        "k": { "min": 1, "max": 6, "step": 1, "unit": "", "sigfigs": 2 },
+        "r": { "min": 2, "max": 4, "step": 1, "unit": "", "sigfigs": 2 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m(C) = {12*k} g, m(H) = {k*r} g. Atomic masses: C = 12 g/mol, H = 1 g/mol.",
+          "justification": "The data is in grams and the answer wanted is a ratio of atoms. Those are different worlds and the atomic masses are the only bridge."
+        },
+        {
+          "statement": "n(C) = {12*k} g ÷ 12 g/mol",
+          "justification": "Carbon's mass is divided by carbon's own atomic mass — never by the molar mass of the whole compound, which would scale every element equally and leave the ratio unchanged.",
+          "formulaTeX": "n = \\frac{m}{A_r}",
+          "expr": "12*k/12",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "n(H) = {k*r} g ÷ 1 g/mol",
+          "justification": "Hydrogen's 1 g/mol makes this line look like no work at all, and the mark for it is there anyway.",
+          "formulaTeX": "n = \\frac{m}{A_r}",
+          "expr": "k*r/1",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "Divide both amounts by the smaller one, {k} mol",
+          "justification": "Dividing by the smallest forces that element to 1 and leaves the other as its subscript. A result such as 2.50 is scaled by 2 to give 5, never rounded to 3 — rounding invents a different compound.",
+          "expr": "(k*r/1)/(12*k/12)",
+          "unit": "",
+          "dimensionless": true,
+          "sigfigs": 2
+        }
+      ],
+      "answer": { "expr": "(k*r/1)/(12*k/12)", "unit": "", "dimensionless": true, "sigfigs": 2, "label": "hydrogen atoms per carbon atom" },
+      "misconceptionTags": ["CH-M01", "CH-S08"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "(k*r)/(12*k)",
+          "statement": "Divided the masses directly, without converting to mol.",
+          "feedback": "A ratio of grams is not a ratio of atoms, because a carbon atom is twelve times heavier than a hydrogen atom. Each mass has to be divided by its own atomic mass first.",
+          "whyItFeelsRight": "The question gives two masses and asks for a ratio, so dividing one by the other looks like the whole job."
+        },
+        {
+          "id": "CH-S08",
+          "trap": "k*r",
+          "statement": "Gave the amount of hydrogen in mol instead of the ratio.",
+          "feedback": "That is n(H), a correct middle line. The subscript is a comparison between the two amounts, so it needs the division by the smaller one.",
+          "whyItFeelsRight": "The amount in mol is the number most recently written down, and it is the one the method spends the most time on."
+        }
+      ],
+      "confusableWith": ["molecular-formula-multiplier", "percentage-composition"]
+    },
+    {
+      "id": "chem-mole-010",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "molecular-formula-multiplier",
+      "problemTypeLabel": "Empirical → molecular formula",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A compound has the empirical formula CH₂ and a measured molar mass of {M} g/mol. Find n, the number of empirical units in one molecule. (C = 12, H = 1 g/mol.)",
+      "vars": {
+        "M": { "min": 28, "max": 84, "step": 14, "unit": "g/mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "Empirical formula CH₂, measured molar mass M = {M} g/mol.",
+          "justification": "The empirical formula fixes the ratio of atoms. Only a measured molar mass can say how many of those units make one real molecule, which is why this data always has to be given."
+        },
+        {
+          "statement": "E(CH₂) = 12 + 2(1) = 14 g/mol",
+          "justification": "E is the mass of one empirical unit in g/mol. It is not the mass of the molecule, and keeping the two apart is what this question tests.",
+          "expr": "14",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "n = M ÷ E = {M} g/mol ÷ 14 g/mol",
+          "justification": "Both quantities carry g/mol, so the units cancel and n comes out as a bare whole number. A fraction here means the molar mass or the empirical formula was misread.",
+          "formulaTeX": "n = \\frac{M}{E}",
+          "expr": "M/14",
+          "unit": "",
+          "dimensionless": true,
+          "sigfigs": 3
+        },
+        {
+          "statement": "Multiply every subscript in CH₂ by n to write the molecular formula.",
+          "justification": "Hydrogen takes the × n as well as carbon. Multiplying only the first element is the classic lost mark in this question."
+        }
+      ],
+      "answer": { "expr": "M/14", "unit": "", "dimensionless": true, "sigfigs": 2, "label": "n, the multiplier" },
+      "misconceptionTags": ["CH-S08", "CH-M03"],
+      "misconceptions": [
+        {
+          "id": "CH-S08",
+          "trap": "14/M",
+          "statement": "Divided the empirical unit mass by the molar mass.",
+          "feedback": "Upside down. The molecule is heavier than one empirical unit, so n must come out as a whole number of 1 or more. A value below 1 means the division ran the wrong way.",
+          "whyItFeelsRight": "Both numbers carry g/mol, so nothing in the units flags which one belongs on top."
+        },
+        {
+          "id": "CH-M03",
+          "trap": "M-14",
+          "statement": "Subtracted instead of dividing.",
+          "feedback": "n counts how many empirical units fit inside the molecule, and 'how many fit' is a division. Subtraction would leave a mass in g/mol, not a count.",
+          "whyItFeelsRight": "The difference between the two masses looks like the extra material in the molecule."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "M/12",
+          "statement": "Divided by carbon's 12 g/mol instead of the empirical unit's 14 g/mol.",
+          "feedback": "The unit being counted is CH₂, worth 14 g/mol, and the two hydrogens are part of it. Using 12 g/mol counts carbon atoms rather than empirical units.",
+          "whyItFeelsRight": "12 is the number carried over from the empirical-formula work, and CH₂ is mostly carbon by mass."
+        }
+      ],
+      "confusableWith": ["empirical-formula-ratio", "molar-mass-from-data"]
+    },
+    {
+      "id": "chem-mole-011",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "equation-stoichiometry",
+      "problemTypeLabel": "Equation stoichiometry",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "Limestone decomposes on heating: CaCO₃ → CaO + CO₂. Find the mass of carbon dioxide released from {m} g of calcium carbonate. (Ca = 40, C = 12, O = 16 g/mol.)",
+      "vars": {
+        "m": { "min": 10, "max": 200, "step": 10, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "CaCO₃ → CaO + CO₂, balanced. m(CaCO₃) = {m} g.",
+          "justification": "Say the equation in particles before touching the calculator: one formula unit of calcium carbonate gives one molecule of carbon dioxide. The coefficients count particles and moles, never grams."
+        },
+        {
+          "statement": "M(CaCO₃) = 100 g/mol, so n(CaCO₃) = {m} g ÷ 100 g/mol",
+          "justification": "Leave the mass world before the ratio is applied. Grams are never allowed into a coefficient ratio — that is misconception CH-S02, the most common error in this whole unit.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/100",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "Ratio CaCO₃ : CO₂ is 1 : 1, so n(CO₂) = n(CaCO₃)",
+          "justification": "The ratio line is written out even when it is 1 : 1, because that line carries a mark and because the habit is what protects you when the ratio is not 1 : 1.",
+          "expr": "m/100",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "M(CO₂) = 44 g/mol, so m(CO₂) = n × 44 g/mol",
+          "justification": "The product's own molar mass, not the reactant's. The answer is smaller than the limestone because the calcium oxide keeps the rest of the mass.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "m/100*44",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/100*44", "unit": "g", "sigfigs": 3, "label": "mass of carbon dioxide" },
+      "misconceptionTags": ["CH-S02", "CH-S06"],
+      "misconceptions": [
+        {
+          "id": "CH-S02",
+          "trap": "m",
+          "statement": "Read the 1 : 1 ratio as equal masses.",
+          "feedback": "1 : 1 means equal AMOUNTS in mol, and never equal masses: 1 mol of CaCO₃ weighs 100 g while 1 mol of CO₂ weighs 44 g. This is the ratio-applied-to-grams error, and a 1 : 1 equation is where it hides best.",
+          "whyItFeelsRight": "With a 1 : 1 ratio it looks as though nothing needs converting, so the two molar masses appear to cancel out."
+        },
+        {
+          "id": "CH-S06",
+          "trap": "m/100",
+          "statement": "Stopped at the amount of carbon dioxide in mol.",
+          "feedback": "A correct middle line. The question asked for a mass, so it needs the final step m = n × 44 g/mol. Two of the three marks are already earned.",
+          "whyItFeelsRight": "The ratio was the interesting part of the question, so finishing it feels like finishing the problem."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "m/100*56",
+          "statement": "Used the molar mass of calcium oxide, 56 g/mol.",
+          "feedback": "CaO is the other product. The question asked for carbon dioxide, M = 44 g/mol. Naming the substance beside every M in your working stops this one.",
+          "whyItFeelsRight": "Both products come from the same equation and CaO is written first."
+        }
+      ],
+      "confusableWith": ["mass-to-moles", "percentage-composition"]
+    },
+    {
+      "id": "chem-mole-012",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "equation-stoichiometry",
+      "problemTypeLabel": "Equation stoichiometry",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "Hydrogen burns in excess oxygen: 2H₂ + O₂ → 2H₂O. Find the mass of water formed from {m} g of hydrogen. (H = 1, O = 16 g/mol.)",
+      "vars": {
+        "m": { "min": 1, "max": 20, "step": 1, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "2H₂ + O₂ → 2H₂O, balanced. m(H₂) = {m} g, oxygen in excess.",
+          "justification": "In particles: two hydrogen molecules and one oxygen molecule give two water molecules. Excess oxygen means the hydrogen alone decides how much water forms."
+        },
+        {
+          "statement": "M(H₂) = 2(1) = 2 g/mol, so n(H₂) = {m} g ÷ 2 g/mol",
+          "justification": "Hydrogen gas travels as H₂, so its molar mass is 2 g/mol and not 1 g/mol. Using 1 g/mol doubles every later line.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/2",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "Ratio H₂ : H₂O is 2 : 2, so n(H₂O) = n(H₂)",
+          "justification": "Equal coefficients mean equal amounts in mol — and never equal masses, because the molar masses are 2 g/mol and 18 g/mol.",
+          "expr": "m/2",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "M(H₂O) = 18 g/mol, so m(H₂O) = n × 18 g/mol",
+          "justification": "Mass check: the answer is nine times the hydrogen mass, and the oxygen consumed makes up the difference. Nothing is created and nothing is lost.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "m/2*18",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/2*18", "unit": "g", "sigfigs": 3, "label": "mass of water" },
+      "misconceptionTags": ["CH-S02", "CH-M04"],
+      "misconceptions": [
+        {
+          "id": "CH-S02",
+          "trap": "m",
+          "statement": "Read the 2 : 2 ratio as equal masses.",
+          "feedback": "The 2 : 2 ratio makes the AMOUNTS equal in mol, not the masses. 1 mol of H₂ is 2 g and 1 mol of H₂O is 18 g, so the water always outweighs the hydrogen it came from.",
+          "whyItFeelsRight": "Once the coefficients match, it looks as though the conversion steps cancel each other out."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "m*18",
+          "statement": "Used 1 g/mol for hydrogen instead of 2 g/mol for H₂.",
+          "feedback": "The equation is written with H₂ because hydrogen exists as a molecule of two atoms. M(H₂) = 2 g/mol, so the amount is half what this answer assumes.",
+          "whyItFeelsRight": "The atomic-mass board says H = 1, and the subscript 2 in the equation goes unread at speed."
+        },
+        {
+          "id": "CH-S04",
+          "trap": "m/2*32",
+          "statement": "Brought the excess oxygen into the answer.",
+          "feedback": "Excess means the oxygen is not the limit, so it never enters the calculation. The question asked for water, M = 18 g/mol.",
+          "whyItFeelsRight": "Oxygen is named in the question, and data that is mentioned feels as though it must be used."
+        }
+      ],
+      "confusableWith": ["mass-to-moles", "moles-to-mass"]
+    },
+    {
+      "id": "chem-mole-013",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "equation-stoichiometry",
+      "problemTypeLabel": "Equation stoichiometry",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "In the Haber process, N₂ + 3H₂ → 2NH₃. Find the mass of ammonia produced from {n} mol of nitrogen, with hydrogen in excess. (N = 14, H = 1 g/mol.)",
+      "vars": {
+        "n": { "min": 0.25, "max": 5, "step": 0.25, "unit": "mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "N₂ + 3H₂ → 2NH₃, balanced. n(N₂) = {n} mol, hydrogen in excess.",
+          "justification": "In particles: one nitrogen molecule and three hydrogen molecules give two ammonia molecules. The amount is already in mol, so the first conversion step is not needed here."
+        },
+        {
+          "statement": "Ratio N₂ : NH₃ is 1 : 2, so n(NH₃) = {n} mol × 2 ÷ 1",
+          "justification": "Wanted on top, given underneath, so mol cancels into mol. Two ammonia molecules come from every one nitrogen molecule, so the amount goes up.",
+          "expr": "n*2",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "M(NH₃) = 14 + 3(1) = 17 g/mol",
+          "justification": "The subscript 3 belongs to hydrogen alone.",
+          "expr": "17",
+          "unit": "g/mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "m(NH₃) = n(NH₃) × 17 g/mol",
+          "justification": "The excess hydrogen never enters the calculation — the nitrogen alone decides the answer.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "n*2*17",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "n*2*17", "unit": "g", "sigfigs": 3, "label": "mass of ammonia" },
+      "misconceptionTags": ["CH-S01", "CH-S04"],
+      "misconceptions": [
+        {
+          "id": "CH-S01",
+          "trap": "n*17",
+          "statement": "Assumed a 1 : 1 ratio.",
+          "feedback": "The equation says 2NH₃, so every one nitrogen molecule makes two ammonia molecules and the amount doubles. Combining 1 : 1 by default is misconception CH-S01, and the coefficients are on the page to prevent it.",
+          "whyItFeelsRight": "One reactant and one product are named, so it reads like a straight swap unless the coefficients are read out loud."
+        },
+        {
+          "id": "CH-S04",
+          "trap": "n*3*17",
+          "statement": "Used hydrogen's coefficient of 3.",
+          "feedback": "The 3 belongs to H₂, which is in excess. The ratio needed is the one between what was given (N₂) and what was asked for (NH₃), which is 1 : 2.",
+          "whyItFeelsRight": "3 is the largest and most visible coefficient in the equation."
+        },
+        {
+          "id": "CH-S08",
+          "trap": "n/2*17",
+          "statement": "Applied the ratio upside down.",
+          "feedback": "Dividing by 2 would mean two nitrogen molecules were needed per ammonia. The rule is wanted over given: 2 ÷ 1, so the amount rises.",
+          "whyItFeelsRight": "The 2 has to go somewhere and there is nothing in the numbers themselves to say which way up."
+        }
+      ],
+      "confusableWith": ["moles-to-mass", "mass-to-moles"]
+    },
+    {
+      "id": "chem-mole-014",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "equation-stoichiometry",
+      "problemTypeLabel": "Equation stoichiometry",
+      "cognitive": "higher",
+      "difficulty": 3,
+      "template": "Sodium hydroxide is neutralised by sulphuric acid: 2NaOH + H₂SO₄ → Na₂SO₄ + 2H₂O. Find the mass of sodium sulphate formed when {m} g of sodium hydroxide reacts completely. (Na = 23, O = 16, H = 1, S = 32 g/mol.)",
+      "vars": {
+        "m": { "min": 2, "max": 40, "step": 2, "unit": "g", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "2NaOH + H₂SO₄ → Na₂SO₄ + 2H₂O, balanced. m(NaOH) = {m} g.",
+          "justification": "In particles: two formula units of sodium hydroxide give one formula unit of sodium sulphate. Two go in for every one that comes out, so the amount will halve."
+        },
+        {
+          "statement": "M(NaOH) = 23 + 16 + 1 = 40 g/mol, so n(NaOH) = {m} g ÷ 40 g/mol",
+          "justification": "The given substance leaves the mass world first, before any ratio is applied.",
+          "formulaTeX": "n = \\frac{m}{M}",
+          "expr": "m/40",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "Ratio NaOH : Na₂SO₄ is 2 : 1, so n(Na₂SO₄) = n(NaOH) × 1 ÷ 2",
+          "justification": "Wanted over given, so the amount halves. Applying this 2 : 1 to the grams instead of the moles is misconception CH-S02.",
+          "expr": "m/40/2",
+          "unit": "mol",
+          "sigfigs": 3
+        },
+        {
+          "statement": "M(Na₂SO₄) = 2(23) + 32 + 4(16) = 142 g/mol, so m = n × 142 g/mol",
+          "justification": "The product's own molar mass, built from the board one element at a time: two sodiums at 23, one sulphur at 32, four oxygens at 16.",
+          "formulaTeX": "m = n \\times M",
+          "expr": "m/40/2*142",
+          "unit": "g",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/40/2*142", "unit": "g", "sigfigs": 3, "label": "mass of sodium sulphate" },
+      "misconceptionTags": ["CH-S01", "CH-S08"],
+      "misconceptions": [
+        {
+          "id": "CH-S01",
+          "trap": "m/40*142",
+          "statement": "Ignored the 2 : 1 ratio.",
+          "feedback": "Two formula units of NaOH are consumed for every one Na₂SO₄ produced, so the amount of product is half the amount of NaOH. Writing the ratio line before the arithmetic is what earns and protects that mark.",
+          "whyItFeelsRight": "The mass-to-mole and mole-to-mass steps feel like the real work, so the ratio in the middle is the line that gets skipped."
+        },
+        {
+          "id": "CH-S08",
+          "trap": "m/40*2*142",
+          "statement": "Applied the ratio upside down.",
+          "feedback": "Multiplying by 2 would produce more sodium sulphate than there was sodium to make it from. Wanted over given is 1 ÷ 2, so this amount halves.",
+          "whyItFeelsRight": "The 2 sits in front of NaOH in the equation, so it reads as an instruction to multiply."
+        },
+        {
+          "id": "CH-M04",
+          "trap": "m/40/2*120",
+          "statement": "Built M(Na₂SO₄) with one sodium and three oxygens.",
+          "feedback": "Na₂SO₄ carries two sodiums, worth 46 g/mol, and four oxygens, worth 64 g/mol, giving 142 g/mol. Every subscript is worth reading twice in a formula this crowded.",
+          "whyItFeelsRight": "Na₂SO₄ has more subscripts than any other formula in this question, and they are the last thing added before the answer."
+        }
+      ],
+      "confusableWith": ["mass-to-moles", "molar-mass-from-data"]
+    },
+    {
+      "id": "chem-mole-015",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "molar-mass-from-data",
+      "problemTypeLabel": "Molar mass from data",
+      "cognitive": "understanding",
+      "difficulty": 1,
+      "template": "A sample of an unknown compound has a mass of {m} g and contains {n} mol. Find its molar mass.",
+      "vars": {
+        "m": { "min": 10, "max": 200, "step": 10, "unit": "g", "sigfigs": 3 },
+        "n": { "min": 0.5, "max": 4, "step": 0.5, "unit": "mol", "sigfigs": 3 }
+      },
+      "constraints": ["m/n >= 10", "m/n <= 400"],
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "m = {m} g, n = {n} mol.",
+          "justification": "Two of the three quantities in n = m ÷ M are given, so the third is found by rearranging rather than by a new formula."
+        },
+        {
+          "statement": "Rearrange n = m ÷ M to give M = m ÷ n",
+          "justification": "The same three-term formula. Rearranging it without hesitation is a prerequisite for the whole unit and appears inside longer questions constantly.",
+          "formulaTeX": "M = \\frac{m}{n}"
+        },
+        {
+          "statement": "M = {m} g ÷ {n} mol",
+          "justification": "g ÷ mol gives g/mol, which is the unit a molar mass must carry. In amu the same number would describe one single molecule instead of one mole of them.",
+          "expr": "m/n",
+          "unit": "g/mol",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "m/n", "unit": "g/mol", "sigfigs": 3, "label": "molar mass" },
+      "misconceptionTags": ["CH-M01", "CH-M03"],
+      "misconceptions": [
+        {
+          "id": "CH-M01",
+          "trap": "n/m",
+          "statement": "Divided the amount by the mass.",
+          "feedback": "That gives mol/g, which is the reciprocal of a molar mass. The unit on the line is the fastest check: a molar mass must read g/mol.",
+          "whyItFeelsRight": "n = m ÷ M is memorised with n on the left, so n leads the division out of habit."
+        },
+        {
+          "id": "CH-M03",
+          "trap": "m*n",
+          "statement": "Multiplied the mass by the amount.",
+          "feedback": "m = n × M is the rearrangement that finds a mass, not a molar mass. Solving for M leaves a division: M = m ÷ n, and the units g × mol do not describe anything.",
+          "whyItFeelsRight": "m = n × M is the other formula from this topic, and picking the wrong one of the two is quick under time pressure."
+        }
+      ],
+      "confusableWith": ["mass-to-moles", "moles-to-mass"]
+    },
+    {
+      "id": "chem-mole-016",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "gas-molar-volume",
+      "problemTypeLabel": "Gas volume at STP",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "What volume does {n} mol of oxygen gas occupy at STP? (Molar volume at STP = 22.4 L/mol.)",
+      "vars": {
+        "n": { "min": 0.25, "max": 5, "step": 0.25, "unit": "mol", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        {
+          "kind": "given",
+          "statement": "n(O₂) = {n} mol, molar volume at STP = 22.4 L/mol.",
+          "justification": "Check the conditions before reaching for 22.4 L/mol: the substance must be a gas and the question must say STP. Applied to a solid or a liquid, or at any other temperature and pressure, it is misconception CH-M06."
+        },
+        {
+          "statement": "V = n × Vₘ = {n} mol × 22.4 L/mol",
+          "justification": "mol × L/mol leaves L, which is the unit the answer must carry.",
+          "formulaTeX": "V = n \\times V_m",
+          "expr": "n*22.4",
+          "unit": "L",
+          "sigfigs": 3
+        }
+      ],
+      "answer": { "expr": "n*22.4", "unit": "L", "sigfigs": 3, "label": "volume of oxygen at STP" },
+      "misconceptionTags": ["CH-M06", "CH-M08"],
+      "misconceptions": [
+        {
+          "id": "CH-M06",
+          "trap": "n/22.4",
+          "statement": "Divided by the molar volume.",
+          "feedback": "Division is the return journey, from a volume in L back to an amount in mol. Going from mol out to L multiplies, and 1 mol of any gas at STP fills 22.4 L, so the answer here must be larger than the amount in mol.",
+          "whyItFeelsRight": "22.4 is the larger number, and dividing by the larger number is the habit built by n = m ÷ M."
+        },
+        {
+          "id": "CH-M05",
+          "trap": "22.4",
+          "statement": "Gave 22.4 L, the volume of exactly 1 mol.",
+          "feedback": "That is the answer only when n = 1 mol. The amount given scales it: V = n × 22.4 L/mol.",
+          "whyItFeelsRight": "22.4 L/mol is the fact the question is testing, so writing it down feels like answering."
+        },
+        {
+          "id": "CH-M08",
+          "trap": "n*N_A",
+          "statement": "Multiplied by the Avogadro constant instead of the molar volume.",
+          "feedback": "Nₐ converts mol to a number of particles, and the question asked for a volume in L. The constant that carries L/mol is the molar volume, 22.4 L/mol.",
+          "whyItFeelsRight": "Both are 'per mole' constants from the same chapter, and Nₐ is the one drilled most often."
+        }
+      ],
+      "confusableWith": ["moles-to-particles", "moles-to-mass"]
+    }
+  ]
+}

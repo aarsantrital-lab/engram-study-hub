@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "note": "Every date below is an ESTIMATE until Hermes confirms the real Vishwa Adarsha College timetable in week 1 (pedagogy-spec R11 / NEB §8, open question 1). Estimated events are drawn from the usual VAC/NEB Grade-11 rhythm; nothing here is an announced date. BS dates are Bikram Sambat; AD dates are the local Gregorian calendar date used for all day math.",
+  "confirmedBy": null,
+  "events": [
+    {
+      "id": "first-terminal-2083",
+      "label": "First Terminal",
+      "bs": "2083-08-10",
+      "ad": "2026-11-25",
+      "confidence": "estimate",
+      "phase": "P1",
+      "subjects": ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Nepali", "Computer Science"],
+      "detail": "Phase-1 proof point. The visible jump here is what keeps the whole plan alive."
+    },
+    {
+      "id": "second-terminal-2083",
+      "label": "Second Terminal",
+      "bs": "2083-11-20",
+      "ad": "2027-03-04",
+      "confidence": "estimate",
+      "phase": "P2",
+      "subjects": ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Nepali", "Computer Science"],
+      "detail": "Full syllabus should be covered once by here; past-paper work is the engine from this point."
+    },
+    {
+      "id": "pre-board-2084",
+      "label": "Pre-board",
+      "bs": "2084-01-05",
+      "ad": "2027-04-18",
+      "confidence": "estimate",
+      "phase": "P3",
+      "subjects": ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Nepali", "Computer Science"],
+      "detail": "Full timed papers in the exact post-2077 grid, under real conditions."
+    },
+    {
+      "id": "grade11-final-2084",
+      "label": "Grade 11 Final",
+      "bs": "2084-02-15",
+      "ad": "2027-05-29",
+      "confidence": "estimate",
+      "phase": "P4",
+      "subjects": ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Nepali", "Computer Science"],
+      "detail": "The permanent one. Grade 11 marks sit on the NEB transcript for good. Target: 67/75 theory in every subject."
+    },
+    {
+      "id": "practical-submission-2084",
+      "label": "Practical record submission",
+      "bs": "2084-01-20",
+      "ad": "2027-05-03",
+      "confidence": "estimate",
+      "phase": "P3",
+      "subjects": ["Physics", "Chemistry", "Biology"],
+      "detail": "25 marks per science subject. Submitted early and uncorrectable after — the lab book has to be finished before this date, not on it."
+    }
+  ]
+}

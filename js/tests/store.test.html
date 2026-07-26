@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>store.js unit tests · Engram</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 24px 16px 64px;
+    font: 13px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #0a0d12; color: #f0f2f4;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 4px; }
+  .sub { color: #87909c; margin: 0 0 20px; }
+  .note {
+    padding: 10px 12px; border-radius: 8px; margin-bottom: 20px; font-size: 12px;
+    background: rgb(96 165 250 / .08); border: 1px solid rgb(96 165 250 / .2); color: #60a5fa;
+  }
+  #summary {
+    position: sticky; top: 0; z-index: 2; display: flex; gap: 16px; align-items: center;
+    padding: 12px 14px; margin-bottom: 16px; border-radius: 12px;
+    background: #11151b; border: 1px solid rgb(255 255 255 / .12);
+    font-size: 15px; font-weight: 600;
+  }
+  #summary .n { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .ok { color: #10b981; } .bad { color: #ef4444; } .skip { color: #f59e0b; }
+  h2 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: .22em;
+    color: #87909c; margin: 24px 0 6px; font-weight: 500;
+  }
+  .case {
+    display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start;
+    padding: 6px 10px; border-radius: 6px;
+  }
+  .case + .case { border-top: 1px solid rgb(255 255 255 / .06); }
+  .case[data-r="fail"] { background: rgb(239 68 68 / .08); }
+  .case .mark { font-weight: 700; }
+  .case .detail {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px; color: #87909c; white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>store.js — unit tests</h1>
+  <p class="sub">Self-running, zero dependencies. Covers the three things that would silently ruin a year of study data: <strong>local-date arithmetic</strong> (Nepal is UTC+05:45), <strong>quota refusal</strong> (never delete user data), and <strong>schema migrations</strong>.</p>
+
+  <div class="note">
+    Must be served over http:// — ES modules are blocked on <code>file://</code>.<br>
+    From <code>study-hub/</code>: <code>python -m http.server 8000</code> then open
+    <code>http://localhost:8000/js/tests/store.test.html</code>
+  </div>
+
+  <div id="summary">Running…</div>
+  <div id="out"></div>
+</main>
+
+<script type="module">
+import {
+  createStore, createMemoryBackend, migrateData, MIGRATIONS, SCHEMA_VERSION, KEYS,
+  localISO, todayLocalISO, dayKeyFromTs, parseLocalISO, startOfLocalDay,
+  addDaysISO, diffDaysISO, isoAtOffset, NPT_OFFSET_MINUTES, RATING_NAMES,
+} from '../store.js';
+
+/* ---------------------------------------------------------------- harness */
+const out = document.getElementById('out');
+let pass = 0, fail = 0, skip = 0;
+
+function section(title) {
+  const h = document.createElement('h2');
+  h.textContent = title;
+  out.appendChild(h);
+}
+function record(name, result, detail) {
+  const row = document.createElement('div');
+  row.className = 'case';
+  row.dataset.r = result;
+  const mark = document.createElement('span');
+  mark.className = 'mark ' + (result === 'pass' ? 'ok' : result === 'fail' ? 'bad' : 'skip');
+  mark.textContent = result === 'pass' ? '✔' : result === 'fail' ? '✘' : '–';
+  const body = document.createElement('div');
+  body.textContent = name;
+  if (detail) {
+    const d = document.createElement('div');
+    d.className = 'detail';
+    d.textContent = detail;
+    body.appendChild(d);
+  }
+  row.append(mark, body);
+  out.appendChild(row);
+}
+function eq(name, actual, expected) {
+  const a = JSON.stringify(actual), e = JSON.stringify(expected);
+  if (a === e) { pass++; record(name, 'pass'); }
+  else { fail++; record(name, 'fail', 'expected: ' + e + '\n  actual: ' + a); }
+}
+function ok(name, cond, detail) {
+  if (cond) { pass++; record(name, 'pass'); }
+  else { fail++; record(name, 'fail', detail || ''); }
+}
+function skipped(name, why) { skip++; record(name, 'skip', why); }
+
+/* =========================================================================
+   1. LOCAL DATE ARITHMETIC — build-constraints §9.1
+   Pinned to Nepal (UTC+05:45) with pure UTC maths, so these assertions hold
+   on ANY machine regardless of the runner's own timezone.
+   ====================================================================== */
+section('1. Local dates — Nepal UTC+05:45 (constraint §9.1)');
+
+const NPT = NPT_OFFSET_MINUTES;
+eq('NPT offset is +05:45 (345 minutes)', NPT, 345);
+
+// 18:15 UTC is exactly local midnight in Nepal.
+const justBefore = Date.UTC(2026, 6, 26, 18, 14, 59);   // 26 Jul 23:59:59 NPT
+const atMidnight = Date.UTC(2026, 6, 26, 18, 15, 0);    // 27 Jul 00:00:00 NPT
+eq('23:59:59 NPT is still the same day', isoAtOffset(justBefore, NPT), '2026-07-26');
+eq('00:00:00 NPT rolls to the next day', isoAtOffset(atMidnight, NPT), '2026-07-27');
+
+// THE BUG THIS FILE EXISTS FOR: toISOString() answers in UTC, so at any
+// instant between 18:15 and 24:00 UTC it reports YESTERDAY for a Nepali user.
+const utcAnswer = new Date(atMidnight).toISOString().slice(0, 10);
+eq('toISOString() would report the WRONG day here', utcAnswer, '2026-07-26');
+ok('local-date helper disagrees with toISOString() — that is the point',
+   isoAtOffset(atMidnight, NPT) !== utcAnswer,
+   'if these ever match, the local-date logic has regressed to UTC');
+
+// Year and month boundaries.
+eq('year rollover in NPT', isoAtOffset(Date.UTC(2026, 11, 31, 18, 20), NPT), '2027-01-01');
+eq('month rollover in NPT', isoAtOffset(Date.UTC(2026, 0, 31, 18, 30), NPT), '2026-02-01');
+eq('leap day in NPT', isoAtOffset(Date.UTC(2028, 1, 28, 19, 0), NPT), '2028-02-29');
+
+// Half-hour and 45-minute zones behave; UTC and a negative zone too.
+eq('UTC observer, same instant', isoAtOffset(atMidnight, 0), '2026-07-26');
+eq('India +05:30 observer', isoAtOffset(atMidnight, 330), '2026-07-26');
+eq('New York -04:00 observer', isoAtOffset(atMidnight, -240), '2026-07-26');
+
+// localISO() must be built from getFullYear/getMonth/getDate, never UTC.
+const probe = new Date(2026, 0, 5, 0, 30, 0);          // 5 Jan, local, 00:30
+eq('localISO pads month and day', localISO(probe), '2026-01-05');
+eq('localISO agrees with the local getters', localISO(probe),
+   probe.getFullYear() + '-' +
+   String(probe.getMonth() + 1).padStart(2, '0') + '-' +
+   String(probe.getDate()).padStart(2, '0'));
+
+/* The divergence window depends on the sign of the offset:
+     east of UTC (Nepal, +05:45) — local 00:00 to 05:45, i.e. AFTER MIDNIGHT.
+                                   This is exactly when he studies: the 10:25 PM
+                                   loop routinely runs past midnight, and a UTC
+                                   day key would file that work under yesterday,
+                                   breaking the streak and the daily caps.
+     west of UTC                  — late evening local.
+   Both are asserted against the runner's real timezone. */
+const tzOffset = -new Date().getTimezoneOffset();       // minutes east of UTC
+if (tzOffset > 0) {
+  const afterMidnight = new Date(2026, 6, 27, 0, 30, 0);          // 00:30 local, 27 Jul
+  ok('east-of-UTC runner: after midnight, toISOString would file work under YESTERDAY',
+     localISO(afterMidnight) === '2026-07-27' &&
+     afterMidnight.toISOString().slice(0, 10) === '2026-07-26',
+     'runner offset ' + tzOffset + ' min; localISO=' + localISO(afterMidnight) +
+     ' toISOString=' + afterMidnight.toISOString().slice(0, 10));
+} else if (tzOffset < 0) {
+  const lateEvening = new Date(2026, 6, 26, 23, 30, 0);           // 23:30 local, 26 Jul
+  ok('west-of-UTC runner: late evening, toISOString would file work under TOMORROW',
+     localISO(lateEvening) === '2026-07-26' &&
+     lateEvening.toISOString().slice(0, 10) === '2026-07-27',
+     'runner offset ' + tzOffset + ' min; localISO=' + localISO(lateEvening) +
+     ' toISOString=' + lateEvening.toISOString().slice(0, 10));
+} else {
+  skipped('runner-timezone divergence check', 'runner sits at UTC+0 — no divergence exists to observe');
+}
+
+eq('todayLocalISO shape', /^\d{4}-\d{2}-\d{2}$/.test(todayLocalISO()), true);
+eq('dayKeyFromTs matches localISO', dayKeyFromTs(probe.getTime()), localISO(probe));
+
+section('1b. Calendar arithmetic (DST-immune)');
+eq('addDaysISO forward', addDaysISO('2026-07-26', 1), '2026-07-27');
+eq('addDaysISO across a month', addDaysISO('2026-07-31', 1), '2026-08-01');
+eq('addDaysISO across a year', addDaysISO('2026-12-31', 1), '2027-01-01');
+eq('addDaysISO backwards', addDaysISO('2026-01-01', -1), '2025-12-31');
+eq('addDaysISO zero is identity', addDaysISO('2026-07-26', 0), '2026-07-26');
+eq('addDaysISO +21 (the exam retention ramp)', addDaysISO('2027-05-01', 21), '2027-05-22');
+eq('diffDaysISO simple', diffDaysISO('2026-07-26', '2026-07-29'), 3);
+eq('diffDaysISO negative', diffDaysISO('2026-07-29', '2026-07-26'), -3);
+eq('diffDaysISO across a leap year', diffDaysISO('2028-02-28', '2028-03-01'), 2);
+eq('diffDaysISO across a non-leap year', diffDaysISO('2027-02-28', '2027-03-01'), 1);
+eq('diffDaysISO same day is 0', diffDaysISO('2026-07-26', '2026-07-26'), 0);
+
+const spring = parseLocalISO('2026-03-29');            // a European DST switch day
+ok('parseLocalISO returns LOCAL midnight, not UTC midnight',
+   spring && spring.getHours() === 0 && spring.getMinutes() === 0,
+   'got ' + (spring && spring.toString()));
+eq('parseLocalISO rejects junk', parseLocalISO('not-a-date'), null);
+ok('startOfLocalDay zeroes the clock',
+   startOfLocalDay(new Date(2026, 5, 5, 23, 59, 59)).getHours() === 0);
+
+// A round trip of 400 days must never drift.
+let cursor = '2026-01-01', drift = 0;
+for (let i = 0; i < 400; i++) cursor = addDaysISO(cursor, 1);
+drift = diffDaysISO('2026-01-01', cursor);
+eq('400 forward steps land exactly 400 days out (no DST drift)', drift, 400);
+
+/* =========================================================================
+   2. QUOTA — build-constraints §9.3: REFUSE the write, never delete data
+   ====================================================================== */
+section('2. Quota safety (constraint §9.3 — never destroy user data)');
+
+function quotaBackend(limitBytes) {
+  const inner = createMemoryBackend();
+  return {
+    get length() { return inner.length; },
+    key: (i) => inner.key(i),
+    getItem: (k) => inner.getItem(k),
+    removeItem: (k) => inner.removeItem(k),
+    clear: () => inner.clear(),
+    setItem(k, v) {
+      if (String(v).length > limitBytes) {
+        const err = new Error('The quota has been exceeded.');
+        err.name = 'QuotaExceededError';
+        err.code = 22;
+        throw err;
+      }
+      inner.setItem(k, v);
+    },
+  };
+}
+
+{
+  const backend = quotaBackend(400);
+  const s = createStore({ backend, namespace: 'qtest' });
+  s.set('precious', { notes: 'a year of work' });
+  let quotaEvents = 0;
+  s.on('quota', () => { quotaEvents++; });
+
+  const big = { blob: 'x'.repeat(2000) };
+  const accepted = s.set('huge', big);
+
+  eq('set() returns false when refused', accepted, false);
+  eq('a quota event is raised (so the shell can offer an export)', quotaEvents, 1);
+  eq('EXISTING data is untouched — nothing was evicted', s.get('precious'), { notes: 'a year of work' });
+  eq('the refused value stays live in memory for this session', s.get('huge'), big);
+  eq('...but it never reached the backend', backend.getItem('qtest:huge'), null);
+  eq('store reports itself as no longer durable', s.isPersistent, false);
+  ok('the refused key is tracked by name', s.state.refusedKeys.has('huge'));
+
+  eq('hasUnsavedData() reports the risk', s.hasUnsavedData(), true);
+  eq('unsavedKeys() names what is at risk', s.unsavedKeys(), ['huge']);
+
+  const smallOk = s.set('small', { a: 1 });
+  eq('a later small write still succeeds', smallOk, true);
+  eq('...and is readable back', s.get('small'), { a: 1 });
+  // REGRESSION: one oversized value must not brand the store broken forever.
+  eq('isPersistent recovers once a write lands again', s.isPersistent, true);
+  eq('...but the oversized key is still flagged unsaved', s.unsavedKeys(), ['huge']);
+
+  // Writing the same key successfully clears its risk flag.
+  s.set('huge', { small: 'now' });
+  eq('re-saving the refused key clears it', s.hasUnsavedData(), false);
+}
+
+{
+  // A store with no localStorage at all must degrade, not throw.
+  const s = createStore({ backend: createMemoryBackend(), namespace: 'memtest' });
+  s.set('x', 42);
+  eq('memory-only store round-trips', s.get('x'), 42);
+  eq('memory-only store is flagged', s.isMemoryOnly, true);
+}
+
+/* =========================================================================
+   3. MIGRATIONS
+   ====================================================================== */
+section('3. Schema migrations');
+
+eq('SCHEMA_VERSION is 3', SCHEMA_VERSION, 3);
+ok('a migration exists for every step below the current version',
+   Object.keys(MIGRATIONS).every((k) => Number(k) < SCHEMA_VERSION) &&
+   [...Array(SCHEMA_VERSION - 1).keys()].every((i) => typeof MIGRATIONS[i + 1] === 'function'),
+   'have: ' + Object.keys(MIGRATIONS).join(', '));
+
+{
+  const v1 = { reviews: { card1: { ease: 2.5, due: '2026-07-26' } } };
+  const r = migrateData(v1, 1);
+  eq('1 -> 3 renames reviews to srs', Object.keys(r.data).sort(), ['reviewLog', 'srs']);
+  eq('1 -> 3 preserves the schedule payload', r.data.srs.card1.ease, 2.5);
+  eq('1 -> 3 records both steps', r.applied, ['1->2', '2->3']);
+  eq('migrateData reports the target schema', r.schema, 3);
+}
+
+{
+  const v2 = {
+    reviews: { c: { reps: 4 } },
+    userNotes: { chem: [{ title: 'n' }] },
+    userAssets: { chem: [] },
+    prefs: { dailyNew: 20, mode: 'recall', sound: true },
+  };
+  const r = migrateData(v2, 2);
+  eq('2 -> 3 renames userNotes to notes', Boolean(r.data.notes && !r.data.userNotes), true);
+  eq('2 -> 3 renames userAssets to assets', Boolean(r.data.assets && !r.data.userAssets), true);
+  eq('2 -> 3 folds prefs into settings', r.data.settings.sounds, true);
+  eq('2 -> 3 creates an empty review log', r.data.reviewLog, []);
+  eq('2 -> 3 keeps the note payload', r.data.notes.chem[0].title, 'n');
+}
+
+{
+  const already = migrateData({ srs: { a: 1 } }, SCHEMA_VERSION);
+  eq('a current-schema snapshot is left alone', already.applied, []);
+  eq('...and its data is unchanged', already.data, { srs: { a: 1 } });
+}
+
+{
+  // Legacy blob living OUTSIDE our namespace must be imported on first boot.
+  const backend = createMemoryBackend({
+    'engram.hub.v2': JSON.stringify({ reviews: { legacyCard: { reps: 9 } }, prefs: { sound: false } }),
+  });
+  const s = createStore({ backend, namespace: 'legacytest' });
+  eq('legacy v2 blob is imported into srs', s.get('srs').legacyCard.reps, 9);
+  eq('legacy import is recorded in meta', s.get(KEYS.META).legacyImported, true);
+  eq('meta carries the current schema', s.get(KEYS.META).schema, SCHEMA_VERSION);
+  ok('the legacy blob is NOT deleted (never destroy user data)',
+     backend.getItem('engram.hub.v2') !== null);
+}
+
+{
+  // A corrupt value must not take the store down, and must not be erased.
+  const backend = createMemoryBackend({ 'corrupt:bad': '{not json', 'corrupt:__meta': JSON.stringify({ schema: 3 }) });
+  const s = createStore({ backend, namespace: 'corrupt' });
+  eq('a corrupt value falls back cleanly', s.get('bad', 'fallback'), 'fallback');
+  ok('the corrupt raw value is left on disk for recovery', backend.getItem('corrupt:bad') === '{not json');
+}
+
+/* =========================================================================
+   4. REVIEW LOG — append-only, engram.py `rate` semantics
+   ====================================================================== */
+section('4. Review log (append-only, mirrors engram.py rate)');
+
+{
+  const s = createStore({ backend: createMemoryBackend(), namespace: 'rl' });
+
+  const e1 = s.appendReviewLog({ cardId: 'abc123', rating: 3, elapsedMs: 4200, kind: 'review', confidence: 4 });
+  ok('append returns the normalised entry', Boolean(e1 && e1.id));
+  eq('rating 3 maps to "good"', e1.ratingName, 'good');
+  eq('rating names mirror engram.py', RATING_NAMES, { 1: 'again', 2: 'hard', 3: 'good', 4: 'easy' });
+  eq('node defaults to the cardId', e1.node, 'abc123');
+  eq('day is the LOCAL calendar date of ts', e1.day, dayKeyFromTs(e1.ts));
+  eq('source defaults to hub', e1.source, 'hub');
+  eq('entries start unsynced', e1.synced, false);
+
+  eq('rating names are accepted too', s.appendReviewLog({ cardId: 'x', rating: 'easy' }).rating, 4);
+  eq('confidence is clamped to 1-5', s.appendReviewLog({ cardId: 'x', rating: 1, confidence: 9 }).confidence, 5);
+  eq('confidence is null when not picked — never inferred',
+     s.appendReviewLog({ cardId: 'x', rating: 1 }).confidence, null);
+  eq('negative elapsed is clamped to 0', s.appendReviewLog({ cardId: 'x', rating: 2, elapsedMs: -5 }).elapsedMs, 0);
+  eq('an unknown kind falls back to review', s.appendReviewLog({ cardId: 'x', rating: 2, kind: 'nonsense' }).kind, 'review');
+
+  eq('a missing cardId is rejected', s.appendReviewLog({ rating: 3 }), null);
+  eq('an out-of-range rating is rejected', s.appendReviewLog({ cardId: 'x', rating: 7 }), null);
+
+  const countBefore = s.reviewLogCount();
+  s.appendReviewLogBatch([{ cardId: 'b1', rating: 1 }, { cardId: 'b2', rating: 4 }, { bad: true }]);
+  eq('batch append adds only the valid entries', s.reviewLogCount(), countBefore + 2);
+
+  const jsonl = s.exportReviewLogJSONL();
+  const lines = jsonl.trim().split('\n');
+  eq('JSONL has one line per entry', lines.length, s.reviewLogCount());
+  ok('every JSONL line parses on its own', lines.every((l) => { try { JSON.parse(l); return true; } catch (_) { return false; } }));
+  ok('JSONL ends with a newline (POSIX-clean for git)', jsonl.endsWith('\n'));
+
+  eq('filter by cardId', s.getReviewLog({ cardId: 'abc123' }).length, 1);
+  eq('filter by kind', s.getReviewLog({ kind: 'review' }).length >= 1, true);
+
+  const marked = s.markReviewLogSynced(Date.now());
+  eq('marking synced flags every entry', marked, s.reviewLogCount());
+  eq('NOTHING is deleted by syncing (append-only)', s.reviewLogCount(), countBefore + 2);
+  eq('unsyncedOnly is now empty', s.getReviewLog({ unsyncedOnly: true }).length, 0);
+}
+
+/* =========================================================================
+   5. EXPORT / IMPORT
+   ====================================================================== */
+section('5. Export / import round trip');
+
+{
+  const a = createStore({ backend: createMemoryBackend(), namespace: 'exp' });
+  a.set('srs', { card1: { reps: 3 } });
+  a.set('settings', { sounds: false, dailyMinutes: 30 });
+  a.appendReviewLog({ cardId: 'card1', rating: 3, elapsedMs: 1000 });
+
+  const dump = a.exportAllData();
+  eq('export is tagged', dump.kind, 'engram-full-export');
+  eq('export carries the schema', dump.schema, SCHEMA_VERSION);
+  ok('export has a local day stamp', /^\d{4}-\d{2}-\d{2}$/.test(dump.exportedDay));
+
+  const b = createStore({ backend: createMemoryBackend(), namespace: 'imp' });
+  const report = b.importAllData(dump);
+  eq('import succeeds', report.ok, true);
+  eq('srs survives the round trip', b.get('srs'), { card1: { reps: 3 } });
+  eq('settings survive the round trip', b.get('settings').dailyMinutes, 30);
+  eq('the review log survives', b.reviewLogCount(), 1);
+
+  // Re-importing the same file must not duplicate review entries.
+  b.importAllData(JSON.stringify(dump));
+  eq('re-import is idempotent for the review log (deduped by entry id)', b.reviewLogCount(), 1);
+
+  eq('malformed JSON is reported, not thrown', b.importAllData('{oops').ok, false);
+  eq('an empty payload is reported', b.importAllData(null).ok, false);
+}
+
+/* =========================================================================
+   6. NAMESPACING + SUBSCRIPTIONS
+   ====================================================================== */
+section('6. Namespacing and subscriptions');
+
+{
+  const backend = createMemoryBackend();
+  const s = createStore({ backend, namespace: 'nstest' });
+  s.set('thing', 1);
+  ok('keys are namespaced on disk', backend.getItem('nstest:thing') === '1');
+  ok('un-namespaced key is absent', backend.getItem('thing') === null);
+
+  const other = createStore({ backend, namespace: 'otherapp' });
+  other.set('thing', 2);
+  eq('two namespaces over one backend do not collide', s.get('thing'), 1);
+
+  let seen = null, wildcard = 0;
+  const off = s.subscribe('thing', (v) => { seen = v; });
+  s.subscribe('*', () => { wildcard++; });
+  s.set('thing', 99);
+  eq('subscribers receive the new value', seen, 99);
+  ok('wildcard subscribers fire too', wildcard >= 1);
+  off();
+  s.set('thing', 100);
+  eq('unsubscribe stops delivery', seen, 99);
+
+  eq('update() applies a function', s.update('counter', (n) => (n || 0) + 5, 0), 5);
+  eq('get() honours the fallback', s.get('never-written', 'fb'), 'fb');
+  eq('has() is false for unwritten keys', s.has('never-written'), false);
+  s.remove('thing');
+  eq('remove() clears the key', s.get('thing', null), null);
+  ok('usageBytes reports a number', typeof s.usageBytes() === 'number');
+}
+
+{
+  const s = createStore({ backend: createMemoryBackend(), namespace: 'reset' });
+  s.set('a', 1);
+  let threw = false;
+  try { s.resetAll(); } catch (_) { threw = true; }
+  ok('resetAll refuses without the explicit confirmation token', threw);
+  eq('...and the data is still there', s.get('a'), 1);
+  s.resetAll('I understand this deletes local progress');
+  eq('resetAll works with the token', s.get('a', null), null);
+}
+
+/* ------------------------------------------------------------- summary */
+const summary = document.getElementById('summary');
+summary.textContent = '';
+const add = (cls, text) => {
+  const span = document.createElement('span');
+  span.className = cls;
+  span.textContent = text;
+  summary.appendChild(span);
+};
+add(fail ? 'bad' : 'ok', fail ? '✘ ' + fail + ' FAILING' : '✔ all green');
+add('n', pass + ' passed');
+if (fail) add('n bad', fail + ' failed');
+if (skip) add('n skip', skip + ' skipped');
+add('n', 'runner offset UTC' + (-new Date().getTimezoneOffset() >= 0 ? '+' : '') + (-new Date().getTimezoneOffset()) + ' min');
+document.title = (fail ? '✘ ' + fail + ' failing' : '✔ ' + pass + ' passing') + ' · store.js tests';
+console.log('[store.test] pass=' + pass + ' fail=' + fail + ' skip=' + skip);
+</script>
+</body>
+</html>

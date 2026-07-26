@@ -1,0 +1,3863 @@
+{
+  "version": 2,
+  "note": "SEED BANK. Authored by the papers/stats job so full-paper mode works end to end from day one; the content job owns growing it (Hermes' past-papers skill ingests real VAC papers weekly — one real VAC paper is worth twenty model sets). Rows with held_out:true are the assessment bank: Hermes NEVER teaches from them and they are the only source predicted grades are computed from. Rows with held_out:false are the drill/teaching pool. Group A rows carry the additive optional fields `options` and `answerIndex`; every other field is the shared row shape. | v2 (question-bank job): +61 authored/adapted post-2077 rows concentrated on the two shipped topics — Chemistry / Stoichiometry (the Mole-Concept spine) and Physics / Physical quantities (units and measurement) — plus a few general MCQs. `unit` values are the canonical CDC unit names used by js/grow.js, so resolveUnitId() links a question to its GROW row. Authored rows carry year 2083 (the BS session they were written for) and source \"authored\"; they are modelled on the CDC model-question and HISSAN post-2077 shapes, never copied. Additive optional fields: `options` + `answerIndex` on Group A rows, and `misconception_tags` carrying the pedagogy-spec §3.6 ids (CH-*, PH-*) so a miss can be routed straight into the Error Book. Unit names were normalised onto the canonical CDC unit names in js/grow.js so resolveUnitId() links every row to its GROW row.",
+  "grid": {
+    "post_2077": {
+      "50": [
+        {
+          "group": "A",
+          "count": 9,
+          "marks": 1,
+          "or": 0
+        },
+        {
+          "group": "B",
+          "count": 5,
+          "marks": 5,
+          "or": 1
+        },
+        {
+          "group": "C",
+          "count": 2,
+          "marks": 8,
+          "or": 1
+        }
+      ],
+      "75": [
+        {
+          "group": "A",
+          "count": 11,
+          "marks": 1,
+          "or": 0
+        },
+        {
+          "group": "B",
+          "count": 8,
+          "marks": 5,
+          "or": 2
+        },
+        {
+          "group": "C",
+          "count": 3,
+          "marks": 8,
+          "or": 1
+        }
+      ]
+    }
+  },
+  "questions": [
+    {
+      "id": "phy-a-01",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The SI unit of impulse is:",
+      "options": [
+        "N m",
+        "N s",
+        "N m⁻¹",
+        "N s⁻¹"
+      ],
+      "answerIndex": 1,
+      "solution": "Impulse = force × time, so its unit is the newton second (N s). It is dimensionally identical to momentum, kg m s⁻¹.",
+      "marking_points": [
+        {
+          "text": "N s selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-02",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "A body moves in a straight line with uniform velocity. Its acceleration is:",
+      "options": [
+        "Equal to its velocity",
+        "Zero",
+        "Constant but non-zero",
+        "Increasing uniformly"
+      ],
+      "answerIndex": 1,
+      "solution": "Uniform velocity means the velocity does not change, so dv/dt = 0 and the acceleration is zero. Motion does not require a force to continue (PH-F01).",
+      "marking_points": [
+        {
+          "text": "Zero selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-03",
+      "subject": "Physics",
+      "unit": "Circular motion",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The work done by the centripetal force on a body moving in a circle at constant speed is:",
+      "options": [
+        "Maximum",
+        "Zero",
+        "Equal to the kinetic energy",
+        "Negative"
+      ],
+      "answerIndex": 1,
+      "solution": "The centripetal force is always perpendicular to the displacement, and W = Fs cos 90° = 0. The speed is unchanged, so no work is done.",
+      "marking_points": [
+        {
+          "text": "Zero selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-04",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "year": 2079,
+      "source": "school_collection",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The escape velocity from the surface of the Earth is approximately:",
+      "options": [
+        "7.9 km s⁻¹",
+        "9.8 km s⁻¹",
+        "11.2 km s⁻¹",
+        "22.4 km s⁻¹"
+      ],
+      "answerIndex": 2,
+      "solution": "v_e = √(2gR) = √(2 × 9.8 × 6.4 × 10⁶) ≈ 1.12 × 10⁴ m s⁻¹ = 11.2 km s⁻¹. 7.9 km s⁻¹ is the ORBITAL velocity — the two differ by a factor of √2.",
+      "marking_points": [
+        {
+          "text": "11.2 km s⁻¹ selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-05",
+      "subject": "Physics",
+      "unit": "Elasticity",
+      "year": 2080,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The dimensional formula of Young's modulus is:",
+      "options": [
+        "[MLT⁻²]",
+        "[ML⁻¹T⁻²]",
+        "[ML²T⁻²]",
+        "[M⁰L⁰T⁰]"
+      ],
+      "answerIndex": 1,
+      "solution": "Young's modulus = stress/strain. Strain has no dimension, so Y has the dimensions of stress = force/area = [MLT⁻²]/[L²] = [ML⁻¹T⁻²].",
+      "marking_points": [
+        {
+          "text": "[ML⁻¹T⁻²] selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-06",
+      "subject": "Physics",
+      "unit": "Quantity of heat",
+      "year": 2081,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The SI unit of specific heat capacity is:",
+      "options": [
+        "J kg⁻¹",
+        "J K⁻¹",
+        "J kg⁻¹ K⁻¹",
+        "J mol⁻¹ K⁻¹"
+      ],
+      "answerIndex": 2,
+      "solution": "Q = mcΔT, so c = Q/(mΔT), giving J kg⁻¹ K⁻¹. J kg⁻¹ is specific latent heat; J mol⁻¹ K⁻¹ is a molar heat capacity.",
+      "marking_points": [
+        {
+          "text": "J kg⁻¹ K⁻¹ selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-07",
+      "subject": "Physics",
+      "unit": "Ideal gas",
+      "year": 2080,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "At constant temperature, the pressure of a fixed mass of an ideal gas is:",
+      "options": [
+        "Directly proportional to its volume",
+        "Inversely proportional to its volume",
+        "Independent of its volume",
+        "Proportional to the square of its volume"
+      ],
+      "answerIndex": 1,
+      "solution": "Boyle's law: pV = constant at constant temperature, so p ∝ 1/V.",
+      "marking_points": [
+        {
+          "text": "Inversely proportional selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-08",
+      "subject": "Physics",
+      "unit": "Reflection at curved mirrors",
+      "year": 2079,
+      "source": "school_collection",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The focal length of a plane mirror is:",
+      "options": [
+        "Zero",
+        "Equal to its radius of curvature",
+        "Infinity",
+        "Half its radius of curvature"
+      ],
+      "answerIndex": 2,
+      "solution": "A plane mirror can be treated as a spherical mirror of infinite radius of curvature, and f = R/2, so f is infinite.",
+      "marking_points": [
+        {
+          "text": "Infinity selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-09",
+      "subject": "Physics",
+      "unit": "Refraction at plane surfaces",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Light travels at 2.0 × 10⁸ m s⁻¹ in a certain medium. The refractive index of the medium is (c = 3.0 × 10⁸ m s⁻¹):",
+      "options": [
+        "0.67",
+        "1.5",
+        "2.0",
+        "6.0"
+      ],
+      "answerIndex": 1,
+      "solution": "n = c/v = (3.0 × 10⁸)/(2.0 × 10⁸) = 1.5. The refractive index of a medium denser than vacuum is always greater than 1, which rules out 0.67 immediately.",
+      "marking_points": [
+        {
+          "text": "1.5 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-10",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Two resistors of 4 Ω each are connected in parallel. The equivalent resistance is:",
+      "options": [
+        "8 Ω",
+        "4 Ω",
+        "2 Ω",
+        "0.5 Ω"
+      ],
+      "answerIndex": 2,
+      "solution": "1/R = 1/4 + 1/4 = 1/2, so R = 2 Ω. Resistors in parallel always give an equivalent resistance smaller than the smallest branch.",
+      "marking_points": [
+        {
+          "text": "2 Ω selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-a-11",
+      "subject": "Physics",
+      "unit": "Radioactivity",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "After two half-lives, the fraction of a radioactive sample that remains undecayed is:",
+      "options": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "Zero"
+      ],
+      "answerIndex": 2,
+      "solution": "Each half-life halves the remaining nuclei: 1 → 1/2 → 1/4. Decay is exponential, so a sample never reaches exactly zero.",
+      "marking_points": [
+        {
+          "text": "1/4 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-01",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "State Newton's second law of motion and use it to derive F = ma. A force of 20 N acts on a body of mass 4 kg initially at rest. Find its velocity after 5 s.",
+      "solution": "Newton's second law: the rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction of the force. F ∝ dp/dt = d(mv)/dt = m dv/dt = ma; choosing the newton so the constant is 1 gives F = ma. Numerical: a = F/m = 20/4 = 5 m s⁻², v = u + at = 0 + 5 × 5 = 25 m s⁻¹.",
+      "marking_points": [
+        {
+          "text": "Statement of the law in terms of rate of change of momentum",
+          "marks": 1
+        },
+        {
+          "text": "F ∝ d(mv)/dt written and mass taken as constant",
+          "marks": 1
+        },
+        {
+          "text": "F = ma obtained with the constant of proportionality justified",
+          "marks": 1
+        },
+        {
+          "text": "a = F/m = 5 m s⁻² with unit",
+          "marks": 1
+        },
+        {
+          "text": "v = 25 m s⁻¹ with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-02",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Derive the equation v² = u² + 2as for a body moving with uniform acceleration, using a velocity–time graph. A car accelerates uniformly from 10 m s⁻¹ to 30 m s⁻¹ over 200 m. Find its acceleration.",
+      "solution": "From the v–t graph, a = (v − u)/t so t = (v − u)/a; displacement s = area under the graph = ½(u + v)t = ½(u + v)(v − u)/a = (v² − u²)/2a. Hence v² = u² + 2as. Numerical: a = (v² − u²)/2s = (900 − 100)/(2 × 200) = 800/400 = 2 m s⁻².",
+      "marking_points": [
+        {
+          "text": "Correct v–t graph drawn and labelled",
+          "marks": 1
+        },
+        {
+          "text": "t = (v − u)/a obtained from the gradient",
+          "marks": 1
+        },
+        {
+          "text": "s taken as the area under the graph, ½(u + v)t",
+          "marks": 1
+        },
+        {
+          "text": "v² = u² + 2as obtained by substitution",
+          "marks": 1
+        },
+        {
+          "text": "a = 2 m s⁻² with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-03",
+      "subject": "Physics",
+      "unit": "Work, energy and power",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "State the work–energy theorem. A 1200 kg car travelling at 20 m s⁻¹ is brought to rest in 50 m. Calculate the average braking force and the power dissipated if the braking takes 5 s.",
+      "solution": "Work–energy theorem: the net work done on a body equals the change in its kinetic energy. KE = ½mv² = ½ × 1200 × 400 = 2.40 × 10⁵ J. F = W/s = 2.40 × 10⁵/50 = 4.80 × 10³ N. P = W/t = 2.40 × 10⁵/5 = 4.80 × 10⁴ W.",
+      "marking_points": [
+        {
+          "text": "Statement of the work–energy theorem",
+          "marks": 1
+        },
+        {
+          "text": "KE = 2.40 × 10⁵ J with unit",
+          "marks": 1
+        },
+        {
+          "text": "W = ΔKE identified as the work done by the brakes",
+          "marks": 1
+        },
+        {
+          "text": "F = 4.80 × 10³ N with unit",
+          "marks": 1
+        },
+        {
+          "text": "P = 4.80 × 10⁴ W with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-04",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "year": 2079,
+      "source": "school_collection",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Define escape velocity and derive an expression for it. Calculate the escape velocity from the surface of the Earth, taking g = 9.8 m s⁻² and R = 6.4 × 10⁶ m.",
+      "solution": "Escape velocity is the minimum velocity with which a body must be projected from the surface of a planet so that it just escapes the planet's gravitational field. Energy conservation: ½mv² = GMm/R, so v = √(2GM/R) = √(2gR) since g = GM/R². Numerical: v = √(2 × 9.8 × 6.4 × 10⁶) = √(1.2544 × 10⁸) = 1.12 × 10⁴ m s⁻¹.",
+      "marking_points": [
+        {
+          "text": "Correct definition of escape velocity",
+          "marks": 1
+        },
+        {
+          "text": "Energy equation ½mv² = GMm/R written",
+          "marks": 1
+        },
+        {
+          "text": "v = √(2GM/R) obtained",
+          "marks": 1
+        },
+        {
+          "text": "g = GM/R² used to reach v = √(2gR)",
+          "marks": 1
+        },
+        {
+          "text": "v = 1.12 × 10⁴ m s⁻¹ with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-05",
+      "subject": "Physics",
+      "unit": "Rate of heat flow",
+      "year": 2080,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Define thermal conductivity and state its SI unit. A metal slab of area 0.20 m² and thickness 5.0 cm has its faces maintained at 100 °C and 20 °C. If the thermal conductivity of the metal is 50 W m⁻¹ K⁻¹, find the rate of heat flow through the slab.",
+      "solution": "Thermal conductivity is the rate of heat flow per unit area per unit temperature gradient in the steady state; SI unit W m⁻¹ K⁻¹. Q/t = kA(θ₁ − θ₂)/d = 50 × 0.20 × 80 / 0.050 = 1.6 × 10⁴ W.",
+      "marking_points": [
+        {
+          "text": "Correct definition of thermal conductivity",
+          "marks": 1
+        },
+        {
+          "text": "SI unit W m⁻¹ K⁻¹ stated",
+          "marks": 1
+        },
+        {
+          "text": "Q/t = kAΔθ/d written with steady state assumed",
+          "marks": 1
+        },
+        {
+          "text": "Thickness converted to 0.050 m",
+          "marks": 1
+        },
+        {
+          "text": "Q/t = 1.6 × 10⁴ W with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-06",
+      "subject": "Physics",
+      "unit": "Ideal gas",
+      "year": 2081,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "State Boyle's law and Charles's law and combine them to obtain the ideal gas equation pV = nRT. A gas occupies 2.0 dm³ at 27 °C and 1.0 × 10⁵ Pa. Find its volume at 127 °C and 2.0 × 10⁵ Pa.",
+      "solution": "Boyle: V ∝ 1/p at constant T. Charles: V ∝ T at constant p. Combining, V ∝ T/p, so pV/T = constant = nR, giving pV = nRT. Numerical: p₁V₁/T₁ = p₂V₂/T₂ with T₁ = 300 K, T₂ = 400 K. V₂ = (1.0 × 10⁵ × 2.0 × 400)/(300 × 2.0 × 10⁵) = 1.33 dm³.",
+      "marking_points": [
+        {
+          "text": "Boyle's law stated with its condition",
+          "marks": 1
+        },
+        {
+          "text": "Charles's law stated with its condition",
+          "marks": 1
+        },
+        {
+          "text": "Combination to pV/T = constant and pV = nRT",
+          "marks": 1
+        },
+        {
+          "text": "Temperatures converted to 300 K and 400 K",
+          "marks": 1
+        },
+        {
+          "text": "V₂ = 1.33 dm³ with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-07",
+      "subject": "Physics",
+      "unit": "Reflection at curved mirrors",
+      "year": 2080,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Derive the mirror formula 1/v + 1/u = 1/f for a concave mirror forming a real image. An object is placed 30 cm from a concave mirror of focal length 10 cm. Find the position and magnification of the image.",
+      "solution": "Using similar triangles for the ray through the pole and the ray parallel to the axis, with the sign convention, 1/v + 1/u = 1/f. Numerical: 1/v = 1/f − 1/u = 1/10 − 1/30 = 1/15, so v = 15 cm (real, in front of the mirror). m = −v/u = −15/30 = −0.5, so the image is inverted and half the size.",
+      "marking_points": [
+        {
+          "text": "Correct ray diagram with the two standard rays",
+          "marks": 1
+        },
+        {
+          "text": "Similar triangles identified and ratios written",
+          "marks": 1
+        },
+        {
+          "text": "Mirror formula obtained with the sign convention stated",
+          "marks": 1
+        },
+        {
+          "text": "v = 15 cm with unit",
+          "marks": 1
+        },
+        {
+          "text": "m = −0.5 with the nature of the image stated",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-08",
+      "subject": "Physics",
+      "unit": "Capacitor",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Define capacitance and derive an expression for the capacitance of a parallel plate capacitor with air between the plates. A parallel plate capacitor has plates of area 0.02 m² separated by 1.0 mm. Find its capacitance (ε₀ = 8.85 × 10⁻¹² F m⁻¹).",
+      "solution": "Capacitance is the charge stored per unit potential difference, C = Q/V; SI unit farad. For parallel plates, E = σ/ε₀ = Q/(Aε₀) and V = Ed = Qd/(Aε₀), so C = Q/V = ε₀A/d. Numerical: C = 8.85 × 10⁻¹² × 0.02/1.0 × 10⁻³ = 1.77 × 10⁻¹⁰ F.",
+      "marking_points": [
+        {
+          "text": "C = Q/V defined with the farad named",
+          "marks": 1
+        },
+        {
+          "text": "Field between the plates E = Q/(Aε₀)",
+          "marks": 1
+        },
+        {
+          "text": "V = Ed used",
+          "marks": 1
+        },
+        {
+          "text": "C = ε₀A/d obtained",
+          "marks": 1
+        },
+        {
+          "text": "C = 1.77 × 10⁻¹⁰ F with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-09",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "year": 2079,
+      "source": "school_collection",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "State Ohm's law and derive the expression for the equivalent resistance of three resistors connected in parallel. Three resistors of 2 Ω, 3 Ω and 6 Ω are connected in parallel across a 6 V supply. Find the total current drawn.",
+      "solution": "Ohm's law: at constant physical conditions, the current through a conductor is directly proportional to the potential difference across it, V = IR. In parallel the p.d. is common and I = I₁ + I₂ + I₃, so V/R = V/R₁ + V/R₂ + V/R₃, giving 1/R = 1/R₁ + 1/R₂ + 1/R₃. Numerical: 1/R = 1/2 + 1/3 + 1/6 = 1, so R = 1 Ω and I = V/R = 6/1 = 6 A.",
+      "marking_points": [
+        {
+          "text": "Ohm's law stated with its condition",
+          "marks": 1
+        },
+        {
+          "text": "Common p.d. and I = I₁ + I₂ + I₃ identified",
+          "marks": 1
+        },
+        {
+          "text": "1/R = 1/R₁ + 1/R₂ + 1/R₃ derived",
+          "marks": 1
+        },
+        {
+          "text": "R = 1 Ω with unit",
+          "marks": 1
+        },
+        {
+          "text": "I = 6 A with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-b-10",
+      "subject": "Physics",
+      "unit": "Nuclear physics",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Explain what is meant by mass defect and binding energy. The mass defect of a helium-4 nucleus is 0.0304 u. Calculate its binding energy in MeV and its binding energy per nucleon (1 u = 931 MeV).",
+      "solution": "Mass defect is the difference between the sum of the masses of the free nucleons and the actual mass of the nucleus; the missing mass appears as the binding energy holding the nucleus together, E = Δm c². Numerical: E = 0.0304 × 931 = 28.3 MeV. Per nucleon = 28.3/4 = 7.08 MeV.",
+      "marking_points": [
+        {
+          "text": "Mass defect defined correctly",
+          "marks": 1
+        },
+        {
+          "text": "Binding energy explained via E = Δmc²",
+          "marks": 1
+        },
+        {
+          "text": "Conversion 1 u = 931 MeV applied",
+          "marks": 1
+        },
+        {
+          "text": "E = 28.3 MeV with unit",
+          "marks": 1
+        },
+        {
+          "text": "Binding energy per nucleon = 7.08 MeV with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-c-01",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Derive expressions for the variation of acceleration due to gravity with (i) altitude and (ii) depth below the Earth's surface. Sketch how g varies from the centre of the Earth outwards. Hence calculate the height above the surface at which g falls to one quarter of its surface value (R = 6.4 × 10⁶ m).",
+      "solution": "At the surface g = GM/R². At height h, g_h = GM/(R + h)² = g(1 + h/R)⁻² ≈ g(1 − 2h/R) for h ≪ R. At depth d, only the sphere of radius (R − d) contributes: g_d = g(1 − d/R), so g is zero at the centre. The sketch rises linearly from 0 at the centre to g at the surface, then falls as 1/r². For g_h = g/4: (R/(R + h))² = 1/4, so R + h = 2R and h = R = 6.4 × 10⁶ m.",
+      "marking_points": [
+        {
+          "text": "g = GM/R² at the surface stated",
+          "marks": 1
+        },
+        {
+          "text": "g_h = GM/(R + h)² derived",
+          "marks": 1
+        },
+        {
+          "text": "Binomial approximation g_h ≈ g(1 − 2h/R) shown",
+          "marks": 1
+        },
+        {
+          "text": "Only the inner sphere contributes at depth d",
+          "marks": 1
+        },
+        {
+          "text": "g_d = g(1 − d/R) derived and g = 0 at the centre noted",
+          "marks": 1
+        },
+        {
+          "text": "Correct sketch: linear inside, inverse-square outside",
+          "marks": 1
+        },
+        {
+          "text": "(R/(R+h))² = 1/4 set up",
+          "marks": 1
+        },
+        {
+          "text": "h = 6.4 × 10⁶ m with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-c-02",
+      "subject": "Physics",
+      "unit": "Ideal gas",
+      "year": 2080,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "State the assumptions of the kinetic theory of gases and derive the expression p = ⅓ρc̄² for the pressure of an ideal gas. Hence show that the mean kinetic energy of a molecule is proportional to the absolute temperature, and find the root-mean-square speed of oxygen molecules at 300 K (M = 32 g mol⁻¹, R = 8.314 J K⁻¹ mol⁻¹).",
+      "solution": "Assumptions: molecules are point masses in random motion; collisions are perfectly elastic; intermolecular forces are negligible except during collision; the time of collision is negligible; the number of molecules is very large. Considering momentum change 2mu on one wall and the number of impacts per second, p = (1/3)(Nm/V)c̄² = ⅓ρc̄². Since pV = nRT, ⅓Nmc̄² = nRT, so ½mc̄² = (3/2)kT, i.e. mean KE ∝ T. Numerical: c_rms = √(3RT/M) = √(3 × 8.314 × 300/0.032) = √(233 831) = 484 m s⁻¹.",
+      "marking_points": [
+        {
+          "text": "At least four assumptions of the kinetic theory stated",
+          "marks": 1
+        },
+        {
+          "text": "Momentum change 2mu per collision on a wall",
+          "marks": 1
+        },
+        {
+          "text": "Rate of collisions and force on the wall obtained",
+          "marks": 1
+        },
+        {
+          "text": "p = (1/3)(Nm/V)c̄² assembled",
+          "marks": 1
+        },
+        {
+          "text": "p = ⅓ρc̄² written with ρ = Nm/V",
+          "marks": 1
+        },
+        {
+          "text": "Combination with pV = nRT",
+          "marks": 1
+        },
+        {
+          "text": "½mc̄² = (3/2)kT shown, hence mean KE ∝ T",
+          "marks": 1
+        },
+        {
+          "text": "c_rms = 484 m s⁻¹ with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-c-03",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "year": 2081,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Draw a labelled diagram of a Wheatstone bridge and derive the balance condition using Kirchhoff's laws. Explain why the bridge method is more accurate than a direct measurement with a voltmeter and ammeter. In a balanced bridge P = 10 Ω, Q = 20 Ω and R = 15 Ω; find S.",
+      "solution": "Diagram: four resistors P, Q, R, S in a quadrilateral with a galvanometer across one diagonal and a cell across the other. At balance no current flows through the galvanometer, so the potential at B equals that at D. Applying Kirchhoff's loop rule to ABDA: I₁P = I₂R; to BCDB: I₁Q = I₂S. Dividing, P/Q = R/S. The method is a null method: the reading does not depend on the sensitivity or calibration of the galvanometer, and no current is drawn through it at balance, so instrument resistance introduces no error. Numerical: S = QR/P = 20 × 15/10 = 30 Ω.",
+      "marking_points": [
+        {
+          "text": "Correct labelled Wheatstone bridge diagram",
+          "marks": 1
+        },
+        {
+          "text": "Balance condition stated as zero galvanometer current",
+          "marks": 1
+        },
+        {
+          "text": "Kirchhoff's loop rule applied to the first loop",
+          "marks": 1
+        },
+        {
+          "text": "Kirchhoff's loop rule applied to the second loop",
+          "marks": 1
+        },
+        {
+          "text": "P/Q = R/S obtained by division",
+          "marks": 1
+        },
+        {
+          "text": "Null method explained — no dependence on galvanometer calibration",
+          "marks": 1
+        },
+        {
+          "text": "No current through the galvanometer at balance, so no loading error",
+          "marks": 1
+        },
+        {
+          "text": "S = 30 Ω with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-c-04",
+      "subject": "Physics",
+      "unit": "Work, energy and power",
+      "year": 2079,
+      "source": "school_collection",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "State and prove the principle of conservation of mechanical energy for a body falling freely under gravity. Distinguish between elastic and inelastic collisions. A 2 kg body moving at 6 m s⁻¹ collides head-on with a stationary 4 kg body and they move off together. Find their common velocity and the kinetic energy lost.",
+      "solution": "Principle: in the absence of dissipative forces the total mechanical energy of a body remains constant. For a body falling from height h: at the top E = mgh; after falling x, v² = 2gx so KE = mgx and PE = mg(h − x), total = mgh; at the ground KE = mgh. Elastic collisions conserve both momentum and kinetic energy; inelastic collisions conserve momentum only. Numerical: v = m₁u₁/(m₁ + m₂) = 12/6 = 2 m s⁻¹. KE before = ½ × 2 × 36 = 36 J; KE after = ½ × 6 × 4 = 12 J; loss = 24 J.",
+      "marking_points": [
+        {
+          "text": "Principle of conservation of mechanical energy stated",
+          "marks": 1
+        },
+        {
+          "text": "Energy at the top of the fall computed",
+          "marks": 1
+        },
+        {
+          "text": "Energy at an intermediate point shown equal to mgh",
+          "marks": 1
+        },
+        {
+          "text": "Energy at the ground shown equal to mgh",
+          "marks": 1
+        },
+        {
+          "text": "Elastic collision defined (momentum and KE conserved)",
+          "marks": 1
+        },
+        {
+          "text": "Inelastic collision defined (momentum only)",
+          "marks": 1
+        },
+        {
+          "text": "Common velocity 2 m s⁻¹ with unit",
+          "marks": 1
+        },
+        {
+          "text": "Kinetic energy lost = 24 J with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-01",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "The area under a velocity–time graph gives:",
+      "options": [
+        "Acceleration",
+        "Displacement",
+        "Force",
+        "Power"
+      ],
+      "answerIndex": 1,
+      "solution": "Area = velocity × time = displacement. The GRADIENT of a v–t graph gives the acceleration — reading the graph as a picture of the path is misconception PH-F08.",
+      "marking_points": [
+        {
+          "text": "Displacement selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-02",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A book rests on a table. The reaction to the weight of the book, in Newton's third law, acts on:",
+      "options": [
+        "The table",
+        "The book",
+        "The Earth",
+        "Nothing — weight has no reaction"
+      ],
+      "answerIndex": 2,
+      "solution": "The weight is the Earth pulling the book; its third-law partner is the book pulling the Earth. The normal force from the table is a different pair. This is misconception PH-F04/PH-F09.",
+      "marking_points": [
+        {
+          "text": "The Earth selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-03",
+      "subject": "Physics",
+      "unit": "Elasticity",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Define stress, strain and Young's modulus. A steel wire of length 2.0 m and cross-sectional area 1.0 × 10⁻⁶ m² stretches by 1.0 mm under a load of 100 N. Find Young's modulus for steel.",
+      "solution": "Stress = force per unit area (Pa); strain = extension per unit original length (no unit); Young's modulus Y = stress/strain. Y = (F/A)/(e/L) = FL/(Ae) = (100 × 2.0)/(1.0 × 10⁻⁶ × 1.0 × 10⁻³) = 2.0 × 10¹¹ Pa.",
+      "marking_points": [
+        {
+          "text": "Stress defined with unit Pa",
+          "marks": 1
+        },
+        {
+          "text": "Strain defined and stated to have no unit",
+          "marks": 1
+        },
+        {
+          "text": "Y = stress/strain written",
+          "marks": 1
+        },
+        {
+          "text": "Extension converted to 1.0 × 10⁻³ m",
+          "marks": 1
+        },
+        {
+          "text": "Y = 2.0 × 10¹¹ Pa with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-04",
+      "subject": "Physics",
+      "unit": "Quantity of heat",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Distinguish between heat capacity and specific heat capacity. 500 g of water at 80 °C is mixed with 300 g of water at 20 °C. Find the final temperature, assuming no heat is lost.",
+      "solution": "Heat capacity is the heat needed to raise the temperature of a body by 1 K (J K⁻¹); specific heat capacity is the same quantity per kilogram (J kg⁻¹ K⁻¹). By the principle of calorimetry, heat lost = heat gained: 0.500c(80 − θ) = 0.300c(θ − 20), so 40 − 0.5θ = 0.3θ − 6, giving 0.8θ = 46 and θ = 57.5 °C.",
+      "marking_points": [
+        {
+          "text": "Heat capacity defined with unit",
+          "marks": 1
+        },
+        {
+          "text": "Specific heat capacity defined with unit",
+          "marks": 1
+        },
+        {
+          "text": "Heat lost = heat gained stated",
+          "marks": 1
+        },
+        {
+          "text": "Equation set up with masses in kg",
+          "marks": 1
+        },
+        {
+          "text": "θ = 57.5 °C with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-05",
+      "subject": "Physics",
+      "unit": "Refraction at plane surfaces",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "Define critical angle and total internal reflection, stating the two conditions required. The refractive index of glass is 1.5. Calculate the critical angle for a glass–air boundary.",
+      "solution": "The critical angle is the angle of incidence in the denser medium for which the angle of refraction in the rarer medium is 90°. Total internal reflection occurs when (i) light travels from a denser to a rarer medium and (ii) the angle of incidence exceeds the critical angle. sin C = 1/n = 1/1.5 = 0.667, so C = 41.8°.",
+      "marking_points": [
+        {
+          "text": "Critical angle defined",
+          "marks": 1
+        },
+        {
+          "text": "Total internal reflection defined",
+          "marks": 1
+        },
+        {
+          "text": "Both conditions stated",
+          "marks": 1
+        },
+        {
+          "text": "sin C = 1/n used",
+          "marks": 1
+        },
+        {
+          "text": "C = 41.8° with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-d-06",
+      "subject": "Physics",
+      "unit": "Circular motion",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "Derive an expression for the centripetal acceleration of a body moving in a circle of radius r with uniform speed v. Explain why a cyclist leans inwards when taking a bend, and derive the angle of lean. A cyclist rounds a bend of radius 20 m at 10 m s⁻¹; find the angle of lean (g = 9.8 m s⁻²).",
+      "solution": "For uniform circular motion the velocity changes direction continuously; in time Δt the velocity vector turns through Δθ, and |Δv| = vΔθ, so a = v dθ/dt = vω = v²/r, directed towards the centre. A cyclist leans so that the resultant of the normal reaction and friction passes through the centre of mass and provides the centripetal force: N sin θ = mv²/r and N cos θ = mg, so tan θ = v²/(rg). Numerical: tan θ = 100/(20 × 9.8) = 0.510, θ = 27.0°.",
+      "marking_points": [
+        {
+          "text": "Velocity changes direction; Δv identified",
+          "marks": 1
+        },
+        {
+          "text": "|Δv| = vΔθ obtained from the vector triangle",
+          "marks": 1
+        },
+        {
+          "text": "a = v²/r derived and direction stated as towards the centre",
+          "marks": 1
+        },
+        {
+          "text": "Free-body diagram of the leaning cyclist",
+          "marks": 1
+        },
+        {
+          "text": "N sin θ = mv²/r written",
+          "marks": 1
+        },
+        {
+          "text": "N cos θ = mg written",
+          "marks": 1
+        },
+        {
+          "text": "tan θ = v²/rg obtained",
+          "marks": 1
+        },
+        {
+          "text": "θ = 27.0° with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-a-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The SI unit of the amount of substance is:",
+      "options": [
+        "Gram",
+        "Mole",
+        "Kilogram",
+        "Litre"
+      ],
+      "answerIndex": 1,
+      "solution": "The mole is one of the seven SI base units and measures amount of substance — it is a count, not a mass (misconception CH-M05).",
+      "marking_points": [
+        {
+          "text": "Mole selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-a-02",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The volume occupied by one mole of any gas at STP is:",
+      "options": [
+        "11.2 dm³",
+        "22.4 dm³",
+        "22.4 cm³",
+        "It depends on the gas"
+      ],
+      "answerIndex": 1,
+      "solution": "By Avogadro's law, one mole of ANY gas occupies 22.4 dm³ at STP. It applies only to gases at STP — never to solids or liquids (misconception CH-M06).",
+      "marking_points": [
+        {
+          "text": "22.4 dm³ selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-a-03",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The maximum number of electrons that can occupy the M shell (n = 3) is:",
+      "options": [
+        "8",
+        "10",
+        "18",
+        "32"
+      ],
+      "answerIndex": 2,
+      "solution": "The capacity of a shell is 2n²; for n = 3 that is 2 × 9 = 18.",
+      "marking_points": [
+        {
+          "text": "18 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-b-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Define limiting reagent. 14 g of nitrogen is mixed with 4 g of hydrogen and allowed to react to form ammonia. Identify the limiting reagent and calculate the mass of ammonia formed and the mass of excess reagent left over.",
+      "solution": "The limiting reagent is the reactant that is completely consumed first and therefore fixes the amount of product. N₂ + 3H₂ → 2NH₃. n(N₂) = 14/28 = 0.5 mol; n(H₂) = 4/2 = 2 mol. Dividing by coefficients: N₂ → 0.5, H₂ → 2/3 = 0.667. N₂ is limiting. n(NH₃) = 2 × 0.5 = 1 mol, m = 17 g. H₂ used = 1.5 mol = 3 g, so 1 g of H₂ is left over.",
+      "marking_points": [
+        {
+          "text": "Limiting reagent defined correctly",
+          "marks": 1
+        },
+        {
+          "text": "Balanced equation N₂ + 3H₂ → 2NH₃",
+          "marks": 1
+        },
+        {
+          "text": "Both masses converted to moles",
+          "marks": 1
+        },
+        {
+          "text": "Moles divided by coefficients and N₂ identified as limiting",
+          "marks": 1
+        },
+        {
+          "text": "m(NH₃) = 17 g and excess H₂ = 1 g, both with units",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-b-02",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "State the postulates of Bohr's atomic model and explain how it accounts for the line spectrum of hydrogen. State two limitations of the model.",
+      "solution": "Postulates: electrons revolve in fixed circular orbits without radiating energy; the angular momentum is quantised, mvr = nh/2π; energy is emitted or absorbed only when an electron jumps between orbits, with ΔE = hν. The line spectrum arises because only certain energy differences are possible, so only certain frequencies appear. Limitations: it fails for atoms with more than one electron, and it cannot explain fine structure or the splitting of lines in a magnetic field (Zeeman effect); it also contradicts the uncertainty principle.",
+      "marking_points": [
+        {
+          "text": "Stationary orbits with no radiation",
+          "marks": 1
+        },
+        {
+          "text": "Quantisation of angular momentum mvr = nh/2π",
+          "marks": 1
+        },
+        {
+          "text": "ΔE = hν for transitions",
+          "marks": 1
+        },
+        {
+          "text": "Line spectrum explained by discrete energy differences",
+          "marks": 1
+        },
+        {
+          "text": "Two valid limitations stated",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-b-03",
+      "subject": "Chemistry",
+      "unit": "Chemical bonding",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Distinguish between ionic and covalent bonding with one example of each. Explain why sodium chloride conducts electricity when molten but not when solid.",
+      "solution": "An ionic bond is formed by the complete transfer of electrons between atoms of very different electronegativity, giving oppositely charged ions held by electrostatic attraction (NaCl). A covalent bond is formed by the sharing of electron pairs between atoms of similar electronegativity (Cl₂). Ionic compounds are usually high-melting crystalline solids soluble in water; covalent compounds are usually low-melting and often insoluble in water. Solid NaCl has its ions locked in a lattice so no charge can move; on melting the lattice breaks and the free ions carry current.",
+      "marking_points": [
+        {
+          "text": "Ionic bond defined with electron transfer",
+          "marks": 1
+        },
+        {
+          "text": "Covalent bond defined with electron sharing",
+          "marks": 1
+        },
+        {
+          "text": "One valid example of each",
+          "marks": 1
+        },
+        {
+          "text": "Ions immobile in the solid lattice",
+          "marks": 1
+        },
+        {
+          "text": "Free mobile ions in the melt carry the current",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-c-01",
+      "subject": "Chemistry",
+      "unit": "Modern chemical manufactures",
+      "year": 2081,
+      "source": "cdc_model",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "Describe the manufacture of ammonia by the Haber process. Give the reaction with conditions, explain the choice of temperature and pressure in terms of Le Chatelier's principle, draw a labelled flow diagram, and state two uses of ammonia.",
+      "solution": "N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ mol⁻¹, at about 450 °C, 200 atm, over a finely divided iron catalyst promoted with K₂O and Al₂O₃. The forward reaction is exothermic, so a low temperature favours yield — but the rate would be uneconomically slow, so 450 °C is a compromise. Four moles of gas become two, so high pressure shifts the equilibrium right; the pressure used is limited by plant cost and safety. Unreacted gases are recycled and ammonia is removed by liquefaction, driving the equilibrium further right. Uses: manufacture of nitrogenous fertilisers (urea, ammonium sulphate) and of nitric acid by the Ostwald process.",
+      "marking_points": [
+        {
+          "text": "Balanced equation with state symbols",
+          "marks": 1
+        },
+        {
+          "text": "Conditions: ~450 °C, ~200 atm, iron catalyst",
+          "marks": 1
+        },
+        {
+          "text": "Exothermic, so low temperature favours yield",
+          "marks": 1
+        },
+        {
+          "text": "Temperature is a rate-versus-yield compromise",
+          "marks": 1
+        },
+        {
+          "text": "4 mol → 2 mol, so high pressure favours yield",
+          "marks": 1
+        },
+        {
+          "text": "Labelled flow diagram with recycling of unreacted gas",
+          "marks": 1
+        },
+        {
+          "text": "Removal of ammonia by liquefaction shifts equilibrium right",
+          "marks": 1
+        },
+        {
+          "text": "Two correct uses of ammonia",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-c-02",
+      "subject": "Chemistry",
+      "unit": "Chemistry of non-metals",
+      "year": 2080,
+      "source": "hissan",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": true,
+      "text": "How is hydrogen chloride gas prepared in the laboratory? Give the equation, describe the drying and collection, and explain the reactions of hydrochloric acid with (i) sodium carbonate, (ii) silver nitrate solution and (iii) manganese dioxide on heating.",
+      "solution": "NaCl + H₂SO₄ (conc.) → NaHSO₄ + HCl↑ on gentle heating. The gas is dried by passing it through concentrated sulphuric acid — never over quicklime or phosphorus pentoxide alternatives that would react — and collected by downward delivery (upward displacement of air) because it is denser than air and very soluble in water. (i) Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂, effervescence of a gas that turns limewater milky. (ii) AgNO₃ + HCl → AgCl↓ + HNO₃, a white precipitate insoluble in dilute nitric acid but soluble in ammonia. (iii) MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O, a greenish-yellow gas that bleaches moist litmus.",
+      "marking_points": [
+        {
+          "text": "Preparation equation with concentrated H₂SO₄",
+          "marks": 1
+        },
+        {
+          "text": "Drying agent named as concentrated sulphuric acid",
+          "marks": 1
+        },
+        {
+          "text": "Collection by downward delivery, with the reason",
+          "marks": 1
+        },
+        {
+          "text": "Equation with sodium carbonate",
+          "marks": 1
+        },
+        {
+          "text": "Observation with sodium carbonate (effervescence, limewater test)",
+          "marks": 1
+        },
+        {
+          "text": "Equation and white precipitate with silver nitrate",
+          "marks": 1
+        },
+        {
+          "text": "Equation with manganese dioxide on heating",
+          "marks": 1
+        },
+        {
+          "text": "Observation of greenish-yellow chlorine",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-d-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The number of moles in 9.0 g of water (H₂O, M = 18 g mol⁻¹) is:",
+      "options": [
+        "0.5",
+        "2.0",
+        "9.0",
+        "18"
+      ],
+      "answerIndex": 0,
+      "solution": "n = m/M = 9.0/18 = 0.5 mol. Dividing the wrong way round (18/9 = 2) is misconception CH-M01 — the unit check catches it: g ÷ g mol⁻¹ = mol.",
+      "marking_points": [
+        {
+          "text": "0.5 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-d-02",
+      "subject": "Chemistry",
+      "unit": "Chemical bonding",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Which of the following molecules has a co-ordinate (dative) covalent bond?",
+      "options": [
+        "CH₄",
+        "NH₄⁺",
+        "H₂O",
+        "Cl₂"
+      ],
+      "answerIndex": 1,
+      "solution": "In NH₄⁺ the nitrogen lone pair is donated to H⁺, so one of the four N–H bonds is co-ordinate. Once formed it is indistinguishable from the others.",
+      "marking_points": [
+        {
+          "text": "NH₄⁺ selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-d-03",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Define molarity and molality and state why molality is preferred for work at varying temperatures. Calculate the molarity of a solution made by dissolving 4.0 g of NaOH (M = 40 g mol⁻¹) in water to give 250 cm³ of solution.",
+      "solution": "Molarity is the number of moles of solute per cubic decimetre of solution (mol dm⁻³); molality is the number of moles of solute per kilogram of solvent (mol kg⁻¹). Molality is preferred at varying temperature because mass does not change with temperature whereas volume does. n = 4.0/40 = 0.10 mol; V = 250/1000 = 0.250 dm³; c = 0.10/0.250 = 0.40 mol dm⁻³.",
+      "marking_points": [
+        {
+          "text": "Molarity defined with unit",
+          "marks": 1
+        },
+        {
+          "text": "Molality defined with unit",
+          "marks": 1
+        },
+        {
+          "text": "Temperature-independence of mass given as the reason",
+          "marks": 1
+        },
+        {
+          "text": "n = 0.10 mol and V = 0.250 dm³",
+          "marks": 1
+        },
+        {
+          "text": "c = 0.40 mol dm⁻³ with unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-d-04",
+      "subject": "Chemistry",
+      "unit": "Fundamental principles of organic chemistry",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "What is meant by homologous series? State four characteristics of a homologous series, using the alkanes as an example.",
+      "solution": "A homologous series is a family of organic compounds with the same general formula and the same functional group, in which successive members differ by a CH₂ unit. Characteristics: (i) same general formula (alkanes CₙH₂ₙ₊₂); (ii) successive members differ by CH₂, a relative molecular mass difference of 14; (iii) similar chemical properties because the functional group is the same; (iv) a gradual change in physical properties such as boiling point with increasing chain length; and all members can be prepared by the same general methods.",
+      "marking_points": [
+        {
+          "text": "Definition of a homologous series",
+          "marks": 1
+        },
+        {
+          "text": "Same general formula, illustrated with CₙH₂ₙ₊₂",
+          "marks": 1
+        },
+        {
+          "text": "Successive members differ by CH₂ (14 mass units)",
+          "marks": 1
+        },
+        {
+          "text": "Similar chemical properties",
+          "marks": 1
+        },
+        {
+          "text": "Gradation in physical properties",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-d-05",
+      "subject": "Chemistry",
+      "unit": "Oxidation and reduction",
+      "year": 2078,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Define oxidation and reduction in terms of electron transfer and oxidation number. Balance the following equation in acidic medium by the ion-electron method and identify the oxidising and reducing agents: MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺.",
+      "solution": "Oxidation is loss of electrons, equivalently an increase in oxidation number; reduction is gain of electrons, a decrease in oxidation number. Half equations: reduction MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O; oxidation Fe²⁺ → Fe³⁺ + e⁻. Multiplying the oxidation half by 5 and adding: MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺. MnO₄⁻ is the oxidising agent (Mn goes +7 → +2, it is reduced); Fe²⁺ is the reducing agent (Fe goes +2 → +3, it is oxidised).",
+      "marking_points": [
+        {
+          "text": "Oxidation defined by electron loss and rise in oxidation number",
+          "marks": 1
+        },
+        {
+          "text": "Reduction defined by electron gain and fall in oxidation number",
+          "marks": 1
+        },
+        {
+          "text": "Oxidation numbers of Mn assigned as +7 and +2",
+          "marks": 1
+        },
+        {
+          "text": "Reduction half equation balanced for O with H₂O and H with H⁺",
+          "marks": 1
+        },
+        {
+          "text": "Reduction half equation balanced for charge with 5e⁻",
+          "marks": 1
+        },
+        {
+          "text": "Oxidation half equation Fe²⁺ → Fe³⁺ + e⁻",
+          "marks": 1
+        },
+        {
+          "text": "Electrons balanced and half equations added correctly",
+          "marks": 1
+        },
+        {
+          "text": "Oxidising and reducing agents correctly identified",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The number of molecules present in 11 g of carbon dioxide is: (C = 12, O = 16)",
+      "options": [
+        "6.022 × 10²³",
+        "3.011 × 10²³",
+        "1.51 × 10²³",
+        "2.75 × 10²³"
+      ],
+      "answerIndex": 2,
+      "solution": "M(CO₂) = 12 + 2(16) = 44 g mol⁻¹, so n = 11 ÷ 44 = 0.25 mol. Number of molecules = n × Nₐ = 0.25 × 6.022 × 10²³ = 1.51 × 10²³ molecules.",
+      "marking_points": [
+        {
+          "text": "1.51 × 10²³ selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04"
+      ]
+    },
+    {
+      "id": "chem-sto-a-02",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The mass of 0.5 mol of calcium carbonate, CaCO₃, is: (Ca = 40, C = 12, O = 16)",
+      "options": [
+        "50 g",
+        "100 g",
+        "25 g",
+        "44 g"
+      ],
+      "answerIndex": 0,
+      "solution": "M(CaCO₃) = 40 + 12 + 3(16) = 100 g mol⁻¹. m = n × M = 0.5 × 100 = 50 g.",
+      "marking_points": [
+        {
+          "text": "50 g selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M01"
+      ]
+    },
+    {
+      "id": "chem-sto-a-03",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The volume occupied by 3.011 × 10²³ molecules of oxygen gas at STP is:",
+      "options": [
+        "22.4 L",
+        "11.2 L",
+        "5.6 L",
+        "44.8 L"
+      ],
+      "answerIndex": 1,
+      "solution": "n = (3.011 × 10²³) ÷ (6.022 × 10²³) = 0.5 mol. At STP, V = n × 22.4 = 0.5 × 22.4 = 11.2 L.",
+      "marking_points": [
+        {
+          "text": "11.2 L selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-04",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Which of the following samples contains the greatest number of atoms? (H = 1, O = 16, C = 12, Ne = 20)",
+      "options": [
+        "16 g of O₂",
+        "4 g of H₂",
+        "44 g of CO₂",
+        "20 g of Ne"
+      ],
+      "answerIndex": 1,
+      "solution": "16 g O₂ = 0.5 mol molecules = 1.0 mol atoms. 4 g H₂ = 2 mol molecules = 4.0 mol atoms. 44 g CO₂ = 1 mol molecules = 3.0 mol atoms. 20 g Ne = 1.0 mol atoms. The largest is 4 g of H₂ with 4.0 mol of atoms, that is 2.409 × 10²⁴ atoms.",
+      "marking_points": [
+        {
+          "text": "4 g of H₂ selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M02",
+        "CH-M04"
+      ]
+    },
+    {
+      "id": "chem-sto-a-05",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The mass of one molecule of water is approximately: (H = 1, O = 16)",
+      "options": [
+        "18 g",
+        "2.99 × 10⁻²³ g",
+        "1.80 × 10⁻²² g",
+        "6.022 × 10²³ g"
+      ],
+      "answerIndex": 1,
+      "solution": "One mole of water weighs 18 g and contains 6.022 × 10²³ molecules. Mass of one molecule = 18 ÷ (6.022 × 10²³) = 2.99 × 10⁻²³ g.",
+      "marking_points": [
+        {
+          "text": "2.99 × 10⁻²³ g selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M08"
+      ]
+    },
+    {
+      "id": "chem-sto-a-06",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "8 g of hydrogen is mixed with 32 g of oxygen and the mixture is sparked: 2H₂ + O₂ → 2H₂O. The limiting reactant is: (H = 1, O = 16)",
+      "options": [
+        "H₂",
+        "O₂",
+        "neither — they are in the exact ratio",
+        "it cannot be decided from the masses"
+      ],
+      "answerIndex": 1,
+      "solution": "n(H₂) = 8 ÷ 2 = 4 mol; n(O₂) = 32 ÷ 32 = 1 mol. Divide by the coefficients: H₂ → 4 ÷ 2 = 2; O₂ → 1 ÷ 1 = 1. The smaller value is oxygen, so O₂ is limiting even though it is the heavier sample. Limiting reactant is decided by moles ÷ coefficient, never by mass.",
+      "marking_points": [
+        {
+          "text": "O₂ selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S03",
+        "CH-S02"
+      ]
+    },
+    {
+      "id": "chem-sto-a-07",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "A hydrocarbon contains 92.3% carbon and 7.7% hydrogen by mass. Its empirical formula is: (C = 12, H = 1)",
+      "options": [
+        "CH",
+        "CH₂",
+        "CH₃",
+        "C₂H₅"
+      ],
+      "answerIndex": 0,
+      "solution": "Taking 100 g: C = 92.3 ÷ 12 = 7.69 mol; H = 7.7 ÷ 1 = 7.7 mol. Dividing by the smaller value, 7.69, gives C : H = 1 : 1, so the empirical formula is CH.",
+      "marking_points": [
+        {
+          "text": "CH selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-08",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Carbon forms two oxides, CO and CO₂. The masses of oxygen combining with a fixed mass of 12 g of carbon are in the simple ratio 1 : 2. This illustrates the law of:",
+      "options": [
+        "conservation of mass",
+        "definite proportions",
+        "multiple proportions",
+        "reciprocal proportions"
+      ],
+      "answerIndex": 2,
+      "solution": "When two elements form more than one compound, the masses of one element combining with a fixed mass of the other are in a simple whole-number ratio. That is the law of multiple proportions; 16 g and 32 g of oxygen give the ratio 1 : 2.",
+      "marking_points": [
+        {
+          "text": "law of multiple proportions selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-09",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The vapour density of a gas is 22. The gas is: (H = 1, C = 12, N = 14, O = 16, S = 32)",
+      "options": [
+        "CO₂",
+        "SO₂",
+        "NO₂",
+        "CO"
+      ],
+      "answerIndex": 0,
+      "solution": "Molar mass = 2 × vapour density = 2 × 22 = 44 g mol⁻¹. Of the choices, only CO₂ has M = 44 g mol⁻¹ (SO₂ = 64, NO₂ = 46, CO = 28).",
+      "marking_points": [
+        {
+          "text": "CO₂ selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-10",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The number of moles of nitrogen gas present in 5.6 L of N₂ at STP is:",
+      "options": [
+        "0.25",
+        "0.5",
+        "1.0",
+        "2.5"
+      ],
+      "answerIndex": 0,
+      "solution": "At STP one mole of any gas occupies 22.4 L. n = 5.6 ÷ 22.4 = 0.25 mol.",
+      "marking_points": [
+        {
+          "text": "0.25 mol selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-11",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The percentage of nitrogen by mass in ammonium nitrate, NH₄NO₃, is: (N = 14, H = 1, O = 16)",
+      "options": [
+        "35%",
+        "17.5%",
+        "28%",
+        "45%"
+      ],
+      "answerIndex": 0,
+      "solution": "M(NH₄NO₃) = 14 + 4(1) + 14 + 3(16) = 80 g mol⁻¹. Mass of nitrogen in one mole = 2 × 14 = 28 g. Percentage = (28 ÷ 80) × 100 = 35%.",
+      "marking_points": [
+        {
+          "text": "35% selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-a-12",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Which statement about the molar volume 22.4 L is correct?",
+      "options": [
+        "It is the volume of one mole of any substance.",
+        "It is the volume of one mole of any gas at 273 K and 1 atm.",
+        "It is the volume of one mole of any liquid at room temperature.",
+        "It is the mass of one mole of any gas."
+      ],
+      "answerIndex": 1,
+      "solution": "22.4 L is the molar volume of an ideal gas at STP only — 273 K and 1 atm. It does not apply to solids or liquids, and it does not apply to a gas at any other temperature and pressure.",
+      "marking_points": [
+        {
+          "text": "Second alternative selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M06"
+      ]
+    },
+    {
+      "id": "chem-sto-a-13",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "One mole of any substance contains:",
+      "options": [
+        "6.022 × 10²³ particles",
+        "6.022 × 10²³ grams",
+        "22.4 grams",
+        "12 grams"
+      ],
+      "answerIndex": 0,
+      "solution": "The mole is the SI unit of amount of substance. One mole contains exactly 6.022 × 10²³ elementary particles — atoms, molecules or ions — whatever the substance is. Its mass depends on the substance; its particle count does not.",
+      "marking_points": [
+        {
+          "text": "6.022 × 10²³ particles selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M01",
+        "CH-M05"
+      ]
+    },
+    {
+      "id": "chem-sto-a-14",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The total number of atoms present in 1.6 g of methane, CH₄, is: (C = 12, H = 1)",
+      "options": [
+        "6.022 × 10²²",
+        "3.011 × 10²³",
+        "6.022 × 10²³",
+        "1.204 × 10²³"
+      ],
+      "answerIndex": 1,
+      "solution": "M(CH₄) = 16 g mol⁻¹, so n = 1.6 ÷ 16 = 0.1 mol. Each molecule has 5 atoms, so atoms = 0.1 × 5 × 6.022 × 10²³ = 3.011 × 10²³ atoms.",
+      "marking_points": [
+        {
+          "text": "3.011 × 10²³ selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04"
+      ]
+    },
+    {
+      "id": "chem-sto-a-15",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The molar mass of a substance is numerically equal to:",
+      "options": [
+        "the mass of one of its molecules in grams",
+        "its molecular mass in amu, but expressed in g mol⁻¹",
+        "Avogadro's number",
+        "twice its vapour density in grams"
+      ],
+      "answerIndex": 1,
+      "solution": "Molecular mass is a relative number carried in amu; molar mass is the mass of one mole and carries the unit g mol⁻¹. The two are numerically equal — water is 18 amu per molecule and 18 g mol⁻¹ — but they are not the same quantity, and the unit must be written.",
+      "marking_points": [
+        {
+          "text": "Second alternative selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M03"
+      ]
+    },
+    {
+      "id": "chem-sto-a-16",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The number of moles of oxygen atoms present in 0.2 mol of sulphuric acid, H₂SO₄, is:",
+      "options": [
+        "0.2",
+        "0.4",
+        "0.8",
+        "1.6"
+      ],
+      "answerIndex": 2,
+      "solution": "Each formula unit of H₂SO₄ carries 4 oxygen atoms, so moles of oxygen atoms = 0.2 × 4 = 0.8 mol.",
+      "marking_points": [
+        {
+          "text": "0.8 mol selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04"
+      ]
+    },
+    {
+      "id": "chem-sto-a-17",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A reaction has a theoretical yield of 10.0 g of product, and 8.0 g is actually obtained. The percentage yield is:",
+      "options": [
+        "80%",
+        "125%",
+        "20%",
+        "8%"
+      ],
+      "answerIndex": 0,
+      "solution": "Percentage yield = (experimental yield ÷ theoretical yield) × 100 = (8.0 ÷ 10.0) × 100 = 80%. A percentage yield above 100% means the product is wet or impure, not that extra matter was created.",
+      "marking_points": [
+        {
+          "text": "80% selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-gen-a-01",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Which of the following sets of quantum numbers is NOT possible?",
+      "options": [
+        "n = 3, l = 2, m = −2",
+        "n = 2, l = 1, m = 0",
+        "n = 2, l = 2, m = 1",
+        "n = 4, l = 0, m = 0"
+      ],
+      "answerIndex": 2,
+      "solution": "The azimuthal quantum number l may take values from 0 to (n − 1). For n = 2 the allowed values are l = 0 and l = 1, so l = 2 is impossible.",
+      "marking_points": [
+        {
+          "text": "n = 2, l = 2, m = 1 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-gen-a-02",
+      "subject": "Chemistry",
+      "unit": "Oxidation and reduction",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The oxidation number of sulphur in H₂SO₄ is:",
+      "options": [
+        "+2",
+        "+4",
+        "+6",
+        "−2"
+      ],
+      "answerIndex": 2,
+      "solution": "Taking H as +1 and O as −2 and setting the sum to zero: 2(+1) + x + 4(−2) = 0, so x − 6 = 0 and x = +6.",
+      "marking_points": [
+        {
+          "text": "+6 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-gen-a-03",
+      "subject": "Chemistry",
+      "unit": "Chemical bonding and shapes of molecules",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "According to VSEPR theory the shape of the ammonia molecule, NH₃, is:",
+      "options": [
+        "tetrahedral",
+        "trigonal planar",
+        "pyramidal",
+        "bent"
+      ],
+      "answerIndex": 2,
+      "solution": "Nitrogen has three bond pairs and one lone pair. The four electron pairs arrange tetrahedrally, but the shape is named from the atom positions only, so NH₃ is pyramidal with a bond angle of about 107°.",
+      "marking_points": [
+        {
+          "text": "pyramidal selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-gen-a-04",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Under identical conditions the ratio of the rate of diffusion of hydrogen to that of oxygen is: (H = 1, O = 16)",
+      "options": [
+        "4 : 1",
+        "1 : 4",
+        "16 : 1",
+        "1 : 16"
+      ],
+      "answerIndex": 0,
+      "solution": "Graham's law: r ∝ 1 ÷ √M. r(H₂) ÷ r(O₂) = √(M(O₂) ÷ M(H₂)) = √(32 ÷ 2) = √16 = 4, so the ratio is 4 : 1.",
+      "marking_points": [
+        {
+          "text": "4 : 1 selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-b-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Calcium carbonate decomposes on strong heating: CaCO₃ → CaO + CO₂. Calculate the mass of carbon dioxide obtained when 50 g of calcium carbonate is completely decomposed. (Ca = 40, C = 12, O = 16)",
+      "solution": "Balanced equation: CaCO₃ → CaO + CO₂, a 1 : 1 mole ratio. M(CaCO₃) = 40 + 12 + 3(16) = 100 g mol⁻¹. n(CaCO₃) = 50 ÷ 100 = 0.5 mol. From the equation n(CO₂) = 0.5 mol. M(CO₂) = 44 g mol⁻¹, so m(CO₂) = 0.5 × 44 = 22 g.",
+      "marking_points": [
+        {
+          "text": "Balanced equation written",
+          "marks": 1
+        },
+        {
+          "text": "M(CaCO₃) = 100 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "n(CaCO₃) = 0.5 mol",
+          "marks": 1
+        },
+        {
+          "text": "Mole ratio 1 : 1 used to get n(CO₂) = 0.5 mol",
+          "marks": 1
+        },
+        {
+          "text": "m(CO₂) = 22 g, with the unit",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S02"
+      ]
+    },
+    {
+      "id": "chem-sto-b-02",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "28 g of nitrogen is mixed with 9 g of hydrogen and allowed to react: N₂ + 3H₂ → 2NH₃. Identify the limiting reactant, calculate the mass of ammonia formed and the mass of the reactant left unreacted. (N = 14, H = 1)",
+      "solution": "n(N₂) = 28 ÷ 28 = 1 mol; n(H₂) = 9 ÷ 2 = 4.5 mol. Divide by the coefficients: N₂ → 1 ÷ 1 = 1; H₂ → 4.5 ÷ 3 = 1.5. N₂ gives the smaller value, so nitrogen is limiting. n(NH₃) = 2 × 1 = 2 mol, m(NH₃) = 2 × 17 = 34 g. H₂ used = 3 × 1 = 3 mol, so H₂ left = 4.5 − 3 = 1.5 mol = 1.5 × 2 = 3 g.",
+      "marking_points": [
+        {
+          "text": "n(N₂) = 1 mol and n(H₂) = 4.5 mol",
+          "marks": 1
+        },
+        {
+          "text": "Moles divided by coefficients — not masses compared",
+          "marks": 1
+        },
+        {
+          "text": "N₂ identified as the limiting reactant",
+          "marks": 1
+        },
+        {
+          "text": "m(NH₃) = 34 g",
+          "marks": 1
+        },
+        {
+          "text": "3 g of H₂ left unreacted",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S03",
+        "CH-S04"
+      ]
+    },
+    {
+      "id": "chem-sto-b-03",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "An organic compound contains carbon 40.0%, hydrogen 6.7% and oxygen 53.3% by mass. Its molecular mass is 180 amu. Determine its empirical formula and its molecular formula. (C = 12, H = 1, O = 16)",
+      "solution": "Take 100 g of the compound. Moles: C = 40.0 ÷ 12 = 3.33; H = 6.7 ÷ 1 = 6.7; O = 53.3 ÷ 16 = 3.33. Divide by the smallest, 3.33: C = 1, H = 2, O = 1, so the empirical formula is CH₂O. Empirical formula mass = 12 + 2 + 16 = 30. n = 180 ÷ 30 = 6, so the molecular formula is C₆H₁₂O₆.",
+      "marking_points": [
+        {
+          "text": "Percentages taken as grams in a 100 g sample",
+          "marks": 1
+        },
+        {
+          "text": "Moles of each element calculated",
+          "marks": 1
+        },
+        {
+          "text": "Divided by the smallest to give the ratio 1 : 2 : 1",
+          "marks": 1
+        },
+        {
+          "text": "Empirical formula CH₂O stated",
+          "marks": 1
+        },
+        {
+          "text": "n = 180 ÷ 30 = 6 and molecular formula C₆H₁₂O₆",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-b-04",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "5.0 g of calcium carbonate is heated strongly and 1.87 g of carbon dioxide is collected. Calculate the theoretical yield of carbon dioxide and the percentage yield of the reaction. (Ca = 40, C = 12, O = 16)",
+      "solution": "CaCO₃ → CaO + CO₂. n(CaCO₃) = 5.0 ÷ 100 = 0.05 mol, so theoretically n(CO₂) = 0.05 mol and m(CO₂) = 0.05 × 44 = 2.2 g. Percentage yield = (experimental ÷ theoretical) × 100 = (1.87 ÷ 2.2) × 100 = 85%.",
+      "marking_points": [
+        {
+          "text": "Balanced equation and 1 : 1 mole ratio",
+          "marks": 1
+        },
+        {
+          "text": "n(CaCO₃) = 0.05 mol",
+          "marks": 1
+        },
+        {
+          "text": "Theoretical yield of CO₂ = 2.2 g",
+          "marks": 1
+        },
+        {
+          "text": "Percentage yield formula quoted",
+          "marks": 1
+        },
+        {
+          "text": "Percentage yield = 85%",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-b-05",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "For 8.5 g of ammonia gas, NH₃, calculate (i) the number of moles, (ii) the number of molecules, (iii) the number of hydrogen atoms and (iv) the volume it occupies at STP. (N = 14, H = 1)",
+      "solution": "M(NH₃) = 14 + 3(1) = 17 g mol⁻¹. (i) n = 8.5 ÷ 17 = 0.5 mol. (ii) molecules = 0.5 × 6.022 × 10²³ = 3.011 × 10²³. (iii) each molecule has 3 H atoms, so H atoms = 3 × 3.011 × 10²³ = 9.03 × 10²³. (iv) at STP V = 0.5 × 22.4 = 11.2 L.",
+      "marking_points": [
+        {
+          "text": "M(NH₃) = 17 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "n = 0.5 mol",
+          "marks": 1
+        },
+        {
+          "text": "3.011 × 10²³ molecules",
+          "marks": 1
+        },
+        {
+          "text": "9.03 × 10²³ hydrogen atoms",
+          "marks": 1
+        },
+        {
+          "text": "V = 11.2 L at STP, with the unit",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04"
+      ]
+    },
+    {
+      "id": "chem-sto-b-06",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "State Avogadro's law. 0.44 g of a gaseous compound occupies 224 cm³ at STP. Calculate its molar mass and its vapour density.",
+      "solution": "Avogadro's law: equal volumes of all gases, under the same conditions of temperature and pressure, contain equal numbers of molecules. 224 cm³ = 0.224 L, so n = 0.224 ÷ 22.4 = 0.01 mol. M = m ÷ n = 0.44 ÷ 0.01 = 44 g mol⁻¹. Vapour density = M ÷ 2 = 44 ÷ 2 = 22.",
+      "marking_points": [
+        {
+          "text": "Avogadro's law stated correctly",
+          "marks": 1
+        },
+        {
+          "text": "Volume converted to 0.224 L",
+          "marks": 1
+        },
+        {
+          "text": "n = 0.01 mol using the molar volume at STP",
+          "marks": 1
+        },
+        {
+          "text": "M = 44 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "Vapour density = 22",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-b-07",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Zinc reacts with dilute hydrochloric acid: Zn + 2HCl → ZnCl₂ + H₂. Calculate the mass of zinc required to produce 2.24 L of hydrogen at STP and the mass of hydrogen chloride consumed. (Zn = 65, H = 1, Cl = 35.5)",
+      "solution": "n(H₂) = 2.24 ÷ 22.4 = 0.1 mol. From the equation, n(Zn) = n(H₂) = 0.1 mol, so m(Zn) = 0.1 × 65 = 6.5 g. n(HCl) = 2 × 0.1 = 0.2 mol; M(HCl) = 1 + 35.5 = 36.5 g mol⁻¹, so m(HCl) = 0.2 × 36.5 = 7.3 g.",
+      "marking_points": [
+        {
+          "text": "n(H₂) = 0.1 mol from the molar volume at STP",
+          "marks": 1
+        },
+        {
+          "text": "Mole ratio Zn : H₂ = 1 : 1 used",
+          "marks": 1
+        },
+        {
+          "text": "m(Zn) = 6.5 g",
+          "marks": 1
+        },
+        {
+          "text": "n(HCl) = 0.2 mol from the 2 : 1 ratio",
+          "marks": 1
+        },
+        {
+          "text": "m(HCl) = 7.3 g, with the unit",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S01"
+      ]
+    },
+    {
+      "id": "chem-sto-b-08",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "State the law of conservation of mass and the law of definite proportions. 1.000 g of pure water was completely decomposed and gave 0.111 g of hydrogen and 0.889 g of oxygen. Show that both laws are satisfied by this result.",
+      "solution": "Law of conservation of mass: matter is neither created nor destroyed in a chemical change, so the total mass of the products equals the total mass of the reactants. Law of definite proportions: a pure compound always contains the same elements combined in the same fixed proportion by mass. Check 1: 0.111 + 0.889 = 1.000 g, equal to the mass of water taken, so mass is conserved. Check 2: mass ratio H : O = 0.111 : 0.889 = 1 : 8, the fixed ratio found in every sample of pure water.",
+      "marking_points": [
+        {
+          "text": "Law of conservation of mass stated",
+          "marks": 1
+        },
+        {
+          "text": "Law of definite proportions stated",
+          "marks": 1
+        },
+        {
+          "text": "Product masses added to 1.000 g",
+          "marks": 1
+        },
+        {
+          "text": "Mass ratio H : O calculated as 1 : 8",
+          "marks": 1
+        },
+        {
+          "text": "Both laws explicitly concluded to be satisfied",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-b-09",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A student writes \"one mole of any substance occupies 22.4 litres\". Explain why this statement is wrong and state the exact conditions under which 22.4 L applies. Hence calculate the volume occupied by 3.2 g of oxygen gas at STP and the number of molecules it contains. (O = 16)",
+      "solution": "The molar volume 22.4 L belongs to gases only, and only at STP — 273 K and 1 atm. Solids and liquids have volumes fixed by their densities, and a gas at any other temperature or pressure has a different molar volume. n(O₂) = 3.2 ÷ 32 = 0.1 mol. V = 0.1 × 22.4 = 2.24 L at STP. Molecules = 0.1 × 6.022 × 10²³ = 6.022 × 10²².",
+      "marking_points": [
+        {
+          "text": "Statement identified as true only for gases",
+          "marks": 1
+        },
+        {
+          "text": "STP conditions 273 K and 1 atm stated",
+          "marks": 1
+        },
+        {
+          "text": "n(O₂) = 0.1 mol",
+          "marks": 1
+        },
+        {
+          "text": "V = 2.24 L at STP",
+          "marks": 1
+        },
+        {
+          "text": "6.022 × 10²² molecules",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M06"
+      ]
+    },
+    {
+      "id": "chem-sto-b-10",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "16 g of methane is burnt in 48 g of oxygen: CH₄ + 2O₂ → CO₂ + 2H₂O. Identify the limiting reactant, calculate the mass of carbon dioxide formed and the mass of the excess reactant remaining. (C = 12, H = 1, O = 16)",
+      "solution": "n(CH₄) = 16 ÷ 16 = 1 mol; n(O₂) = 48 ÷ 32 = 1.5 mol. Divide by the coefficients: CH₄ → 1 ÷ 1 = 1; O₂ → 1.5 ÷ 2 = 0.75. Oxygen gives the smaller value, so O₂ is limiting although it is the heavier sample. n(CO₂) = 1.5 ÷ 2 = 0.75 mol, m(CO₂) = 0.75 × 44 = 33 g. CH₄ used = 0.75 mol, so CH₄ left = 1 − 0.75 = 0.25 mol = 0.25 × 16 = 4 g.",
+      "marking_points": [
+        {
+          "text": "Moles of both reactants found",
+          "marks": 1
+        },
+        {
+          "text": "Moles divided by coefficients",
+          "marks": 1
+        },
+        {
+          "text": "O₂ identified as limiting despite its larger mass",
+          "marks": 1
+        },
+        {
+          "text": "m(CO₂) = 33 g",
+          "marks": 1
+        },
+        {
+          "text": "4 g of CH₄ left over",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S03",
+        "CH-S04"
+      ]
+    },
+    {
+      "id": "chem-sto-b-11",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Define the mole. Calculate the number of moles, the number of molecules and the total number of atoms present in 9.8 g of sulphuric acid, H₂SO₄. (H = 1, S = 32, O = 16)",
+      "solution": "The mole is the SI unit of amount of substance; one mole contains 6.022 × 10²³ elementary particles. M(H₂SO₄) = 2(1) + 32 + 4(16) = 98 g mol⁻¹. n = 9.8 ÷ 98 = 0.1 mol. Molecules = 0.1 × 6.022 × 10²³ = 6.022 × 10²². Each molecule has 2 + 1 + 4 = 7 atoms, so atoms = 0.7 × 6.022 × 10²³ = 4.22 × 10²³.",
+      "marking_points": [
+        {
+          "text": "Mole defined as the SI unit of amount of substance",
+          "marks": 1
+        },
+        {
+          "text": "M(H₂SO₄) = 98 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "n = 0.1 mol",
+          "marks": 1
+        },
+        {
+          "text": "6.022 × 10²² molecules",
+          "marks": 1
+        },
+        {
+          "text": "4.22 × 10²³ atoms in total",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04",
+        "CH-M05"
+      ]
+    },
+    {
+      "id": "chem-sto-b-12",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Calculate the mass of oxygen required for the complete combustion of 4.4 g of propane, and the mass of carbon dioxide produced: C₃H₈ + 5O₂ → 3CO₂ + 4H₂O. (C = 12, H = 1, O = 16)",
+      "solution": "M(C₃H₈) = 3(12) + 8(1) = 44 g mol⁻¹, so n(C₃H₈) = 4.4 ÷ 44 = 0.1 mol. From the equation n(O₂) = 5 × 0.1 = 0.5 mol, m(O₂) = 0.5 × 32 = 16 g. n(CO₂) = 3 × 0.1 = 0.3 mol, m(CO₂) = 0.3 × 44 = 13.2 g.",
+      "marking_points": [
+        {
+          "text": "M(C₃H₈) = 44 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "n(C₃H₈) = 0.1 mol",
+          "marks": 1
+        },
+        {
+          "text": "Mole ratios 1 : 5 : 3 read off the balanced equation",
+          "marks": 1
+        },
+        {
+          "text": "m(O₂) = 16 g",
+          "marks": 1
+        },
+        {
+          "text": "m(CO₂) = 13.2 g, with the unit",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S02"
+      ]
+    },
+    {
+      "id": "chem-sto-b-13",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Calculate the percentage composition by mass of calcium carbonate, CaCO₃, and hence the mass of calcium present in 25 g of the compound. (Ca = 40, C = 12, O = 16)",
+      "solution": "M(CaCO₃) = 40 + 12 + 3(16) = 100 g mol⁻¹. Ca = (40 ÷ 100) × 100 = 40%; C = (12 ÷ 100) × 100 = 12%; O = (48 ÷ 100) × 100 = 48%. The three add to 100%, which is the check. Mass of calcium in 25 g = 0.40 × 25 = 10 g.",
+      "marking_points": [
+        {
+          "text": "M(CaCO₃) = 100 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "Ca = 40%",
+          "marks": 1
+        },
+        {
+          "text": "C = 12%",
+          "marks": 1
+        },
+        {
+          "text": "O = 48% and the percentages checked to add to 100%",
+          "marks": 1
+        },
+        {
+          "text": "Mass of calcium in 25 g = 10 g",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-c-01",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "(a) Define mole, molar mass and Avogadro's number. (b) 5.6 L of a gas at STP weighs 11 g. Calculate its molar mass and its vapour density. (c) Calculate the mass of sodium carbonate, Na₂CO₃, that contains the same number of oxygen atoms as 27 g of water. (Na = 23, C = 12, O = 16, H = 1)",
+      "solution": "(a) The mole is the SI unit of amount of substance: one mole contains 6.022 × 10²³ elementary particles. Molar mass is the mass of one mole of a substance, in g mol⁻¹. Avogadro's number, Nₐ = 6.022 × 10²³, is the number of particles in one mole. (b) n = 5.6 ÷ 22.4 = 0.25 mol; M = 11 ÷ 0.25 = 44 g mol⁻¹; vapour density = 44 ÷ 2 = 22. (c) n(H₂O) = 27 ÷ 18 = 1.5 mol, and each molecule holds 1 oxygen atom, so oxygen atoms = 1.5 mol. Na₂CO₃ holds 3 oxygen atoms per formula unit, so n(Na₂CO₃) = 1.5 ÷ 3 = 0.5 mol. M(Na₂CO₃) = 2(23) + 12 + 3(16) = 106 g mol⁻¹, so m = 0.5 × 106 = 53 g.",
+      "marking_points": [
+        {
+          "text": "Mole defined as the SI unit of amount of substance",
+          "marks": 1
+        },
+        {
+          "text": "Molar mass defined with the unit g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "Avogadro's number stated as 6.022 × 10²³",
+          "marks": 1
+        },
+        {
+          "text": "n = 0.25 mol from the molar volume at STP",
+          "marks": 1
+        },
+        {
+          "text": "M = 44 g mol⁻¹ and vapour density = 22",
+          "marks": 1
+        },
+        {
+          "text": "Moles of oxygen atoms in 27 g of water = 1.5 mol",
+          "marks": 1
+        },
+        {
+          "text": "n(Na₂CO₃) = 0.5 mol using 3 oxygen atoms per formula unit",
+          "marks": 1
+        },
+        {
+          "text": "m(Na₂CO₃) = 53 g, with the unit",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-M04",
+        "CH-M03"
+      ]
+    },
+    {
+      "id": "chem-sto-c-02",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "(a) State the law of multiple proportions and illustrate it with the oxides of nitrogen. (b) A 2.50 g sample of limestone ore was heated strongly until no further loss of mass occurred; the residue weighed 1.84 g. Calculate the percentage of calcium carbonate in the ore. (c) Calculate the volume of carbon dioxide evolved, measured at STP. (Ca = 40, C = 12, O = 16)",
+      "solution": "(a) When two elements combine to form more than one compound, the masses of one element that combine with a fixed mass of the other bear a simple whole-number ratio. In N₂O, NO, N₂O₃ and NO₂ the masses of oxygen combining with a fixed 28 g of nitrogen are 16, 32, 48 and 64 g, the ratio 1 : 2 : 3 : 4. (b) CaCO₃ → CaO + CO₂. Loss in mass = mass of CO₂ = 2.50 − 1.84 = 0.66 g. n(CO₂) = 0.66 ÷ 44 = 0.015 mol, so n(CaCO₃) = 0.015 mol and m(CaCO₃) = 0.015 × 100 = 1.5 g. Percentage = (1.5 ÷ 2.50) × 100 = 60%. (c) V = 0.015 × 22.4 = 0.336 L = 336 cm³ at STP.",
+      "marking_points": [
+        {
+          "text": "Law of multiple proportions stated",
+          "marks": 1
+        },
+        {
+          "text": "Oxides of nitrogen used as the illustration with the ratio shown",
+          "marks": 1
+        },
+        {
+          "text": "Balanced decomposition equation written",
+          "marks": 1
+        },
+        {
+          "text": "Loss in mass identified as CO₂ = 0.66 g",
+          "marks": 1
+        },
+        {
+          "text": "n(CO₂) = 0.015 mol",
+          "marks": 1
+        },
+        {
+          "text": "m(CaCO₃) = 1.5 g from the 1 : 1 mole ratio",
+          "marks": 1
+        },
+        {
+          "text": "Percentage of CaCO₃ = 60%",
+          "marks": 1
+        },
+        {
+          "text": "V(CO₂) = 336 cm³ at STP, with the unit",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-c-03",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "(a) Distinguish between empirical formula and molecular formula with one example. (b) An organic compound on analysis gave C = 26.7%, H = 2.2% and O = 71.1% by mass, and its vapour density is 45. Determine its empirical and molecular formulae. (c) State one thing the molecular formula tells you that the empirical formula does not. (C = 12, H = 1, O = 16)",
+      "solution": "(a) The empirical formula gives the simplest whole-number ratio of the atoms present; the molecular formula gives the actual number of atoms in one molecule. For glucose the empirical formula is CH₂O and the molecular formula is C₆H₁₂O₆. (b) Taking 100 g: C = 26.7 ÷ 12 = 2.225; H = 2.2 ÷ 1 = 2.2; O = 71.1 ÷ 16 = 4.444. Dividing by 2.2 gives C = 1.01, H = 1.00, O = 2.02, that is 1 : 1 : 2, so the empirical formula is CHO₂ with an empirical formula mass of 12 + 1 + 32 = 45. Molar mass = 2 × vapour density = 90 g mol⁻¹, so n = 90 ÷ 45 = 2 and the molecular formula is C₂H₂O₄. (c) The molecular formula fixes the real molar mass of the molecule, so it can be used directly in mole calculations; the empirical formula cannot, because many different molecules share one empirical formula.",
+      "marking_points": [
+        {
+          "text": "Empirical formula defined",
+          "marks": 1
+        },
+        {
+          "text": "Molecular formula defined and an example given",
+          "marks": 1
+        },
+        {
+          "text": "Moles of C, H and O calculated from the percentages",
+          "marks": 1
+        },
+        {
+          "text": "Ratio reduced to 1 : 1 : 2",
+          "marks": 1
+        },
+        {
+          "text": "Empirical formula CHO₂ with formula mass 45",
+          "marks": 1
+        },
+        {
+          "text": "Molar mass = 2 × vapour density = 90 g mol⁻¹",
+          "marks": 1
+        },
+        {
+          "text": "n = 2 and molecular formula C₂H₂O₄",
+          "marks": 1
+        },
+        {
+          "text": "One valid distinction stated in part (c)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "chem-sto-c-04",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "(a) What is meant by a limiting reactant, and why is the percentage yield of a reaction usually less than 100%? (b) 42 g of nitrogen is mixed with 12 g of hydrogen and allowed to react: N₂ + 3H₂ → 2NH₃. Identify the limiting reactant and calculate the theoretical mass of ammonia and the mass of the excess reactant left. (c) If 40.8 g of ammonia is actually obtained, calculate the percentage yield. (N = 14, H = 1)",
+      "solution": "(a) The limiting reactant is the reactant that is completely used up first and therefore fixes the maximum amount of product; the others are in excess. Yields fall below 100% because reactions may be reversible or incomplete, side reactions consume reactants, and product is lost in filtering, transferring and drying. (b) n(N₂) = 42 ÷ 28 = 1.5 mol; n(H₂) = 12 ÷ 2 = 6 mol. Divide by coefficients: N₂ → 1.5; H₂ → 6 ÷ 3 = 2. N₂ is limiting. n(NH₃) = 2 × 1.5 = 3 mol, so theoretical m(NH₃) = 3 × 17 = 51 g. H₂ used = 3 × 1.5 = 4.5 mol, so H₂ left = 6 − 4.5 = 1.5 mol = 3 g. (c) Percentage yield = (40.8 ÷ 51) × 100 = 80%.",
+      "marking_points": [
+        {
+          "text": "Limiting reactant defined",
+          "marks": 1
+        },
+        {
+          "text": "Two valid reasons for a yield below 100%",
+          "marks": 1
+        },
+        {
+          "text": "n(N₂) = 1.5 mol and n(H₂) = 6 mol",
+          "marks": 1
+        },
+        {
+          "text": "Moles divided by coefficients and N₂ identified as limiting",
+          "marks": 1
+        },
+        {
+          "text": "Theoretical n(NH₃) = 3 mol",
+          "marks": 1
+        },
+        {
+          "text": "Theoretical mass of ammonia = 51 g",
+          "marks": 1
+        },
+        {
+          "text": "3 g of hydrogen left unreacted",
+          "marks": 1
+        },
+        {
+          "text": "Percentage yield = 80%",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "CH-S03",
+        "CH-S07"
+      ]
+    },
+    {
+      "id": "phy-pq-a-01",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The number of significant figures in the measurement 0.00520 m is:",
+      "options": [
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "answerIndex": 1,
+      "solution": "Leading zeros only fix the decimal point and are never significant, so 0, 0 and 0 before the 5 do not count. The digits 5, 2 and the trailing 0 after the decimal point do count, giving 3 significant figures. Written in scientific notation the measurement is 5.20 × 10⁻³ m, which shows the three figures directly.",
+      "marking_points": [
+        {
+          "text": "3 selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U05"
+      ]
+    },
+    {
+      "id": "phy-pq-a-02",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The dimensional formula of the coefficient of viscosity is:",
+      "options": [
+        "[MLT⁻¹]",
+        "[ML⁻¹T⁻¹]",
+        "[ML⁻¹T⁻²]",
+        "[MLT⁻²]"
+      ],
+      "answerIndex": 1,
+      "solution": "From F = ηA(dv/dx), η = F ÷ (A × velocity gradient). [F] = MLT⁻², [A] = L², velocity gradient has dimensions T⁻¹. So [η] = MLT⁻² ÷ (L² × T⁻¹) = ML⁻¹T⁻¹.",
+      "marking_points": [
+        {
+          "text": "[ML⁻¹T⁻¹] selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-03",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A vernier calliper has 10 vernier divisions coinciding with 9 main-scale divisions, the main scale being graduated in millimetres. Its least count is:",
+      "options": [
+        "0.1 cm",
+        "0.01 cm",
+        "0.001 cm",
+        "1 cm"
+      ],
+      "answerIndex": 1,
+      "solution": "Least count = value of one main-scale division ÷ number of vernier divisions = 1 mm ÷ 10 = 0.1 mm = 0.01 cm.",
+      "marking_points": [
+        {
+          "text": "0.01 cm selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-04",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Which of the following quantities is dimensionless?",
+      "options": [
+        "strain",
+        "stress",
+        "pressure",
+        "force constant"
+      ],
+      "answerIndex": 0,
+      "solution": "Strain is a change in length divided by the original length, so the dimensions cancel: [L] ÷ [L] = [M⁰L⁰T⁰]. Stress and pressure are both ML⁻¹T⁻², and the force constant is MT⁻².",
+      "marking_points": [
+        {
+          "text": "strain selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-05",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A rectangle measures 2.34 m by 1.2 m. Its area, written to the correct number of significant figures, is:",
+      "options": [
+        "2.808 m²",
+        "2.81 m²",
+        "2.8 m²",
+        "3 m²"
+      ],
+      "answerIndex": 2,
+      "solution": "The arithmetic gives 2.34 × 1.2 = 2.808 m². In multiplication the answer carries as many significant figures as the least precise factor, and 1.2 has only 2, so the area is written 2.8 m².",
+      "marking_points": [
+        {
+          "text": "2.8 m² selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U05"
+      ]
+    },
+    {
+      "id": "phy-pq-a-06",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A screw gauge has a pitch of 1 mm and 100 divisions on its circular scale. Its least count is:",
+      "options": [
+        "0.1 mm",
+        "0.01 mm",
+        "0.001 mm",
+        "0.05 mm"
+      ],
+      "answerIndex": 1,
+      "solution": "Least count = pitch ÷ number of circular-scale divisions = 1 mm ÷ 100 = 0.01 mm.",
+      "marking_points": [
+        {
+          "text": "0.01 mm selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-07",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "One nanometre expressed in metres is:",
+      "options": [
+        "1 × 10⁻⁶ m",
+        "1 × 10⁻⁹ m",
+        "1 × 10⁻¹² m",
+        "1 × 10⁻³ m"
+      ],
+      "answerIndex": 1,
+      "solution": "The SI prefix nano stands for a factor of 10⁻⁹, so 1 nm = 1 × 10⁻⁹ m. Micro is 10⁻⁶, pico is 10⁻¹² and milli is 10⁻³.",
+      "marking_points": [
+        {
+          "text": "1 × 10⁻⁹ m selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-08",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Which pair of physical quantities has the same dimensional formula?",
+      "options": [
+        "work and power",
+        "work and torque",
+        "force and momentum",
+        "pressure and force"
+      ],
+      "answerIndex": 1,
+      "solution": "Work = force × distance and torque = force × perpendicular distance, so both are ML²T⁻². Power is ML²T⁻³, momentum is MLT⁻¹ and pressure is ML⁻¹T⁻², none of which match their partners.",
+      "marking_points": [
+        {
+          "text": "work and torque selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-a-09",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "knowledge",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Which of the following is a base (fundamental) unit in the SI system?",
+      "options": [
+        "newton",
+        "joule",
+        "kelvin",
+        "watt"
+      ],
+      "answerIndex": 2,
+      "solution": "The kelvin is the SI base unit of thermodynamic temperature. The newton, joule and watt are all derived units, built from the base units kilogram, metre and second.",
+      "marking_points": [
+        {
+          "text": "kelvin selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-gen-a-01",
+      "subject": "Physics",
+      "unit": "Vectors",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "Two forces of 3 N and 4 N act on a body at right angles to each other. The magnitude of their resultant is:",
+      "options": [
+        "1 N",
+        "5 N",
+        "7 N",
+        "12 N"
+      ],
+      "answerIndex": 1,
+      "solution": "For two perpendicular vectors R = √(P² + Q²) = √(3² + 4²) = √25 = 5 N. Forces add as vectors, so 3 N and 4 N give 7 N only when they act along the same line and in the same direction.",
+      "marking_points": [
+        {
+          "text": "5 N selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-gen-a-02",
+      "subject": "Physics",
+      "unit": "Thermal expansion",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "understanding",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The coefficient of superficial expansion β of a solid is related to its coefficient of linear expansion α by:",
+      "options": [
+        "β = α ÷ 2",
+        "β = 2α",
+        "β = 3α",
+        "β = α²"
+      ],
+      "answerIndex": 1,
+      "solution": "Area involves two dimensions of length, so β = 2α; volume involves three, so the cubical coefficient γ = 3α. These hold for small temperature changes where terms in α² are negligible.",
+      "marking_points": [
+        {
+          "text": "β = 2α selected",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-gen-a-03",
+      "subject": "Physics",
+      "unit": "Lenses",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "A",
+      "marks": 1,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "A converging lens has a focal length of 25 cm. Its power is:",
+      "options": [
+        "+4 D",
+        "−4 D",
+        "+0.25 D",
+        "+2.5 D"
+      ],
+      "answerIndex": 0,
+      "solution": "Power P = 1 ÷ f with f in metres. f = 25 cm = 0.25 m, so P = 1 ÷ 0.25 = +4 D. The sign is positive because the lens is converging.",
+      "marking_points": [
+        {
+          "text": "+4 D selected",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U01"
+      ]
+    },
+    {
+      "id": "phy-pq-b-01",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "State the principle of homogeneity of dimensions. Use it to check whether the equation v² = u² + 2as is dimensionally correct. State two limitations of the method of dimensions.",
+      "solution": "Principle of homogeneity: every term on both sides of a physically correct equation must have the same dimensions. Dimensions of each term: [v²] = (LT⁻¹)² = L²T⁻²; [u²] = L²T⁻²; [2as] = (LT⁻²)(L) = L²T⁻², since the pure number 2 is dimensionless. All three terms are L²T⁻², so the equation is dimensionally correct. Limitations: the method cannot find the value of a dimensionless constant such as ½ or 2π, and it cannot check equations containing trigonometric, exponential or logarithmic functions or sums of terms of the same dimension.",
+      "marking_points": [
+        {
+          "text": "Principle of homogeneity stated",
+          "marks": 1
+        },
+        {
+          "text": "[v²] = L²T⁻² obtained",
+          "marks": 1
+        },
+        {
+          "text": "[2as] = L²T⁻² obtained, the number 2 treated as dimensionless",
+          "marks": 1
+        },
+        {
+          "text": "Conclusion that the equation is dimensionally correct",
+          "marks": 1
+        },
+        {
+          "text": "Two valid limitations stated",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U07"
+      ]
+    },
+    {
+      "id": "phy-pq-b-02",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "The time period T of a simple pendulum depends on its length l and the acceleration due to gravity g. Using the method of dimensions, obtain an expression for T. Explain why the method cannot give the numerical value of the constant.",
+      "solution": "Let T = k lᵃ gᵇ, where k is a dimensionless constant. Writing dimensions: T¹ = Lᵃ (LT⁻²)ᵇ, so the power of L on the right is (a + b) and the power of T is (−2b). Comparing powers of T: 1 = −2b, so b = −½. Comparing powers of L: 0 = a + b, so a = +½. Hence T = k √(l ÷ g), and experiment gives k = 2π. The method compares dimensions only, and a pure number has no dimensions, so any dimensionless constant is invisible to it and must come from experiment or from a full derivation.",
+      "marking_points": [
+        {
+          "text": "T = k lᵃ gᵇ assumed with k dimensionless",
+          "marks": 1
+        },
+        {
+          "text": "Dimensions substituted correctly",
+          "marks": 1
+        },
+        {
+          "text": "Powers of T compared to give b = −½",
+          "marks": 1
+        },
+        {
+          "text": "Powers of L compared to give a = +½, hence T = k √(l ÷ g)",
+          "marks": 1
+        },
+        {
+          "text": "Reason given: a dimensionless constant leaves no dimensional trace",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-b-03",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Distinguish between precision and accuracy. The length of a rod measured five times gives 10.2, 10.3, 10.1, 10.2 and 10.2 cm. Calculate the mean length, the mean absolute error and the percentage error.",
+      "solution": "Accuracy is how close a reading is to the true value; precision is how closely repeated readings agree with one another, which is set by the least count of the instrument. A set of readings can be precise and still be inaccurate if the instrument has a zero error. Mean = (10.2 + 10.3 + 10.1 + 10.2 + 10.2) ÷ 5 = 51.0 ÷ 5 = 10.2 cm. Absolute errors: 0, 0.1, 0.1, 0, 0 cm. Mean absolute error = 0.2 ÷ 5 = 0.04 cm. Percentage error = (0.04 ÷ 10.2) × 100 = 0.39%.",
+      "marking_points": [
+        {
+          "text": "Accuracy and precision distinguished",
+          "marks": 1
+        },
+        {
+          "text": "Mean length = 10.2 cm",
+          "marks": 1
+        },
+        {
+          "text": "Individual absolute errors listed",
+          "marks": 1
+        },
+        {
+          "text": "Mean absolute error = 0.04 cm",
+          "marks": 1
+        },
+        {
+          "text": "Percentage error = 0.39%",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-b-04",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The pressure P of a gas is given by P = (a − t²) ÷ (b x), where t is time and x is distance. Find the dimensional formulae of a and b.",
+      "solution": "Only quantities of the same dimensions may be subtracted, so [a] = [t²] = T². For the whole expression, [P] = [a] ÷ ([b][x]), so [b] = [a] ÷ ([P][x]). With [P] = ML⁻¹T⁻² and [x] = L, [b] = T² ÷ (ML⁻¹T⁻² × L) = T² ÷ (MT⁻²) = M⁻¹T⁴. So [a] = [M⁰L⁰T²] and [b] = [M⁻¹L⁰T⁴].",
+      "marking_points": [
+        {
+          "text": "Rule quoted that only like dimensions may be added or subtracted",
+          "marks": 1
+        },
+        {
+          "text": "[a] = T² obtained",
+          "marks": 1
+        },
+        {
+          "text": "[P] = ML⁻¹T⁻² written",
+          "marks": 1
+        },
+        {
+          "text": "[b] = [a] ÷ ([P][x]) set up",
+          "marks": 1
+        },
+        {
+          "text": "[b] = M⁻¹T⁴ obtained",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U07"
+      ]
+    },
+    {
+      "id": "phy-pq-b-05",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "Using the method of dimensions, convert a force of 1 newton into dyne, and state the general rule used for converting a physical quantity from one system of units into another.",
+      "solution": "A measurement is the product of a number and a unit, and that product is fixed: n₁u₁ = n₂u₂. Force has dimensions MLT⁻², so n₂ = n₁ (M₁ ÷ M₂)¹ (L₁ ÷ L₂)¹ (T₁ ÷ T₂)⁻². Taking system 1 as SI (kg, m, s) and system 2 as CGS (g, cm, s): M₁ ÷ M₂ = 1000, L₁ ÷ L₂ = 100, T₁ ÷ T₂ = 1. So n₂ = 1 × 1000 × 100 × 1 = 1 × 10⁵. Hence 1 N = 1 × 10⁵ dyne.",
+      "marking_points": [
+        {
+          "text": "n₁u₁ = n₂u₂ stated as the conversion rule",
+          "marks": 1
+        },
+        {
+          "text": "Dimensional formula of force written as MLT⁻²",
+          "marks": 1
+        },
+        {
+          "text": "Conversion equation set up with the correct powers",
+          "marks": 1
+        },
+        {
+          "text": "Ratios 1000, 100 and 1 substituted",
+          "marks": 1
+        },
+        {
+          "text": "1 N = 1 × 10⁵ dyne",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U01"
+      ]
+    },
+    {
+      "id": "phy-pq-b-06",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "Define the least count and the zero error of a vernier calliper. In one measurement the main scale reads 2.4 cm and the 6th vernier division coincides with a main-scale division; the least count is 0.01 cm. Find the observed reading. If the instrument has a zero error of +0.02 cm, find the corrected reading.",
+      "solution": "Least count is the smallest length the instrument can read, equal to one main-scale division divided by the number of vernier divisions. Zero error is the reading shown when the jaws are closed; it is a constant systematic error. Observed reading = main-scale reading + (coinciding vernier division × least count) = 2.4 + (6 × 0.01) = 2.4 + 0.06 = 2.46 cm. Corrected reading = observed reading − zero error = 2.46 − (+0.02) = 2.44 cm.",
+      "marking_points": [
+        {
+          "text": "Least count defined",
+          "marks": 1
+        },
+        {
+          "text": "Zero error defined as the reading with the jaws closed",
+          "marks": 1
+        },
+        {
+          "text": "Vernier contribution 6 × 0.01 = 0.06 cm",
+          "marks": 1
+        },
+        {
+          "text": "Observed reading = 2.46 cm",
+          "marks": 1
+        },
+        {
+          "text": "Corrected reading = 2.44 cm, the zero error subtracted with its sign",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U03"
+      ]
+    },
+    {
+      "id": "phy-pq-b-07",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "understanding",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "What are significant figures? Add the lengths 3.2 cm, 4.15 cm and 0.075 cm and write the sum to the correct number of significant figures. Express 0.000345 m in scientific notation and state how many significant figures it carries.",
+      "solution": "Significant figures are the digits in a measurement that are known reliably plus the first uncertain digit; they record how precise the instrument was. Sum = 3.2 + 4.15 + 0.075 = 7.425 cm. In addition and subtraction the answer keeps as many decimal places as the term with the fewest, and 3.2 cm has one, so the sum is written 7.4 cm. In scientific notation 0.000345 m = 3.45 × 10⁻⁴ m, which carries 3 significant figures.",
+      "marking_points": [
+        {
+          "text": "Significant figures defined",
+          "marks": 1
+        },
+        {
+          "text": "Arithmetic sum 7.425 cm obtained",
+          "marks": 1
+        },
+        {
+          "text": "Decimal-place rule for addition quoted",
+          "marks": 1
+        },
+        {
+          "text": "Sum written as 7.4 cm",
+          "marks": 1
+        },
+        {
+          "text": "3.45 × 10⁻⁴ m with 3 significant figures",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U05"
+      ]
+    },
+    {
+      "id": "phy-pq-b-08",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "B",
+      "marks": 5,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "The energy E of a photon is given by E = hν, where h is Planck's constant of dimensions [ML²T⁻¹] and ν is frequency. Show that the equation is dimensionally correct. Explain why a dimensionally correct equation need not be a physically correct one.",
+      "solution": "Dimensions of the right-hand side: [h][ν] = ML²T⁻¹ × T⁻¹ = ML²T⁻². Dimensions of the left-hand side: energy = work = force × distance = MLT⁻² × L = ML²T⁻². Both sides are ML²T⁻², so the equation is homogeneous and dimensionally correct. Dimensional correctness is only a necessary condition: the method cannot detect a missing or wrong dimensionless factor, so E = 2hν and E = hν ÷ 4π would pass the same test. It also cannot distinguish quantities that share dimensions, such as work and torque.",
+      "marking_points": [
+        {
+          "text": "[h][ν] evaluated as ML²T⁻²",
+          "marks": 1
+        },
+        {
+          "text": "Dimensions of energy derived as ML²T⁻²",
+          "marks": 1
+        },
+        {
+          "text": "Both sides compared and homogeneity concluded",
+          "marks": 1
+        },
+        {
+          "text": "Point made that dimensionless factors are invisible",
+          "marks": 1
+        },
+        {
+          "text": "Second valid reason, for example quantities sharing dimensions",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "phy-pq-c-01",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": false,
+      "has_diagram": false,
+      "held_out": true,
+      "text": "(a) What is meant by the dimensions of a physical quantity? (b) Explain the three main uses of the method of dimensions, with one example of each. (c) The frequency f of a stretched string depends on the tension F in it, its length l and its mass per unit length μ. Derive an expression for f by the method of dimensions. (d) State two limitations of the method.",
+      "solution": "(a) The dimensions of a physical quantity are the powers to which the base quantities mass, length and time must be raised to represent that quantity; for example force is [MLT⁻²]. (b) Uses: (i) checking the correctness of an equation by the principle of homogeneity, for example v² = u² + 2as, where every term is L²T⁻²; (ii) converting a quantity from one system of units to another, for example 1 N = 1 × 10⁵ dyne; (iii) deriving a relation among quantities when the dependence is known, for example the period of a simple pendulum. (c) Let f = k Fᵃ lᵇ μᶜ. Dimensions: [f] = T⁻¹, [F] = MLT⁻², [l] = L, [μ] = ML⁻¹. So T⁻¹ = (MLT⁻²)ᵃ Lᵇ (ML⁻¹)ᶜ, which gives the power of M as (a + c), the power of L as (a + b − c) and the power of T as (−2a). Comparing powers of T: −1 = −2a, so a = ½. Comparing powers of M: 0 = a + c, so c = −½. Comparing powers of L: 0 = a + b − c = ½ + b + ½, so b = −1. Hence f = (k ÷ l) √(F ÷ μ), and experiment gives k = ½ for the fundamental note. (d) It cannot determine dimensionless constants, and it fails for equations involving trigonometric, exponential or logarithmic functions; it also cannot decide between two quantities with identical dimensions, such as work and torque.",
+      "marking_points": [
+        {
+          "text": "Dimensions defined as powers of the base quantities",
+          "marks": 1
+        },
+        {
+          "text": "Use 1: checking homogeneity, with an example",
+          "marks": 1
+        },
+        {
+          "text": "Use 2: converting between systems of units, with an example",
+          "marks": 1
+        },
+        {
+          "text": "Use 3: deriving a relation, with an example",
+          "marks": 1
+        },
+        {
+          "text": "f = k Fᵃ lᵇ μᶜ set up and dimensions substituted",
+          "marks": 1
+        },
+        {
+          "text": "Powers of T and M compared to give a = ½ and c = −½",
+          "marks": 1
+        },
+        {
+          "text": "Powers of L compared to give b = −1 and f = (k ÷ l) √(F ÷ μ)",
+          "marks": 1
+        },
+        {
+          "text": "Two valid limitations stated",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U07"
+      ]
+    },
+    {
+      "id": "phy-pq-c-02",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "higher",
+      "is_numerical": true,
+      "has_diagram": false,
+      "held_out": false,
+      "text": "(a) State the rules for significant figures in multiplication or division and in addition or subtraction. (b) A rectangular block measures 2.15 cm by 1.2 cm by 0.945 cm. Calculate its volume to the correct number of significant figures. (c) The radius of a sphere is measured as 2.1 cm with an uncertainty of 0.1 cm. Calculate the percentage error in the radius and hence the percentage error in the calculated volume.",
+      "solution": "(a) In multiplication or division the result carries as many significant figures as the factor with the fewest. In addition or subtraction the result carries as many decimal places as the term with the fewest decimal places. Rounding is done only once, at the end. (b) V = 2.15 × 1.2 × 0.945 = 2.4381 cm³. The factor 1.2 has only 2 significant figures, so V = 2.4 cm³. (c) Percentage error in radius = (0.1 ÷ 2.1) × 100 = 4.76%. Volume V = (4 ÷ 3)πr³ depends on r³, so the fractional error is multiplied by 3: percentage error in volume = 3 × 4.76 = 14.3%.",
+      "marking_points": [
+        {
+          "text": "Multiplication and division rule stated",
+          "marks": 1
+        },
+        {
+          "text": "Addition and subtraction rule stated",
+          "marks": 1
+        },
+        {
+          "text": "Volume arithmetic 2.4381 cm³ shown",
+          "marks": 1
+        },
+        {
+          "text": "Least significant factor identified as 1.2 with 2 figures",
+          "marks": 1
+        },
+        {
+          "text": "Volume written as 2.4 cm³, with the unit",
+          "marks": 1
+        },
+        {
+          "text": "Percentage error in radius = 4.76%",
+          "marks": 1
+        },
+        {
+          "text": "Rule that a power multiplies the fractional error stated",
+          "marks": 1
+        },
+        {
+          "text": "Percentage error in volume = 14.3%",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U05"
+      ]
+    },
+    {
+      "id": "phy-pq-c-03",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "year": 2083,
+      "source": "authored",
+      "pattern_era": "post_2077",
+      "group": "C",
+      "marks": 8,
+      "cognitive": "application",
+      "is_numerical": true,
+      "has_diagram": true,
+      "held_out": false,
+      "text": "(a) What is meant by the least count of an instrument? (b) Explain how the least count of a vernier calliper and that of a screw gauge are obtained. (c) A screw gauge of pitch 0.5 mm has 50 divisions on its circular scale. While measuring the diameter of a wire the main scale reads 2.5 mm and the 27th circular division coincides with the reference line; the instrument has a zero error of −0.02 mm. Find the corrected diameter and hence the cross-sectional area of the wire, written to the correct number of significant figures.",
+      "solution": "(a) The least count is the smallest change in the measured quantity that the instrument can read; it fixes the precision of every reading taken with it. (b) For a vernier calliper, least count = value of one main-scale division ÷ number of vernier divisions, for example 1 mm ÷ 10 = 0.01 cm. For a screw gauge, pitch = distance the spindle advances in one complete rotation, and least count = pitch ÷ number of circular-scale divisions. (c) Least count = 0.5 ÷ 50 = 0.01 mm. Observed reading = 2.5 + (27 × 0.01) = 2.5 + 0.27 = 2.77 mm. Corrected diameter = observed − zero error = 2.77 − (−0.02) = 2.79 mm. Area = πd² ÷ 4 = 3.142 × (2.79)² ÷ 4 = 3.142 × 7.7841 ÷ 4 = 6.11 mm², that is 6.11 × 10⁻⁶ m² to 3 significant figures.",
+      "marking_points": [
+        {
+          "text": "Least count defined",
+          "marks": 1
+        },
+        {
+          "text": "Vernier least count rule given",
+          "marks": 1
+        },
+        {
+          "text": "Pitch defined and the screw-gauge least count rule given",
+          "marks": 1
+        },
+        {
+          "text": "Least count = 0.01 mm calculated",
+          "marks": 1
+        },
+        {
+          "text": "Observed reading = 2.77 mm",
+          "marks": 1
+        },
+        {
+          "text": "Zero error subtracted with its sign to give 2.79 mm",
+          "marks": 1
+        },
+        {
+          "text": "Area formula πd² ÷ 4 used",
+          "marks": 1
+        },
+        {
+          "text": "Area = 6.11 mm² = 6.11 × 10⁻⁶ m², to 3 significant figures",
+          "marks": 1
+        }
+      ],
+      "misconception_tags": [
+        "PH-U03",
+        "PH-U05"
+      ]
+    }
+  ]
+}

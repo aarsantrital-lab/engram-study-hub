@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>game layer tests · Engram</title>
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../css/components.css">
+<style>
+  body {
+    margin: 0; padding: 24px 16px 64px;
+    font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body);
+    background: var(--bg); color: var(--fg);
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: var(--fs-title-lg); font-weight: var(--fw-semibold); letter-spacing: -.02em; margin: 0 0 4px; }
+  .sub { color: var(--fg-muted); margin: 0 0 20px; }
+  .note {
+    padding: 10px 12px; border-radius: var(--r-lg); margin-bottom: 20px; font-size: var(--fs-caption);
+    background: var(--info-bg); border: 1px solid var(--info-bd); color: var(--info);
+  }
+  #summary {
+    position: sticky; top: 0; z-index: 2; display: flex; gap: 16px; align-items: center;
+    padding: 12px 14px; margin-bottom: 16px; border-radius: var(--r-xl);
+    background: var(--surface); border: 1px solid var(--border-strong);
+    font-size: 15px; font-weight: var(--fw-semibold);
+  }
+  .ok { color: var(--good); } .bad { color: var(--bad); }
+  h2 {
+    font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: var(--tr-eyebrow);
+    color: var(--fg-muted); margin: 24px 0 6px; font-weight: var(--fw-medium);
+  }
+  .case { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 6px 10px; border-radius: var(--r-md); }
+  .case + .case { border-top: 1px solid var(--hairline); }
+  .case[data-r="fail"] { background: var(--bad-bg); }
+  .detail { font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--fg-muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .demos { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin: 16px 0 32px; }
+  .demo { padding: 12px; border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--border); }
+  .demo h3 { margin: 0 0 8px; font-size: var(--fs-meta); color: var(--fg-muted); text-transform: uppercase; letter-spacing: var(--tr-micro); font-weight: var(--fw-medium); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Game layer — DOM tests</h1>
+  <p class="sub">The parts the headless harness cannot reach: confetti, the SVG companion, the boss stage and the canvas share card. Pure logic (rings, streak, XP, badges, quests, levels) is covered by the node harness.</p>
+
+  <div class="note">
+    Must be served over http:// — ES modules are blocked on <code>file://</code>.<br>
+    From <code>study-hub/</code>: <code>python -m http.server 8000</code> then open
+    <code>http://localhost:8000/js/tests/game.test.html</code>
+  </div>
+
+  <div id="summary">Running…</div>
+  <div class="demos" id="demos"></div>
+  <div id="out"></div>
+</main>
+
+<script type="module">
+import { store, KEYS } from '../store.js';
+import * as game from '../game.js';
+import * as pet from '../pet.js';
+import * as boss from '../boss.js';
+import * as sounds from '../sounds.js';
+import * as shareImage from '../share-image.js';
+import { installIconSprite } from '../dom.js';
+
+const out = document.getElementById('out');
+const demos = document.getElementById('demos');
+let pass = 0, fail = 0;
+
+function section(name) {
+  const h = document.createElement('h2');
+  h.textContent = name;
+  out.appendChild(h);
+}
+function ok(name, cond, detail) {
+  const row = document.createElement('div');
+  row.className = 'case';
+  row.dataset.r = cond ? 'pass' : 'fail';
+  const mark = document.createElement('span');
+  mark.className = cond ? 'ok' : 'bad';
+  mark.textContent = cond ? '✓' : '✕';
+  const body = document.createElement('div');
+  const t = document.createElement('div');
+  t.textContent = name;
+  body.appendChild(t);
+  if (!cond && detail !== undefined) {
+    const d = document.createElement('div');
+    d.className = 'detail';
+    try { d.textContent = JSON.stringify(detail); } catch (_) { d.textContent = String(detail); }
+    body.appendChild(d);
+  }
+  row.append(mark, body);
+  out.appendChild(row);
+  if (cond) pass += 1; else fail += 1;
+}
+function demo(title, node) {
+  const box = document.createElement('div');
+  box.className = 'demo';
+  const h = document.createElement('h3');
+  h.textContent = title;
+  box.append(h, node);
+  demos.appendChild(box);
+}
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+await installIconSprite('../../assets/icons.svg');
+store.resetAll('I understand this deletes local progress');
+
+/* ---------------------------------------------------------------- tokens */
+section('Design tokens are live (no raw hexes anywhere in the layer)');
+{
+  const cs = getComputedStyle(document.documentElement);
+  ok('--accent-rgb resolves', cs.getPropertyValue('--accent-rgb').trim().length > 0);
+  ok('--confetti-1 resolves', cs.getPropertyValue('--confetti-1').trim().length > 0);
+  ok('--tap is 44px', cs.getPropertyValue('--tap').trim() === '44px', cs.getPropertyValue('--tap'));
+}
+
+/* -------------------------------------------------------------- confetti */
+section('Confetti');
+{
+  const layer = game.confetti({ seed: 'test' });
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    ok('reduced motion suppresses confetti entirely', layer === null);
+  } else {
+    ok('a confetti layer is created', !!layer && layer.classList.contains('confetti-layer'));
+    ok('it holds pieces', layer.children.length >= 6, layer && layer.children.length);
+    ok('pieces carry --tx/--ty/--rot', !!layer && layer.firstChild.style.getPropertyValue('--tx').length > 0);
+    ok('pieces use the confetti tokens, not hexes',
+      !!layer && /var\(--confetti-/.test(layer.firstChild.getAttribute('style') || ''));
+    ok('the layer is pointer-transparent', !!layer && getComputedStyle(layer).pointerEvents === 'none');
+    const seedA = game.confetti({ seed: 'same' });
+    const seedB = game.confetti({ seed: 'same' });
+    ok('the burst is deterministic for a seed',
+      seedA.firstChild.getAttribute('style') === seedB.firstChild.getAttribute('style'));
+    seedA.remove(); seedB.remove();
+  }
+  await sleep(1300);
+  ok('the layer cleans itself up', document.querySelectorAll('.confetti-layer').length === 0,
+    document.querySelectorAll('.confetti-layer').length);
+}
+
+/* --------------------------------------------------------- celebration */
+section('Celebration event');
+{
+  let got = null;
+  const onWin = (e) => { got = e.detail; };
+  window.addEventListener('engram:celebration', onWin);
+  let viaEmitter = null;
+  const off = game.on('celebration', (d) => { viaEmitter = d; });
+  game.celebrate({ kind: 'test', label: 'Ring closed', body: '3 of 3 done.' });
+  ok('window CustomEvent engram:celebration fires', !!got && got.label === 'Ring closed', got);
+  ok('the detail carries kind + label + body', !!got && got.kind === 'test' && got.body === '3 of 3 done.');
+  ok('the game emitter fires too', !!viaEmitter && viaEmitter.label === 'Ring closed');
+  window.removeEventListener('engram:celebration', onWin);
+  off();
+  document.querySelectorAll('.confetti-layer').forEach((n) => n.remove());
+}
+
+/* -------------------------------------------------------------- the pet */
+section('Companion');
+{
+  for (const [nights, expect] of [[0, 1], [12, 2], [40, 3]]) {
+    store.set(KEYS.STREAK, { count: 1, longest: 1, lastDay: game.getStreak().lastDay, freezes: 2, lifetimeDays: nights });
+    const st = game.getPetState();
+    ok('stage ' + expect + ' at ' + nights + ' lifetime nights', st.stage === expect, st.stage);
+    const svg = pet.renderPetSVG(st, { size: 64 });
+    ok('stage ' + expect + ' renders an <svg>', svg.tagName.toLowerCase() === 'svg');
+    ok('stage ' + expect + ' has a label', (svg.getAttribute('aria-label') || '').length > 0);
+    ok('stage ' + expect + ' uses token fills only',
+      !/#[0-9a-f]{3,8}/i.test(svg.outerHTML), (svg.outerHTML.match(/#[0-9a-f]{3,8}/i) || [])[0]);
+    demo('Stage ' + expect + ' (' + st.stageName + ') · awake', pet.renderPetSVG(
+      Object.assign({}, st, { sleepy: false, mood: 'awake' }), { size: 64 }));
+    demo('Stage ' + expect + ' · rings closed', pet.renderPetSVG(
+      Object.assign({}, st, { sleepy: false, mood: 'bright' }), { size: 64 }));
+  }
+  const sleepy = pet.renderPetSVG({ stage: 2, sleepy: true, mood: 'sleepy', name: 'Ember', stageName: 'Ember' }, { size: 64 });
+  ok('the sleepy state draws dozing marks', /pet-zzz|M45,16/.test(sleepy.outerHTML));
+  ok('nothing in the companion says it is dying or hungry',
+    !/(die|dead|hungry|starv|sad)/i.test(sleepy.outerHTML));
+  demo('Sleepy', sleepy);
+
+  const mount = game.getPetMount({ size: 56 });
+  document.body.appendChild(mount);
+  await sleep(80);
+  ok('getPetMount() fills asynchronously', mount.querySelector('svg') !== null);
+  ok('the mount carries the caption text', (mount.textContent || '').length > 0);
+  const slotHeight = parseFloat(getComputedStyle(mount).minHeight);
+  ok('the pet slot respects the 44px touch floor', slotHeight >= 44, slotHeight);
+  game.destroyPetMount(mount);
+  mount.remove();
+}
+
+/* ------------------------------------------------------------ boss stage */
+section('Boss stage');
+{
+  const detail = {
+    subject: 'Physics',
+    marksEarned: 52,
+    marksTotal: 75,
+    durationSec: 9600,
+    perQuestion: [
+      { n: 1, label: 'Q1', marks: 1, marksTotal: 1, group: 'A' },
+      { n: 2, label: 'Q2', marks: 0, marksTotal: 1, group: 'A' },
+      { n: 3, label: 'Q12', marks: 3, marksTotal: 5, group: 'B' },
+      { n: 4, label: 'Q20', marks: 4, marksTotal: 8, group: 'C' },
+    ],
+  };
+  window.dispatchEvent(new CustomEvent('engram:mock-completed', { detail }));
+  await sleep(400);
+  const modal = document.querySelector('.modal.boss-stage');
+  ok('the stage opens on engram:mock-completed', !!modal);
+  ok('it is a labelled dialog', !!modal && modal.getAttribute('role') === 'dialog' && modal.getAttribute('aria-modal') === 'true');
+  ok('it is recoloured by subject', !!modal && modal.dataset.subject === 'physics', modal && modal.dataset.subject);
+  ok('the accent actually changed', !!modal && getComputedStyle(modal).getPropertyValue('--accent').trim()
+    === getComputedStyle(document.documentElement).getPropertyValue('--sub-physics').trim());
+  ok('boss HP is the paper total', !!modal && /75/.test(modal.textContent));
+  ok('marks landed are shown as a fraction', !!modal && /52/.test(modal.textContent));
+  ok('the A+ line is named', !!modal && /A\+ line/.test(modal.textContent));
+  ok('where the marks went is itemised', !!modal && /Where the marks went/.test(modal.textContent));
+  ok('loot dropped', !!modal && /Loot/.test(modal.textContent));
+  ok('XP is explained as sit-the-paper, not marks',
+    !!modal && /XP is for sitting the paper/.test(modal.textContent));
+  ok('no vague praise on the stage',
+    !!modal && !/(great|awesome|amazing|well done|good job)/i.test(modal.textContent));
+  ok('a scrim is behind it', !!document.querySelector('.scrim'));
+  ok('the paper was credited as drill work', game.getRings().drill.done > 0, game.getRings().drill);
+  ok('the timed-paper badge fired', game.getBadges().find((b) => b.id === 'first-paper').earned);
+
+  await sleep(1400);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  await sleep(50);
+  ok('Escape closes the stage', document.querySelector('.modal.boss-stage') === null);
+  ok('the scrim goes with it', document.querySelector('.scrim') === null);
+  document.querySelectorAll('.confetti-layer').forEach((n) => n.remove());
+}
+
+/* ----------------------------------------------------------- share cards */
+section('Share cards');
+{
+  const spec = shareImage.mockCard({ subject: 'Chemistry', marksEarned: 58, marksTotal: 75, delta: 11 });
+  const canvas = shareImage.drawCard(spec);
+  ok('a 1080x1350 canvas is produced', canvas.width === 1080 && canvas.height === 1350);
+  const ctx = canvas.getContext('2d');
+  const px = ctx.getImageData(canvas.width / 2, canvas.height / 2, 1, 1).data;
+  ok('the card is actually painted', px[3] === 255, Array.from(px));
+  const corner = ctx.getImageData(20, 20, 1, 1).data;
+  ok('the background is the theme background, not white', corner[0] < 80 && corner[1] < 80, Array.from(corner));
+
+  const rendered = await shareImage.renderShareCard(spec);
+  ok('a PNG blob comes back', !!rendered.blob && rendered.blob.type === 'image/png', rendered.blob && rendered.blob.type);
+  ok('the blob has bytes', !!rendered.blob && rendered.blob.size > 2000, rendered.blob && rendered.blob.size);
+  ok('the filename is sensible', rendered.filename === 'engram-mock.png', rendered.filename);
+
+  const img = document.createElement('img');
+  img.src = URL.createObjectURL(rendered.blob);
+  img.style.width = '216px';
+  img.style.borderRadius = '8px';
+  img.alt = 'Mock result share card';
+  demo('Share card · mock', img);
+
+  const streakPng = await shareImage.renderShareCard(shareImage.streakCard({ current: 14, lifetime: 41 }));
+  const img2 = document.createElement('img');
+  img2.src = URL.createObjectURL(streakPng.blob);
+  img2.style.width = '216px';
+  img2.style.borderRadius = '8px';
+  img2.alt = 'Streak share card';
+  demo('Share card · streak', img2);
+}
+
+/* ---------------------------------------------------------------- sounds */
+section('Sounds');
+{
+  ok('the five required cues exist',
+    ['correct', 'wrong', 'streak', 'confetti', 'boss-hit'].every((n) => sounds.CUE_NAMES.includes(n)));
+  ok('cue() never throws before a gesture', (() => { try { sounds.cue('correct'); return true; } catch (_) { return false; } })());
+  ok('an unknown cue is a no-op', sounds.play('does-not-exist') === false);
+  sounds.setMuted(true);
+  ok('muting disables playback', sounds.play('correct') === false);
+  sounds.setMuted(false);
+}
+
+/* ----------------------------------------------------------------- icons */
+section('Every icon the layer names exists in the sprite');
+{
+  const names = new Set();
+  for (const b of game.getBadges()) names.add(b.icon);
+  for (const k of game.RING_KINDS) names.add(game.RING_META[k].icon);
+  for (const q of game.getQuests().items) names.add(q.icon);
+  for (const key of Object.keys(boss.BOSSES)) names.add(boss.BOSSES[key].icon);
+  names.add('zap'); names.add('crown'); names.add('trophy');
+  for (const n of names) {
+    ok('sprite has #' + n, document.getElementById(n) !== null);
+  }
+}
+
+store.resetAll('I understand this deletes local progress');
+
+const summary = document.getElementById('summary');
+summary.textContent = '';
+const s1 = document.createElement('span');
+s1.className = fail ? 'bad' : 'ok';
+s1.textContent = fail ? 'FAIL' : 'ALL PASS';
+const s2 = document.createElement('span');
+s2.textContent = pass + ' passed · ' + fail + ' failed';
+summary.append(s1, s2);
+document.title = (fail ? '✕ ' : '✓ ') + pass + '/' + (pass + fail) + ' · game layer tests';
+</script>
+</body>
+</html>

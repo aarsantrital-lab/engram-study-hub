@@ -1,77 +1,503 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  Engram v2 cheatsheet · topic: Mole Concept (mole-concept) · v2
+  subject: Chemistry · unit: Stoichiometry (CDC unit 2, 8 teaching hours)
+  cumulative through lesson 0005 — earlier lessons' blocks are never removed
+  built from templates/cheatsheet-template.html v1.0.0 — token block byte-identical
+  updated: 2026-07-26
+-->
+<html lang="en" data-subject="chemistry">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mole Concept — Quick Reference</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Mole Concept cheatsheet — Chemistry Stoichiometry</title>
+<meta name="description" content="Cumulative one-page reference for Chemistry Unit 2 (Stoichiometry), up to lesson 0005.">
+<!-- engram-cheatsheet v1 · topic:mole-concept · subject:Chemistry · unit:Stoichiometry · cumulative-through:0005 · updated:2026-07-26 -->
 <style>
-  :root { --bg: #faf9f7; --text: #1a1a1a; --accent: #2563eb; --card: #fff; --border: #e5e7eb; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: 'Georgia', serif; max-width: 680px; margin:0 auto; padding:2rem 1.5rem; background:var(--bg); color:var(--text); line-height:1.6; }
-  h1 { font-size:1.4rem; margin-bottom:1rem; }
-  h2 { font-size:1rem; color:var(--accent); margin:1.2rem 0 0.4rem; border-bottom:1px solid var(--border); padding-bottom:0.2rem; }
-  .box { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:0.8rem; margin:0.6rem 0; }
-  .big { font-size:1.2rem; font-weight:700; text-align:center; padding:0.6rem; background:#f0f4ff; border-radius:6px; margin:0.5rem 0; }
-  table { width:100%; border-collapse:collapse; margin:0.5rem 0; }
-  th { text-align:left; padding:0.3rem; background:#f0f4ff; }
-  td { padding:0.3rem; border-bottom:1px solid var(--border); }
-  @media print { body { padding:0.5rem; font-size:10pt; } }
+/* ===== TOKENS — mirrors study-hub/theme.css (condensed) ===================== */
+:root{
+  color-scheme:dark light;
+  --bg:#0a0d12; --surface:#11151b; --surface-muted:#181c22; --surface-hover:#1e232c;
+  --fg:#f0f2f4; --fg-muted:#87909c; --fg-subtle:#5d6674; --fg-invert:#0c121a; --fg-on-brand:#ffffff;
+  --border:rgb(255 255 255/.08); --border-strong:rgb(255 255 255/.12);
+  --border-hover:rgb(240 242 244/.3); --hairline:rgb(255 255 255/.06);
+  --brand:#ff8a3d; --brand-rgb:255 138 61; --brand-deep:#d97757;
+  --brand-grad-action:linear-gradient(135deg,#ffc371 0%,#ff7a3d 55%,#ff4e50 100%);
+  --gloss-wash:linear-gradient(180deg,rgb(255 255 255/.135) 0%,rgb(255 255 255/0) 50%);
+  --good:#10b981; --good-rgb:16 185 129; --good-bg:rgb(16 185 129/.1); --good-bd:rgb(16 185 129/.2);
+  --warn:#f59e0b; --warn-rgb:245 158 11; --warn-bg:rgb(245 158 11/.1); --warn-bd:rgb(245 158 11/.2);
+  --bad:#ef4444;  --bad-rgb:239 68 68;   --bad-bg:rgb(239 68 68/.1);   --bad-bd:rgb(239 68 68/.2);
+  --info:#60a5fa; --info-rgb:96 165 250; --info-bg:rgb(96 165 250/.1);  --info-bd:rgb(96 165 250/.2);
+  --ai:#a78bfa;   --ai-rgb:167 139 250;
+  --neutral:#87909c; --neutral-rgb:135 144 156;
+  --neutral-bg:rgb(135 144 156/.1); --neutral-bd:rgb(135 144 156/.2);
+  --sub-physics:#60a5fa; --sub-physics-rgb:96 165 250;
+  --sub-chem:#3ddc97;    --sub-chem-rgb:61 220 151;
+  --sub-math:#a78bfa;    --sub-math-rgb:167 139 250;
+  --sub-cs:#22d3ee;      --sub-cs-rgb:34 211 238;
+  --sub-english:#fbbf24; --sub-english-rgb:251 191 36;
+  --sub-nepali:#f472b6;  --sub-nepali-rgb:244 114 182;
+  --accent:var(--brand); --accent-rgb:var(--brand-rgb);
+  --font-sans:Inter,"Inter Variable",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,"Noto Sans Devanagari","Nirmala UI",Mangal,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --font-mono:"JetBrains Mono","SFMono-Regular","SF Mono",ui-monospace,"Cascadia Mono","Segoe UI Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --font-deva:"Noto Sans Devanagari","Nirmala UI",Mangal,"Kalimati",var(--font-sans);
+  --fs-micro:9px; --fs-eyebrow:10px; --fs-meta:11px; --fs-caption:12px;
+  --fs-body:13px; --fs-body-lg:14px; --fs-input:16px;
+  --fs-title:18px; --fs-title-lg:20px; --fs-display:28px;
+  --lh-snug:1.35; --lh-body:1.6;
+  --tr-metric:-.02em; --tr-eyebrow:.22em; --tr-micro:.2em;
+  --fw-body:400; --fw-medium:500; --fw-semibold:600;
+  --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-2xl:16px; --r-full:999px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-8:32px;
+  --tap:44px; --header-h:56px;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
+  --lip:inset 0 1px 0 rgb(255 255 255/.04);
+  --sh-card:0 10px 30px -15px rgb(0 0 0/.6);
+  --focus-ring:0 0 0 3px rgb(255 138 61/.18),0 0 0 1px rgb(217 119 87/.7);
+  --wash-accent:radial-gradient(120% 100% at 0% 0%,rgb(var(--accent-rgb)/.12),transparent 60%);
+  --veil:rgb(10 13 18/.85);
+  --ease:cubic-bezier(.4,0,.2,1); --dur-fast:140ms; --dur:240ms;
+}
+[data-subject="physics"]{--accent:var(--sub-physics);--accent-rgb:var(--sub-physics-rgb)}
+[data-subject="chemistry"]{--accent:var(--sub-chem);--accent-rgb:var(--sub-chem-rgb)}
+[data-subject="maths"],[data-subject="math"],[data-subject="mathematics"]{--accent:var(--sub-math);--accent-rgb:var(--sub-math-rgb)}
+[data-subject="cs"],[data-subject="computer-science"]{--accent:var(--sub-cs);--accent-rgb:var(--sub-cs-rgb)}
+[data-subject="english"]{--accent:var(--sub-english);--accent-rgb:var(--sub-english-rgb)}
+[data-subject="nepali"]{--accent:var(--sub-nepali);--accent-rgb:var(--sub-nepali-rgb)}
+
+@media (prefers-color-scheme:light){
+  :root{
+    --bg:#f7f8fa; --surface:#fff; --surface-muted:#eef0f4; --surface-hover:#e7eaef;
+    --fg:#141922; --fg-muted:#5a6472; --fg-subtle:#8a93a1; --fg-invert:#fff;
+    --border:rgb(14 20 30/.12); --border-strong:rgb(14 20 30/.18);
+    --border-hover:rgb(14 20 30/.34); --hairline:rgb(14 20 30/.08);
+    --lip:inset 0 1px 0 rgb(255 255 255/.6);
+    --sh-card:0 10px 30px -18px rgb(14 20 30/.28); --veil:rgb(247 248 250/.88);
+    --good:#047857;--warn:#a16207;--bad:#b91c1c;--info:#1d4ed8;--ai:#6d28d9;
+    --sub-chem:#0f8f5f;--sub-physics:#1d4ed8;--sub-math:#6d28d9;
+    --sub-cs:#0e7490;--sub-english:#a16207;--sub-nepali:#be185d;
+    --sub-chem-rgb:15 143 95;--sub-physics-rgb:29 78 216;--sub-math-rgb:109 40 217;
+    --sub-cs-rgb:14 116 144;--sub-english-rgb:161 98 7;--sub-nepali-rgb:190 24 93;
+  }
+}
+
+/* ===== BASE ================================================================ */
+*,*::before,*::after{box-sizing:border-box;border:0 solid var(--border)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);
+  font-size:var(--fs-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;padding-left:var(--safe-left);padding-right:var(--safe-right)}
+h1,h2,h3{margin:0;font-weight:var(--fw-semibold);letter-spacing:var(--tr-metric);line-height:var(--lh-snug)}
+h1{font-size:var(--fs-title-lg)} h2{font-size:var(--fs-body-lg)} h3{font-size:var(--fs-body)}
+p{margin:0 0 var(--sp-2)}
+a{color:var(--accent);text-decoration-color:rgb(var(--accent-rgb)/.4);text-underline-offset:2px}
+code,.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+button,input{font:inherit;color:inherit;background:none;margin:0}
+button{cursor:pointer;touch-action:manipulation}
+svg{display:block}
+:where(a,button,input,[tabindex]):focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ===== HEADER ============================================================== */
+.ch{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:var(--sp-3);
+  min-height:var(--header-h);padding:var(--safe-top) var(--sp-4) 0;
+  background:var(--veil);border-bottom:1px solid var(--border)}
+/* No backdrop-filter (GPU law): .ch is sticky over a scrolling column, so a
+   backdrop blur re-samples on every scroll frame. Opaque chrome instead. */
+.ch{background:var(--surface-nav)}
+.ch__id{flex:1 1 auto;min-width:0;padding:var(--sp-2) 0}
+.ch__eyebrow{display:flex;align-items:center;gap:6px;font-size:var(--fs-eyebrow);
+  font-weight:var(--fw-medium);text-transform:uppercase;letter-spacing:var(--tr-eyebrow);
+  color:var(--fg-muted)}
+.ch__eyebrow .ico{color:var(--accent)}
+.ch__title{font-size:var(--fs-caption);font-weight:var(--fw-medium)}
+.ch__acts{display:flex;align-items:center;gap:var(--sp-2);flex:0 0 auto}
+.ch__btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:var(--tap);padding:0 var(--sp-3);border:1px solid var(--border-strong);
+  border-radius:var(--r-md);background:var(--surface-muted);color:var(--fg-muted);
+  font-size:var(--fs-meta);font-weight:var(--fw-medium)}
+.ch__btn:hover{background:var(--surface-hover);color:var(--fg)}
+.filter{min-height:var(--tap);width:100%;max-width:220px;padding:0 var(--sp-3);
+  border:1px solid var(--border-strong);border-radius:var(--r-md);
+  background:var(--surface-muted);color:var(--fg);font-size:var(--fs-input)}
+.filter::placeholder{color:var(--fg-subtle)}
+
+/* ===== LAYOUT ============================================================== */
+.sheet{max-width:1040px;margin:0 auto;padding:var(--sp-5) var(--sp-4) calc(var(--sp-8) + var(--safe-bottom))}
+@media (min-width:768px){.sheet{padding:var(--sp-6)}}
+.title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-3);
+  flex-wrap:wrap;padding-bottom:var(--sp-3);margin-bottom:var(--sp-4);border-bottom:1px solid var(--border)}
+.eyebrow{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-eyebrow);
+  font-weight:var(--fw-medium);text-transform:uppercase;letter-spacing:var(--tr-eyebrow);
+  color:var(--fg-muted);margin-bottom:var(--sp-1)}
+.eyebrow::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 6px rgb(var(--accent-rgb)/.8)}
+.meta{font-size:var(--fs-meta);color:var(--fg-muted)}
+.cols{columns:1;column-gap:var(--sp-4)}
+@media (min-width:900px){.cols{columns:2}}
+.blk{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+  margin:0 0 var(--sp-4);padding:var(--sp-3) var(--sp-4);border:1px solid var(--border);
+  border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--lip)}
+.blk--tone{background-image:var(--wash-accent);border-color:rgb(var(--accent-rgb)/.22)}
+.blk--trap{border-color:var(--bad-bd);background:var(--bad-bg)}
+.blk__h{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);
+  margin-bottom:var(--sp-2);padding-bottom:6px;border-bottom:1px solid var(--hairline)}
+.blk--trap .blk__h{border-color:var(--bad-bd)}
+.blk__h h2{font-size:var(--fs-body-lg)}
+.from{font-size:var(--fs-micro);letter-spacing:var(--tr-micro);text-transform:uppercase;
+  color:var(--fg-muted);white-space:nowrap}
+
+/* rows */
+.rows{display:flex;flex-direction:column;gap:6px}
+.r{display:grid;grid-template-columns:1fr auto;gap:var(--sp-2) var(--sp-3);align-items:baseline;
+  padding:5px 0;border-bottom:1px dashed var(--hairline)}
+.r:last-child{border-bottom:0}
+.r.is-hidden{display:none}
+.r__l{font-size:var(--fs-meta);color:var(--fg-muted)}
+.r__v{font-family:var(--font-mono);font-size:var(--fs-body);font-weight:var(--fw-medium);
+  font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.r__n{grid-column:1/-1;font-size:var(--fs-micro);color:var(--fg-subtle);letter-spacing:.02em}
+.r--wide{grid-template-columns:1fr}
+.r--wide .r__v{text-align:left}
+
+/* maths + chips */
+.math,.sci{font-variant-numeric:tabular-nums lining-nums}
+.math sub,.math sup,.sci sub,.sci sup{font-size:.68em;line-height:0;position:relative;vertical-align:baseline}
+.math sup,.sci sup{top:-.5em}
+.math sub,.sci sub{bottom:-.22em}
+.sci{white-space:nowrap}
+.unit{color:var(--fg-muted);margin-left:.24em;font-family:var(--font-sans);font-size:.92em}
+.deva{font-family:var(--font-deva)}
+.chip{display:inline-block;font-size:var(--fs-micro);letter-spacing:var(--tr-micro);
+  text-transform:uppercase;padding:1px 5px;border-radius:var(--r-sm);
+  background:rgb(var(--accent-rgb)/.15);color:var(--accent);border:1px solid rgb(var(--accent-rgb)/.3)}
+.chip--mis{background:var(--bad-bg);color:var(--bad);border-color:var(--bad-bd);font-family:var(--font-mono)}
+.chip--new{background:var(--good-bg);color:var(--good);border-color:var(--good-bd)}
+.trap{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-2);padding:5px 0;
+  border-bottom:1px dashed var(--bad-bd);font-size:var(--fs-meta)}
+.trap:last-child{border-bottom:0}
+.trap b{color:var(--fg);font-weight:var(--fw-medium)}
+.trap.is-hidden{display:none}
+.lessons{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.lessons a{display:inline-flex;align-items:center;min-height:32px;padding:4px var(--sp-3);
+  border:1px solid var(--border-strong);border-radius:var(--r-full);background:var(--surface-muted);
+  font-size:var(--fs-meta);text-decoration:none;color:var(--fg)}
+.lessons a:hover{background:var(--surface-hover);border-color:var(--border-hover)}
+.foot{margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--border);
+  font-size:var(--fs-meta);color:var(--fg-muted)}
+.ico{width:14px;height:14px;flex:0 0 auto;stroke-width:2}
+.ico--12{width:12px;height:12px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ===== PRINT — the primary medium. ONE A4 SIDE. ============================ */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-muted:#fff;--fg:#000;--fg-muted:#333;
+    --fg-subtle:#555;--border:#bbb;--border-strong:#999;--hairline:#ddd;--lip:none;
+    --sh-card:none;--accent:#000;--accent-rgb:0 0 0;--wash-accent:none;
+    --good:#000;--bad:#000;--warn:#000;--veil:#fff}
+  @page{margin:8mm;size:A4 portrait}
+  html,body{background:#fff;color:#000}
+  body{font-size:7.6pt;line-height:1.3}
+  .ch,.no-print{display:none!important}
+  .sheet{max-width:none;padding:0}
+  .title-row{margin-bottom:5pt;padding-bottom:3pt;border-bottom:1pt solid #000}
+  h1{font-size:12pt} .blk__h h2{font-size:8.4pt}
+  .cols{columns:3;column-gap:5mm}
+  .blk{margin:0 0 4pt;padding:3pt 5pt;border:0.5pt solid #999;border-radius:2pt;box-shadow:none}
+  .blk--trap{background:#fff;border:0.8pt solid #000}
+  .r{padding:1.5pt 0;gap:3pt}
+  .r__l{font-size:6.6pt} .r__v{font-size:7.4pt} .r__n{font-size:6pt}
+  .trap{font-size:6.6pt;padding:1.5pt 0}
+  .chip{font-size:5.6pt;border:0.4pt solid #666}
+  .lessons a{border:0.4pt solid #999;font-size:6.4pt;min-height:0;padding:1pt 4pt}
+  a{color:#000;text-decoration:none}
+  .foot{font-size:6pt;margin-top:4pt;padding-top:3pt}
+}
 </style>
 </head>
 <body>
-<h1>⚛️ Mole Concept — Cheat Sheet</h1>
 
-<h2>Definitions</h2>
-<div class="box">
-  <strong>Mole:</strong> Amount of substance containing <strong>6.022 × 10²³</strong> particles (atoms, molecules, ions).<br>
-  <strong>Avogadro's number (N<sub>A</sub>):</strong> 6.022 × 10²³ — particles per mole.<br>
-  <strong>Molar mass (M):</strong> Mass of 1 mole of a substance (g/mol).<br>
-  <strong>Atomic mass = Molar mass</strong> just by adding g/mol as the unit.
-</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-subject" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+</defs></svg>
 
-<h2>Key Formulas</h2>
-<div class="big">n = m ÷ M</div>
-<table>
-  <tr><td>n</td><td>Number of moles (mol)</td></tr>
-  <tr><td>m</td><td>Mass (g)</td></tr>
-  <tr><td>M</td><td>Molar mass (g/mol)</td></tr>
-</table>
-<div class="big">Particles = n × N<sub>A</sub></div>
+<header class="ch no-print">
+  <div class="ch__id">
+    <span class="ch__eyebrow"><svg class="ico ico--12"><use href="#i-subject"/></svg>Chemistry · Stoichiometry</span>
+    <span class="ch__title">Mole Concept — cumulative through lesson 0005</span>
+  </div>
+  <div class="ch__acts">
+    <input class="filter" id="filter" type="search" placeholder="Filter rows…" aria-label="Filter rows">
+    <button class="ch__btn" id="print" type="button">Print</button>
+  </div>
+</header>
 
-<h2>Common Molar Masses</h2>
-<table>
-  <tr><th>Substance</th><th>Calculation</th><th>M (g/mol)</th></tr>
-  <tr><td>H₂O</td><td>2×1 + 16</td><td>18</td></tr>
-  <tr><td>CO₂</td><td>12 + 2×16</td><td>44</td></tr>
-  <tr><td>NaCl</td><td>23 + 35.5</td><td>58.5</td></tr>
-  <tr><td>NaOH</td><td>23 + 16 + 1</td><td>40</td></tr>
-  <tr><td>H₂SO₄</td><td>2×1 + 32 + 4×16</td><td>98</td></tr>
-  <tr><td>CaCO₃</td><td>40 + 12 + 3×16</td><td>100</td></tr>
-</table>
+<main class="sheet">
 
-<h2>Empirical Formula — 4 Steps</h2>
-<div class="box">
-  <strong>1.</strong> Treat % as grams (assume 100g sample)<br>
-  <strong>2.</strong> Convert grams → moles (÷ atomic mass)<br>
-  <strong>3.</strong> Divide every mole value by the smallest<br>
-  <strong>4.</strong> Multiply to get whole numbers (×2 for 0.5, ×3 for 0.33/0.67)
-</div>
-<div class="box">
-  <strong>Example:</strong> 40% C, 6.7% H, 53.3% O<br>
-  C: 40÷12=3.33, H: 6.7÷1=6.7, O: 53.3÷16=3.33 → ÷3.33 → <strong>CH₂O</strong>
-</div>
+  <div class="title-row">
+    <div>
+      <p class="eyebrow">Chemistry · Stoichiometry · cumulative</p>
+      <h1>Mole Concept — one-page reference</h1>
+    </div>
+    <p class="meta">Covers lessons 0001–0005 · updated 2026-07-26<br>
+      Everything from earlier lessons in this unit stays on this sheet.</p>
+  </div>
 
-<h2>Problem-Solving Pattern</h2>
-<ol style="margin-left:1.2rem;">
-  <li>Find <strong>M</strong> (add atomic masses from periodic table)</li>
-  <li>Plug into <strong>n = m ÷ M</strong></li>
-  <li>If asked for particles: multiply n by N<sub>A</sub></li>
-</ol>
+  <div class="cols">
 
-<h2>Rearrangements</h2>
-<div class="box">
-  m = n × M &nbsp;&nbsp;|&nbsp;&nbsp; M = m ÷ n &nbsp;&nbsp;|&nbsp;&nbsp; n = m ÷ M
-</div>
+    <!-- ===== BLOCK 1: CONSTANTS + DATA YOU ARE NOT GIVEN IN THE EXAM ===== -->
+    <section class="blk blk--tone">
+      <div class="blk__h"><h2>Constants and data</h2><span class="from">memorise</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Avogadro constant N<sub>A</sub></span>
+          <span class="r__v sci">6.022 × 10<sup>23</sup><span class="unit">mol<sup>−1</sup></span></span>
+          <span class="r__n">A count per mole. Never a mass, never a volume.</span></div>
+        <div class="r"><span class="r__l">Molar volume of a gas at STP</span>
+          <span class="r__v sci">22.4<span class="unit">L/mol</span></span>
+          <span class="r__n">Gases only, at 273 K and 1 atm. Meaningless for a solid or a liquid.</span></div>
+        <div class="r r--wide"><span class="r__l">Atomic masses — the board this unit uses</span>
+          <span class="r__v">H 1 · C 12 · N 14 · O 16 · Na 23 · S 32 · Cl 35.5 · Ca 40</span>
+          <span class="r__n">amu for one atom, g/mol for one mole — same number, different unit.</span></div>
+        <div class="r r--wide"><span class="r__l">Molar masses worth knowing cold</span>
+          <span class="r__v">H₂ 2 · H₂O 18 · CO₂ 44 · NaOH 40 · NaCl 58.5 · N₂ 28 · NH₃ 17 · O₂ 32 · CaCO₃ 100 · H₂SO₄ 98 · Na₂SO₄ 142</span>
+          <span class="r__n">All in g/mol. Building these from the board takes 10 seconds; knowing them takes none.</span></div>
+      </div>
+    </section>
 
+    <!-- ===== BLOCK 2: THE MOLE BRIDGE (lesson 0001) ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>The mole bridge</h2><span class="from">lesson 0001</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Moles from mass</span>
+          <span class="r__v math">n = m ÷ M</span>
+          <span class="r__n">m in g, M in g/mol, n in mol. g ÷ g/mol cancels to mol.</span></div>
+        <div class="r"><span class="r__l">Mass from moles</span>
+          <span class="r__v math">m = n × M</span>
+          <span class="r__n">The same arrow reversed; mol × g/mol leaves g.</span></div>
+        <div class="r"><span class="r__l">Molar mass from a measurement</span>
+          <span class="r__v math">M = m ÷ n</span>
+          <span class="r__n">Answer in g/mol. This is how M is found experimentally.</span></div>
+        <div class="r"><span class="r__l">Particles from moles</span>
+          <span class="r__v math">N = n × N<sub>A</sub></span>
+          <span class="r__n">Answer is a bare count and carries no unit at all.</span></div>
+        <div class="r"><span class="r__l">Moles from particles</span>
+          <span class="r__v math">n = N ÷ N<sub>A</sub></span>
+          <span class="r__n">A division. Multiplying by 6.022 × 10<sup>−23</sup> is not the same move.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== BLOCK 3: EMPIRICAL FORMULA (lesson 0002) ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Empirical formula from % composition</h2><span class="from">lesson 0002</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">1 · Percentages become grams</span>
+          <span class="r__v math">assume 100 g</span>
+          <span class="r__n">Legal because a ratio does not depend on how much was taken.</span></div>
+        <div class="r"><span class="r__l">2 · Grams become moles</span>
+          <span class="r__v math">n = mass ÷ atomic mass</span>
+          <span class="r__n">Each element by its OWN atomic mass, never by the compound's M.</span></div>
+        <div class="r"><span class="r__l">3 · Divide by the smallest</span>
+          <span class="r__v math">ratio = n ÷ n(smallest)</span>
+          <span class="r__n">Keep 2 decimals. 2.01 is noise and rounds; 2.50 is not.</span></div>
+        <div class="r"><span class="r__l">4 · Clear the fraction</span>
+          <span class="r__v math">× 2 for .5 · × 3 for .33 or .67</span>
+          <span class="r__n">Multiply every number in the ratio, not only the awkward one.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== BLOCK 4: MOLECULAR FORMULA (lesson 0003) ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Molecular formula <span class="chip chip--new">new</span></h2>
+        <span class="from">lesson 0003</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Empirical formula mass</span>
+          <span class="r__v math">E = sum of atomic masses</span>
+          <span class="r__n">Of ONE empirical unit, in g/mol.</span></div>
+        <div class="r"><span class="r__l">Number of units in a molecule</span>
+          <span class="r__v math">n = M ÷ E</span>
+          <span class="r__n">g/mol ÷ g/mol, so n is a bare whole number. A fraction means bad data.</span></div>
+        <div class="r"><span class="r__l">Write the answer</span>
+          <span class="r__v math">MF = (EF)<sub>n</sub></span>
+          <span class="r__n">Every subscript × n, hydrogen and oxygen included. n = 1 means MF = EF.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== BLOCK 5: EQUATION STOICHIOMETRY (lesson 0004) ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Equation stoichiometry <span class="chip chip--new">new</span></h2>
+        <span class="from">lesson 0004</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">What a coefficient counts</span>
+          <span class="r__v math">particles, so also mol</span>
+          <span class="r__n">Never grams. 2H₂ + O₂ → 2H₂O is 2 : 1 in mol but 4 g : 32 g in mass.</span></div>
+        <div class="r"><span class="r__l">The detour, mass to mass</span>
+          <span class="r__v math">m → n → ratio → n → m</span>
+          <span class="r__n">Four lines. Grams never talk to grams directly.</span></div>
+        <div class="r"><span class="r__l">The ratio line</span>
+          <span class="r__v math">n(want) = n(given) × c(want) ÷ c(given)</span>
+          <span class="r__n">Wanted on top so mol cancels. Write it even when it is 1 : 1.</span></div>
+        <div class="r"><span class="r__l">"In excess"</span>
+          <span class="r__v">the other reactant decides</span>
+          <span class="r__n">The excess reactant is left over unreacted and never sets the answer.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== BLOCK 6: MULTI-STEP CHAINS (lesson 0005) ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Multi-step chains <span class="chip chip--new">new</span></h2>
+        <span class="from">lesson 0005</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Particles to mass</span>
+          <span class="r__v math">N ÷ N<sub>A</sub> → n → × M</span>
+          <span class="r__n">Two arrows, two lines. One combined line loses the method mark.</span></div>
+        <div class="r"><span class="r__l">Atoms inside a molecule</span>
+          <span class="r__v math">n(atoms) = n(molecules) × subscript</span>
+          <span class="r__n">1 mol of CO₂ holds 2 mol of O atoms and 3 mol of atoms in all.</span></div>
+        <div class="r"><span class="r__l">Gas volume at STP</span>
+          <span class="r__v math">V = n × 22.4 L/mol</span>
+          <span class="r__n">Only if the question says gas AND says STP.</span></div>
+        <div class="r"><span class="r__l">Ions from a formula unit</span>
+          <span class="r__v math">n(ion) = n × ions per unit</span>
+          <span class="r__n">NaCl gives 1 mol Na⁺ per mol; Na₂SO₄ gives 2 mol Na⁺ per mol.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== METHOD STRIP ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Named methods, in order</h2><span class="from">lessons 0001–0005</span></div>
+      <div class="rows">
+        <div class="r r--wide"><span class="r__l">Three-box road (0001)</span>
+          <span class="r__v">name the boxes → build M → n = m ÷ M → N = n × N<sub>A</sub></span></div>
+        <div class="r r--wide"><span class="r__l">÷smallest method (0002)</span>
+          <span class="r__v">100 g → mass ÷ atomic mass → ÷ smallest → × 2 or × 3</span></div>
+        <div class="r r--wide"><span class="r__l">×n method (0003)</span>
+          <span class="r__v">get the ratio → E → n = M ÷ E → multiply every subscript</span></div>
+        <div class="r r--wide"><span class="r__l">The detour (0004)</span>
+          <span class="r__v">balance and read as particles → n = m ÷ M → mole ratio → m = n × M</span></div>
+        <div class="r r--wide"><span class="r__l">Road map + checklist (0005)</span>
+          <span class="r__v">mark both ends → draw the arrows → one arrow per line → run the checklist</span></div>
+      </div>
+    </section>
+
+    <!-- ===== UNITS + SIG FIGS ===== -->
+    <section class="blk">
+      <div class="blk__h"><h2>Units and sig figs</h2><span class="from">every question</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Amount of substance</span><span class="r__v">mol — never g, never a count</span></div>
+        <div class="r"><span class="r__l">A number of particles</span><span class="r__v">bare count, no unit</span></div>
+        <div class="r"><span class="r__l">Molar mass and atomic mass</span><span class="r__v">g/mol in working, amu per particle</span></div>
+        <div class="r"><span class="r__l">Significant figures</span><span class="r__v">match the least precise datum</span></div>
+        <div class="r r--wide"><span class="r__l">Answer checklist, every numerical</span>
+          <span class="r__v">unit on the final line · sig figs match the data · is the size sensible · molecules or atoms</span></div>
+      </div>
+    </section>
+
+    <!-- ===== COMMON TRAPS ===== -->
+    <section class="blk blk--trap">
+      <div class="blk__h"><h2>Common traps</h2><span class="from">where the marks go</span></div>
+      <div class="rows">
+        <div class="trap"><span class="chip chip--mis">CH-S02</span>
+          <span><b>Mole ratio applied to grams</b> → convert to mol first, always. Coefficients
+          count particles, never grams. The most common error in this unit.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-M08</span>
+          <span><b>Multiplying by 6.022 × 10<sup>−23</sup> to get moles</b> → particles to moles is a
+          DIVISION by 6.022 × 10<sup>23</sup> mol<sup>−1</sup>. The flipped sign gives a number that
+          fits no unit.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-M06</span>
+          <span><b>22.4 L/mol used for a solid, a liquid, or away from STP</b> → gases only, at
+          273 K and 1 atm. A remembered number is not a needed number.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-S08</span>
+          <span><b>Rounding a ratio that ends in .5</b> → multiply the whole ratio by 2. Rounding is
+          for noise like 2.01, never for an exact half.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-M03</span>
+          <span><b>amu written where g/mol belongs</b> → same number, different unit. Only g/mol
+          makes n = m ÷ M cancel to mol.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-S05</span>
+          <span><b>Balancing by changing a subscript</b> → change the coefficient in front. H₂O and
+          H₂O₂ are different substances.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-M04</span>
+          <span><b>Molecules counted where atoms were asked</b> → multiply by the subscript first.
+          1 mol of H₂O holds 2 mol of H atoms.</span></div>
+        <div class="trap"><span class="chip chip--mis">CH-M02</span>
+          <span><b>Equal masses assumed to hold equal counts</b> → only when the molar masses are
+          equal. 1 g of H₂ holds 16 times the molecules of 1 g of O₂.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== EXAM SHAPE ===== -->
+    <section class="blk blk--tone">
+      <div class="blk__h"><h2>In the paper</h2><span class="from">post-2077 grid</span></div>
+      <div class="rows">
+        <div class="r"><span class="r__l">Usual slot</span><span class="r__v">Group A 1 mark + Group B 5 marks</span></div>
+        <div class="r"><span class="r__l">Typical marks riding on it</span><span class="r__v">6 to 11 of 75</span></div>
+        <div class="r"><span class="r__l">Time to allow</span><span class="r__v">12 min for the Group B item</span></div>
+        <div class="r r--wide"><span class="r__l">Most repeated question shape</span>
+          <span class="r__v">% composition → empirical formula → molecular formula from a given molar mass</span></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== BACK-LINKS ===== -->
+  <section class="blk" style="margin-top:var(--sp-2)">
+    <div class="blk__h"><h2>Lessons behind this sheet</h2><span class="from">Mole Concept</span></div>
+    <div class="lessons">
+      <a href="../lessons/0001-what-is-a-mole.html">0001 · What Is a Mole?</a>
+      <a href="../lessons/0002-empirical-formula.html">0002 · Empirical Formula</a>
+      <a href="../lessons/0003-molecular-formula.html">0003 · Molecular Formula</a>
+      <a href="../lessons/0004-stoichiometry-mole-ratios.html">0004 · Mole Ratios</a>
+      <a href="../lessons/0005-mass-particles-drills.html">0005 · Multi-Step Drill</a>
+    </div>
+  </section>
+
+  <p class="foot">
+    <b>Source:</b> none — no textbook was opened to build this sheet, so no page range is claimed.
+    Content follows the CDC Grade XI Chemistry syllabus, Unit 2 (Stoichiometry, 8 teaching hours).
+    Cheatsheet mole-concept · cumulative through lesson 0005 · updated 2026-07-26.
+    This sheet is a reference, not a study session — reading it is not retrieval.
+  </p>
+</main>
+
+<script>
+/* Cheatsheet runtime — tiny by design. Persists nothing. */
+(function () {
+  'use strict';
+  var q = function (s) { return document.querySelector(s); };
+  var qa = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  var p = q('#print');
+  if (p) p.addEventListener('click', function () { window.print(); });
+
+  var f = q('#filter');
+  if (f) f.addEventListener('input', function () {
+    var t = f.value.trim().toLowerCase();
+    qa('.r, .trap').forEach(function (row) {
+      row.classList.toggle('is-hidden', !!t && row.textContent.toLowerCase().indexOf(t) < 0);
+    });
+    qa('.blk').forEach(function (blk) {
+      var rows = Array.prototype.slice.call(blk.querySelectorAll('.r, .trap'));
+      var any = !rows.length || rows.some(function (r) { return !r.classList.contains('is-hidden'); });
+      blk.style.display = any ? '' : 'none';
+    });
+  });
+
+  /* Self-check: a cheatsheet must never contain e-notation or an external origin. */
+  var errs = [];
+  var body = document.body.textContent;
+  if (/\d[eE][+-]?\d/.test(body)) errs.push('e-notation in the sheet — use a × 10ⁿ');
+  qa('a[href]').forEach(function (a) {
+    if (/^(https?:)?\/\//i.test(a.getAttribute('href') || '')) errs.push('external origin: ' + a.getAttribute('href'));
+  });
+  window.__CHEATSHEET_QC__ = { errors: errs, rows: qa('.r').length, traps: qa('.trap').length,
+                               bytes: document.documentElement.outerHTML.length };
+  if (errs.length) console.warn('[cheatsheet QC]', errs);
+})();
+</script>
 </body>
 </html>

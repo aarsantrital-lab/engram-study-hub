@@ -1,0 +1,494 @@
+/* ============================================================================
+   ENGRAM v2 — theme.css
+   THE ONLY FILE THAT MAY CONTAIN A RAW COLOUR VALUE.
+   Every other stylesheet, lesson, skill and feature module consumes tokens.
+   Hermes restyles the entire product by editing this file alone.
+
+   Source of truth: research/build-constraints.md §10 (Claude OS token sheet)
+   Dark-only. No external origins. No build step. Plain custom properties.
+   Baseline: iOS Safari 16+, Chrome Android (modern).
+   ========================================================================= */
+
+/* ----------------------------------------------------------------------------
+   1. ROOT TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+
+  /* --- 1.1 SURFACES ------------------------------------------------------
+     Near-black NAVY, hue 260. Never neutral gray. Never #000.
+     Elevation = ~5% lightness step + 1px translucent-white hairline + --lip.
+     Never a big background jump.                                          */
+  --bg: #0a0d12;            /* page                                        */
+  --bg-rgb: 10 13 18;
+  --surface-nav: #0d1116;   /* sidebar / tab bar / app bar                 */
+  --surface-nav-rgb: 13 17 22;
+  --surface: #11151b;       /* card                                        */
+  --surface-rgb: 17 21 27;
+  --surface-muted: #181c22; /* meter track, table head, inset wells        */
+  --surface-muted-rgb: 24 28 34;
+  --surface-hover: #1e232c; /* hover state of any interactive surface      */
+  --surface-hover-rgb: 30 35 44;
+  --surface-sunken: #070a0e;/* below-page wells (code, scrollers)          */
+
+  /* --- 1.2 INK ----------------------------------------------------------- */
+  --fg: #f0f2f4;            /* primary text                                */
+  --fg-rgb: 240 242 244;
+  --fg-muted: #87909c;      /* meta, eyebrows, secondary                   */
+  --fg-muted-rgb: 135 144 156;
+  --fg-subtle: #5d6674;     /* placeholders, disabled labels               */
+  --fg-invert: #0c121a;     /* text on a bright fill                       */
+  --fg-on-brand: #ffffff;   /* text on the orange gradient                 */
+
+  /* --- 1.3 BORDERS — translucent WHITE, never gray ------------------------ */
+  --border: rgb(255 255 255 / 0.08);
+  --border-strong: rgb(255 255 255 / 0.12);
+  --border-hover: rgb(240 242 244 / 0.3);
+  --hairline: rgb(255 255 255 / 0.06);
+
+  /* --- 1.4 BRAND ---------------------------------------------------------
+     Orange touches <= 5% of pixels: nav active edge, focus ring,
+     logo tile, one KPI accent, the single primary CTA on a screen.        */
+  --brand: #ff8a3d;
+  --brand-rgb: 255 138 61;
+  --brand-soft: #ffb071;
+  --brand-soft-rgb: 255 176 113;
+  --brand-deep: #d97757;    /* Anthropic orange — borders, hairlines       */
+  --brand-deep-rgb: 217 119 87;
+  --brand-dark: #c45a39;
+  --brand-hot: #ff4e50;     /* gradient tail only, never a flat fill       */
+  --brand-hot-rgb: 255 78 80;
+  --brand-lift: #ffc371;    /* gradient head                               */
+  --brand-lift-rgb: 255 195 113;
+
+  /* Identity gradient — logo tiles, avatars, 32-48px marks */
+  --brand-grad: linear-gradient(135deg, #ffb071 0%, #d97757 60%, #c45a39 100%);
+  /* Action gradient — THE glossy 3D button fill (extracted from Claude OS
+     setup.tsx:87 ORANGE_GRADIENT). Do not substitute --brand-grad here.  */
+  --brand-grad-action: linear-gradient(135deg, #ffc371 0%, #ff7a3d 55%, #ff4e50 100%);
+  /* Vertical bar — sidebar/tab active edge (app-sidebar.tsx:146) */
+  --brand-bar: linear-gradient(180deg, #ffc371, #ff7a3d);
+  --brand-bar-glow: 0 0 8px rgb(255 122 61 / 0.55);
+
+  /* --- 1.5 SEMANTIC ------------------------------------------------------
+     Recipe EVERYWHERE: bg <c>/10 · text <c> · border <c>/20.
+     Precomputed below so no module ever writes the maths itself.          */
+  --good: #10b981;   --good-rgb: 16 185 129;
+  --warn: #f59e0b;   --warn-rgb: 245 158 11;
+  --bad: #ef4444;    --bad-rgb: 239 68 68;
+  --info: #60a5fa;   --info-rgb: 96 165 250;
+  --ai: #a78bfa;     --ai-rgb: 167 139 250;
+  --neutral: #87909c; --neutral-rgb: 135 144 156;
+
+  --good-bg: rgb(16 185 129 / 0.1);   --good-bd: rgb(16 185 129 / 0.2);
+  --warn-bg: rgb(245 158 11 / 0.1);   --warn-bd: rgb(245 158 11 / 0.2);
+  --bad-bg: rgb(239 68 68 / 0.1);     --bad-bd: rgb(239 68 68 / 0.2);
+  --info-bg: rgb(96 165 250 / 0.1);   --info-bd: rgb(96 165 250 / 0.2);
+  --ai-bg: rgb(167 139 250 / 0.1);    --ai-bd: rgb(167 139 250 / 0.2);
+  --neutral-bg: rgb(135 144 156 / 0.1); --neutral-bd: rgb(135 144 156 / 0.2);
+
+  /* --- 1.6 SRS STATE ALIASES ---------------------------------------------
+     mastered -> emerald · due/weak -> amber · lapsed/overdue -> red
+     new -> sky. Use these names in scheduler UI, not the raw semantics.   */
+  --srs-mastered: var(--good);       --srs-mastered-rgb: var(--good-rgb);
+  --srs-due: var(--warn);            --srs-due-rgb: var(--warn-rgb);
+  --srs-lapsed: var(--bad);          --srs-lapsed-rgb: var(--bad-rgb);
+  --srs-new: var(--info);            --srs-new-rgb: var(--info-rgb);
+  --srs-suspended: var(--neutral);   --srs-suspended-rgb: var(--neutral-rgb);
+
+  /* --- 1.7 SUBJECT TONES -------------------------------------------------
+     Each tone is used as a QUADRUPLE:
+       border rgb(<c>/.4) · glow rgb(<c>/.45) · chip bg rgb(<c>/.2) · icon tint
+     Every card / lesson / deck picks --accent from its subject. This is
+     what makes the hub look designed instead of monochrome.              */
+  --sub-physics: #60a5fa;  --sub-physics-rgb: 96 165 250;
+  --sub-chem: #3ddc97;     --sub-chem-rgb: 61 220 151;
+  --sub-math: #a78bfa;     --sub-math-rgb: 167 139 250;
+  --sub-cs: #22d3ee;       --sub-cs-rgb: 34 211 238;
+  --sub-english: #fbbf24;  --sub-english-rgb: 251 191 36;
+  --sub-nepali: #f472b6;   --sub-nepali-rgb: 244 114 182;
+
+  /* --- 1.8 ACCENT CHANNEL ------------------------------------------------
+     The single indirection every component reads. Default = brand.
+     Re-point it with [data-subject], [data-tone], [data-status] or the
+     .tone-* classes below — or inline: style="--accent-rgb: 96 165 250".  */
+  --accent: var(--brand);
+  --accent-rgb: var(--brand-rgb);
+
+  /* --- 1.9 TYPE ----------------------------------------------------------
+     System stack only — zero external origins, no @font-face, no CDN.
+     "Inter"/"JetBrains Mono" resolve if locally installed, else fall
+     through. Devanagari faces included for Nepali content.               */
+  --font-sans: Inter, "Inter Variable", -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable Text", "Segoe UI", system-ui, Roboto, "Helvetica Neue",
+    Arial, "Noto Sans Devanagari", "Nirmala UI", Mangal, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: "JetBrains Mono", "SFMono-Regular", "SF Mono", ui-monospace,
+    "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-deva: "Noto Sans Devanagari", "Nirmala UI", Mangal, "Kalimati",
+    var(--font-sans);
+
+  /* Scale — deliberately EMPTY between 14px and 18px. That gap is the
+     premium signal; do not add a 15px or 16px token.                     */
+  --fs-micro: 9px;    /* micro-chip, tracking .2em uppercase             */
+  --fs-eyebrow: 10px; /* EYEBROW, tracking .22em uppercase, muted        */
+  --fs-meta: 11px;    /* META — timestamps, sublines, table cells        */
+  --fs-caption: 12px; /* captions, dense table numerics                  */
+  --fs-body: 13px;    /* BODY — the default. line-height 1.6             */
+  --fs-body-lg: 14px; /* long-form prose, chat messages, lesson copy     */
+  /* The ONE documented exception to the 14-18 gap: iOS Safari zooms the
+     viewport whenever a focused form control is under 16px. Form text is
+     not display type — this token exists solely to stop that zoom.      */
+  --fs-input: 16px;
+  --fs-title: 18px;   /* TITLE — card + section headings                 */
+  --fs-title-lg: 20px;/* page title                                      */
+  --fs-display: 28px; /* hero headline                                   */
+  --fs-metric: 36px;  /* METRIC — KPI digits                             */
+  --fs-metric-lg: 48px;/* hero KPI digits                                */
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;     /* BODY line-height, non-negotiable                */
+  --lh-loose: 1.75;
+
+  --tr-metric: -0.02em;  /* title/metric negative tracking               */
+  --tr-eyebrow: 0.22em;  /* eyebrow letter-spacing                       */
+  --tr-micro: 0.2em;     /* micro-chip letter-spacing                    */
+
+  /* Weights — NO 700 anywhere in chrome. 600 headings/numbers,
+     500 nav/buttons/labels, 400 body.                                    */
+  --fw-body: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --font-features: "cv11", "ss01", "calt" 1;
+
+  /* --- 1.10 RADII --------------------------------------------------------- */
+  --r-sm: 4px;    /* ticks, tiny swatches                                */
+  --r-md: 6px;    /* buttons, inputs, badges, nav items                  */
+  --r-lg: 8px;    /* icon tiles, small panels, message blocks            */
+  --r-xl: 12px;   /* CARDS                                               */
+  --r-2xl: 16px;  /* hero, KPI tiles, modals                             */
+  --r-full: 999px;
+
+  /* --- 1.11 SPACING ------------------------------------------------------- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px;
+  --gutter: var(--sp-4);          /* main padding, mobile                 */
+  --gutter-lg: var(--sp-6);       /* main padding, >=768px                */
+  --section-gap: var(--sp-12);    /* sections mb-48                       */
+  --tap: 44px;                    /* minimum touch target (M-rule)        */
+
+  /* --- 1.12 LAYOUT -------------------------------------------------------- */
+  --nav-w: 224px;      /* desktop sidebar                                 */
+  --header-h: 56px;    /* sticky app bar                                  */
+  --tabbar-h: 56px;    /* mobile bottom tab bar                           */
+  --content-max: 1120px;
+  --prose-max: 68ch;
+  --bp-md: 768px;      /* documented only — CSS cannot use var() in MQ    */
+
+  /* Safe-area insets (notch / home indicator). Always present, 0 elsewhere. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* --- 1.13 ELEVATION ----------------------------------------------------
+     Colored glows, never gray dumps. --lip goes on EVERY raised panel.   */
+  --lip: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --lip-strong: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --sh-card: 0 10px 30px -15px rgb(0 0 0 / 0.6);
+  --sh-pop: 0 12px 32px -12px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.05);
+  --sh-modal: 0 24px 64px -16px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.04),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+  /* Accent glow — reads --accent-rgb, so it recolours per subject free.  */
+  --glow-accent: 0 16px 48px -16px rgb(var(--accent-rgb) / 0.4);
+  --glow-accent-soft: 0 8px 24px -12px rgb(var(--accent-rgb) / 0.35);
+  --glow-dot: 0 0 8px rgb(var(--accent-rgb) / 0.7);
+
+  /* THE glossy 3D primary button — depth shadow + inner top highlight.
+     Extracted verbatim from claude-os setup.tsx:3373.                    */
+  --sh-btn-primary: 0 12px 36px -10px rgb(var(--brand-rgb) / 0.95),
+    inset 0 1px 0 rgb(255 255 255 / 0.32);
+  --sh-btn-primary-hover: 0 16px 44px -10px rgb(var(--brand-rgb) / 1),
+    inset 0 1px 0 rgb(255 255 255 / 0.38);
+  --sh-btn-primary-active: 0 6px 18px -8px rgb(var(--brand-rgb) / 0.9),
+    inset 0 1px 0 rgb(255 255 255 / 0.22);
+  /* The gloss wash — a white top-half fade laid OVER the action gradient.
+     0.45 white at 30% layer opacity == 0.135 effective at y=0.           */
+  --gloss-wash: linear-gradient(180deg, rgb(255 255 255 / 0.135) 0%,
+    rgb(255 255 255 / 0) 50%);
+
+  /* --- 1.14 FOCUS --------------------------------------------------------
+     Orange ring replaces the browser blue everywhere. (styles.css:312)   */
+  --focus-ring: 0 0 0 3px rgb(255 138 61 / 0.18), 0 0 0 1px rgb(217 119 87 / 0.7);
+  --focus-ring-color: rgb(217 119 87 / 0.55);
+
+  /* --- 1.15 MOTION — ONE house easing ------------------------------------ */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-pop: cubic-bezier(0.18, 0.85, 0.4, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;        /* house duration — hover lift, colour, opacity    */
+  --dur-slow: 400ms;
+  --dur-dial: 600ms;   /* ring dial sweep                                 */
+  --lift-y: -2px;      /* the 2px hover lift, everywhere                  */
+
+  /* --- 1.16 Z-INDEX ------------------------------------------------------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-nav: 200;
+  --z-scrim: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-confetti: 600;
+
+  /* --- 1.17 SIGNATURE SURFACES ------------------------------------------- */
+  --grid-size: 24px;                        /* .grid-bg pitch             */
+  --grid-line: rgb(240 242 244 / 0.05);
+  --orb-size: 176px;                        /* .card--tone corner orb     */
+  --orb-opacity: 0.4;
+  --orb-opacity-hover: 0.7;
+  --wash-accent: radial-gradient(120% 100% at 0% 0%,
+    rgb(var(--accent-rgb) / 0.12), transparent 60%);
+  --dial-size: 76px;
+  --dial-stroke: 7px;
+  --dial-r: 34.5;        /* (76 - 7) / 2                                  */
+  --dial-c: 216.77;      /* 2 * PI * 34.5 — the dasharray constant        */
+  --tick-c: rgb(255 255 255 / 0.16);        /* meter ticks at 25/50/75    */
+
+  /* Hero nebula (nightly plan) */
+  --hero-base: linear-gradient(180deg, #050416 0%, #0a0820 50%, #110a2e 100%);
+  --hero-veil-1: rgb(139 92 246 / 0.45);
+  --hero-veil-2: rgb(56 189 248 / 0.25);
+  --hero-veil-3: rgb(236 72 153 / 0.22);
+  --hero-grid: 44px;
+  --hero-grid-color: rgb(196 181 253 / 0.5);
+  --hero-border: rgb(139 92 246 / 0.25);
+  --hero-ink-soft: rgb(221 214 254 / 0.7);   /* hero eyebrow / sub-copy       */
+  /* Starfield tints (triplets — the star gradients need per-stop alpha). */
+  --star-a-rgb: 255 255 255;
+  --star-b-rgb: 221 214 254;
+  --star-c-rgb: 196 181 253;
+
+  /* Sticky-header veil. Flat fallback; color-mix upgrade in §4. */
+  --veil: rgb(10 13 18 / 0.85);
+  --blur-chrome: 12px;   /* applied at >=768px only (mobile blur banned)  */
+
+  /* Confetti palette — deterministic, matches claude-os index.tsx:947 */
+  --confetti-1: #ffc371;
+  --confetti-2: #ff7a3d;
+  --confetti-3: #ff4e50;
+  --confetti-4: #a78bfa;
+  --confetti-5: #3ddc97;
+  --confetti-6: #60a5fa;
+}
+
+/* ----------------------------------------------------------------------------
+   2. ACCENT RE-POINTERS
+   Set ONE attribute on any container and every descendant component —
+   card wash, corner orb, metric glow, dial, chip, icon tint, ring — recolours.
+   Precedence: inline style > [data-status] > [data-tone] > [data-subject].
+   -------------------------------------------------------------------------- */
+[data-subject="physics"], .tone-physics { --accent: var(--sub-physics); --accent-rgb: var(--sub-physics-rgb); }
+[data-subject="chemistry"], .tone-chem  { --accent: var(--sub-chem);    --accent-rgb: var(--sub-chem-rgb); }
+[data-subject="maths"],
+[data-subject="mathematics"],
+[data-subject="math"], .tone-math       { --accent: var(--sub-math);    --accent-rgb: var(--sub-math-rgb); }
+[data-subject="cs"],
+[data-subject="computer-science"], .tone-cs { --accent: var(--sub-cs);  --accent-rgb: var(--sub-cs-rgb); }
+[data-subject="english"], .tone-english { --accent: var(--sub-english); --accent-rgb: var(--sub-english-rgb); }
+[data-subject="nepali"], .tone-nepali   { --accent: var(--sub-nepali);  --accent-rgb: var(--sub-nepali-rgb); }
+
+[data-tone="brand"], .tone-brand     { --accent: var(--brand);   --accent-rgb: var(--brand-rgb); }
+[data-tone="good"], .tone-good       { --accent: var(--good);    --accent-rgb: var(--good-rgb); }
+[data-tone="warn"], .tone-warn       { --accent: var(--warn);    --accent-rgb: var(--warn-rgb); }
+[data-tone="bad"], .tone-bad         { --accent: var(--bad);     --accent-rgb: var(--bad-rgb); }
+[data-tone="info"], .tone-info       { --accent: var(--info);    --accent-rgb: var(--info-rgb); }
+[data-tone="ai"], .tone-ai           { --accent: var(--ai);      --accent-rgb: var(--ai-rgb); }
+[data-tone="neutral"], .tone-neutral { --accent: var(--neutral); --accent-rgb: var(--neutral-rgb); }
+
+[data-status="mastered"]  { --accent: var(--srs-mastered);  --accent-rgb: var(--srs-mastered-rgb); }
+[data-status="due"]       { --accent: var(--srs-due);       --accent-rgb: var(--srs-due-rgb); }
+[data-status="due-soon"]  { --accent: var(--srs-due);       --accent-rgb: var(--srs-due-rgb); } /* scheduler.js srsTone() emits 'due-soon' */
+[data-status="weak"]      { --accent: var(--srs-due);       --accent-rgb: var(--srs-due-rgb); }
+[data-status="lapsed"]    { --accent: var(--srs-lapsed);    --accent-rgb: var(--srs-lapsed-rgb); }
+[data-status="overdue"]   { --accent: var(--srs-lapsed);    --accent-rgb: var(--srs-lapsed-rgb); }
+[data-status="new"]       { --accent: var(--srs-new);       --accent-rgb: var(--srs-new-rgb); }
+[data-status="suspended"] { --accent: var(--srs-suspended); --accent-rgb: var(--srs-suspended-rgb); }
+
+/* ----------------------------------------------------------------------------
+   3. RESET + ELEMENT DEFAULTS
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: var(--border);   /* build-constraints §10 */
+  border-style: solid;
+  border-width: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-color: rgb(255 255 255 / 0.14) transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  font-feature-settings: var(--font-features);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  /* NEVER overflow:hidden on body — it breaks iOS scroll (M-rule). */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-metric);
+  line-height: var(--lh-snug);
+}
+h1 { font-size: var(--fs-title-lg); }
+h2 { font-size: var(--fs-title); }
+h3 { font-size: var(--fs-body-lg); }
+h4, h5, h6 { font-size: var(--fs-body); }
+
+p, ul, ol, dl, figure, pre, blockquote, table { margin: 0 0 var(--sp-3); }
+ul, ol { padding-inline-start: var(--sp-5); }
+p:last-child, ul:last-child, ol:last-child { margin-bottom: 0; }
+
+a {
+  color: var(--accent);
+  text-decoration-color: rgb(var(--accent-rgb) / 0.4);
+  text-underline-offset: 2px;
+  transition: color var(--dur-fast) var(--ease),
+    text-decoration-color var(--dur-fast) var(--ease);
+}
+a:hover { text-decoration-color: rgb(var(--accent-rgb) / 0.9); }
+
+code, kbd, samp, pre, .mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+small { font-size: var(--fs-meta); }
+
+hr {
+  border: 0;
+  border-top-width: 1px;
+  border-color: var(--border);
+  margin: var(--sp-5) 0;
+}
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img, video { height: auto; }
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  background: none;
+  margin: 0;
+}
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+button:disabled { cursor: not-allowed; }
+
+::placeholder { color: var(--fg-subtle); opacity: 1; }
+
+::selection { background: rgb(var(--brand-rgb) / 0.28); color: var(--fg); }
+
+table { border-collapse: collapse; width: 100%; }
+
+summary { cursor: pointer; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+
+/* Orange focus ring replaces browser blue on everything focusable.
+   :where() keeps specificity at 0 so components override freely. */
+:where(a, button, input, select, textarea, summary, [tabindex], [role="button"],
+  [role="tab"], [role="option"]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+:where(a, button, input, select, textarea, summary, [tabindex]):focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Scrollbars — thin, translucent, never chrome-blue */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.12);
+  border-radius: var(--r-full);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / 0.22); background-clip: content-box; }
+
+/* ----------------------------------------------------------------------------
+   4. PROGRESSIVE UPGRADES (behind @supports — hex above is the fallback)
+   -------------------------------------------------------------------------- */
+
+/* 4.1 oklch surfaces — wider-gamut, perceptually even 5% elevation steps.
+   Values from build-constraints §10. Everything else stays sRGB on purpose:
+   the semantic/subject hexes are the audited palette, not approximations. */
+@supports (color: oklch(0.16 0.012 260)) {
+  :root {
+    --bg: oklch(0.16 0.012 260);
+    --surface-nav: oklch(0.175 0.013 260);
+    --surface: oklch(0.195 0.014 260);
+    --surface-muted: oklch(0.225 0.013 260);
+    --surface-hover: oklch(0.255 0.018 260);
+  }
+}
+
+/* 4.2 color-mix veil for the sticky header (falls back to the flat rgba). */
+@supports (background: color-mix(in oklab, red 50%, transparent)) {
+  :root { --veil: color-mix(in oklab, var(--bg) 85%, transparent); }
+}
+
+/* ----------------------------------------------------------------------------
+   5. GLOBAL MOTION KILL SWITCH
+   Every animation/transition in the product must survive this block.
+   (components.css repeats it for its own keyframe utilities.)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur: 0.01ms;
+    --dur-slow: 0.01ms;
+    --dur-dial: 0.01ms;
+    --lift-y: 0px;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   6. PRINT (cheatsheets — build-constraints §4)
+   -------------------------------------------------------------------------- */
+@media print {
+  :root { --bg: #fff; --surface: #fff; --fg: #111; --fg-muted: #555; --border: #ccc; }
+  body { background: #fff; color: #111; }
+  .no-print, .tabbar, .sidebar, .appbar, .btn, .confetti-layer { display: none !important; }
+}

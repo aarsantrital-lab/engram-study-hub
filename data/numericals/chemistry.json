@@ -1,0 +1,168 @@
+{
+  "subject": "Chemistry",
+  "templates": [
+    {
+      "id": "chem-mole-mass-to-mol",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "mass-to-moles",
+      "problemTypeLabel": "Mass ↔ moles",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "Calculate the number of moles in {m} g of {name} (molar mass = {M} g mol⁻¹), and the number of formula units it contains. Take N_A = 6.022 × 10²³ mol⁻¹.",
+      "vars": {
+        "m": { "min": 5, "max": 120, "step": 5, "unit": "g", "sigfigs": 3 },
+        "M": { "min": 18, "max": 180, "step": 2, "unit": "g mol^-1", "sigfigs": 3 }
+      },
+      "picks": { "name": ["a pure solid sample", "an unknown salt", "the crystalline compound"] },
+      "solutionChain": [
+        { "kind": "given", "statement": "mass = {m} g, molar mass = {M} g mol⁻¹, N_A = 6.022 × 10²³ mol⁻¹", "justification": "Molar mass carries the unit g mol⁻¹. It is NOT the same thing as relative molecular mass, which has no unit." },
+        { "statement": "n = mass / molar mass = {m} / {M}", "justification": "The mole is the SI amount of substance: dividing grams by grams-per-mole leaves moles.", "formulaTeX": "n = \\frac{m}{M}", "expr": "m/M", "unit": "mol", "sigfigs": 3 },
+        { "statement": "N = n × N_A", "justification": "One mole contains 6.022 × 10²³ particles, whatever the substance is.", "formulaTeX": "N = n N_A", "expr": "(m/M)*N_A", "unit": "", "sigfigs": 3, "dimensionless": true }
+      ],
+      "answer": { "expr": "m/M", "unit": "mol", "sigfigs": 3, "label": "amount of substance" },
+      "misconceptionTags": ["CH-M01", "CH-M03", "CH-M04"],
+      "misconceptions": [
+        { "id": "CH-M01", "trap": "M/m", "statement": "Divided molar mass by mass.", "feedback": "You inverted the ratio. Check the units: g mol⁻¹ ÷ g gives mol⁻¹, not mol. Writing the unit on every line catches this before the marks go.", "whyItFeelsRight": "Both numbers are 'masses', so the order feels arbitrary when you are moving fast." },
+        { "id": "CH-M08", "trap": "m*N_A", "statement": "Multiplied the mass directly by Avogadro's number.", "feedback": "N_A converts MOLES to particles, not grams to particles. You need n = m/M first — that is the bridge between the lab and the particles.", "whyItFeelsRight": "Avogadro's number is the only 'particle' number in the question, so it looks like the one multiplication you need." }
+      ],
+      "confusableWith": ["molarity", "percentage-composition", "limiting-reagent"]
+    },
+    {
+      "id": "chem-stoich-limiting-reagent",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "limiting-reagent",
+      "problemTypeLabel": "Limiting reagent",
+      "cognitive": "higher",
+      "difficulty": 3,
+      "template": "In the reaction N₂ + 3H₂ → 2NH₃, {mN} g of nitrogen is mixed with {mH} g of hydrogen. Molar masses: N₂ = 28 g mol⁻¹, H₂ = 2 g mol⁻¹, NH₃ = 17 g mol⁻¹. Identify the limiting reagent and calculate the maximum mass of ammonia formed.",
+      "vars": {
+        "mN": { "min": 14, "max": 140, "step": 14, "unit": "g", "sigfigs": 3 },
+        "mH": { "min": 2, "max": 30, "step": 2, "unit": "g", "sigfigs": 3 }
+      },
+      "constraints": ["mH*28 < mN*6", "mN + 6 < mH*14"],
+      "solutionChain": [
+        { "kind": "given", "statement": "Balanced equation: N₂ + 3H₂ → 2NH₃. m(N₂) = {mN} g, m(H₂) = {mH} g", "justification": "Balance first, always. Mole ratios read off an unbalanced equation are worth nothing." },
+        { "statement": "n(N₂) = {mN} / 28", "justification": "Convert every mass to moles before comparing anything. Masses cannot be compared across different substances.", "expr": "mN/28", "unit": "mol", "sigfigs": 3 },
+        { "statement": "n(H₂) = {mH} / 2", "justification": "Same conversion for the second reactant.", "expr": "mH/2", "unit": "mol", "sigfigs": 3 },
+        { "statement": "Divide each by its coefficient: N₂ → n/1, H₂ → n/3. The smaller value is the limiting reagent.", "justification": "The limiting reagent is the one with the smallest moles-÷-coefficient, NOT the smallest mass.", "expr": "min(mN/28, (mH/2)/3)", "unit": "mol", "sigfigs": 3 },
+        { "statement": "n(NH₃) = 2 × (limiting value), then m = n × 17", "justification": "Two moles of ammonia come from each unit of the limiting quantity; convert back to grams at the very end.", "formulaTeX": "m = nM", "expr": "2*min(mN/28, (mH/2)/3)*17", "unit": "g", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "2*min(mN/28, (mH/2)/3)*17", "unit": "g", "sigfigs": 3, "label": "maximum mass of NH₃" },
+      "misconceptionTags": ["CH-S02", "CH-S03", "CH-S01"],
+      "misconceptions": [
+        { "id": "CH-S03", "trap": "2*min(mN,mH)/28*17", "statement": "Took the reagent with the smaller MASS as limiting.", "feedback": "Limiting is decided by moles ÷ coefficient, never by mass. {mH} g of H₂ is {mH/2} mol; {mN} g of N₂ is {mN/28} mol — the smaller mass is often the larger amount of substance.", "whyItFeelsRight": "'Less of it, so it runs out first' is true for identical particles — and hydrogen molecules are 14 times lighter than nitrogen ones." },
+        { "id": "CH-S01", "trap": "2*min(mN/28, mH/2)*17", "statement": "Compared moles without dividing by the coefficients.", "feedback": "You compared n(N₂) with n(H₂) directly. The equation needs THREE H₂ for every one N₂, so hydrogen must be divided by 3 before the comparison.", "whyItFeelsRight": "Once both are in moles it feels like the units are finally comparable — but the stoichiometry has not been applied yet." },
+        { "id": "CH-S02", "trap": "2*mN/3*17/28", "statement": "Applied the mole ratio to grams.", "feedback": "The 1 : 3 : 2 ratio applies to MOLES only. Applying it to grams is the single most common stoichiometry error in Nepal — it even shows up in teaching notes.", "whyItFeelsRight": "The coefficients sit right next to the formulas, and the masses are the numbers you were given, so they get combined." }
+      ],
+      "confusableWith": ["mass-to-moles", "percentage-yield", "molarity"]
+    },
+    {
+      "id": "chem-molarity",
+      "subject": "Chemistry",
+      "unit": "Solution and colligative properties",
+      "problemType": "molarity",
+      "problemTypeLabel": "Molarity of a solution",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "{m} g of a solute of molar mass {M} g mol⁻¹ is dissolved in water and made up to {V} cm³ of solution. Calculate the molarity of the solution.",
+      "vars": {
+        "m": { "min": 2, "max": 60, "step": 2, "unit": "g", "sigfigs": 3 },
+        "M": { "min": 40, "max": 180, "step": 4, "unit": "g mol^-1", "sigfigs": 3 },
+        "V": { "min": 100, "max": 1000, "step": 50, "unit": "cm^3", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "m = {m} g, M = {M} g mol⁻¹, V = {V} cm³ = {V}/1000 dm³", "justification": "Molarity is per cubic decimetre (litre). Convert the volume first — cm³ into a molarity calculation is a 1000× error." },
+        { "statement": "n = m/M = {m}/{M}", "justification": "Amount of solute in moles.", "formulaTeX": "n = \\frac{m}{M}", "expr": "m/M", "unit": "mol", "sigfigs": 3 },
+        { "statement": "c = n/V = ({m}/{M}) ÷ ({V}/1000)", "justification": "Molarity is moles of solute per dm³ of SOLUTION, not per dm³ of solvent.", "formulaTeX": "c = \\frac{n}{V}", "expr": "(m/M)/(V/1000)", "unit": "mol dm^-3", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "(m/M)/(V/1000)", "unit": "mol dm^-3", "sigfigs": 3, "label": "molarity" },
+      "misconceptionTags": ["CH-M07", "CH-M03"],
+      "misconceptions": [
+        { "id": "CH-M07", "trap": "m/(V/1000)", "statement": "Used mass instead of moles.", "feedback": "That is a concentration in g dm⁻³, not a molarity. Molarity always counts particles, so the mass has to become moles first.", "whyItFeelsRight": "Both are called 'concentration' in everyday speech, and both go up when you add more solid." },
+        { "id": "ML-01", "trap": "(m/M)/V", "statement": "Left the volume in cm³.", "feedback": "Your answer is 1000 times too small. Molarity is mol dm⁻³, so {V} cm³ has to become {V/1000} dm³.", "whyItFeelsRight": "The question hands you cm³, so cm³ feels like the working unit." }
+      ],
+      "confusableWith": ["mass-to-moles", "percentage-composition", "dilution"]
+    },
+    {
+      "id": "chem-percentage-composition",
+      "subject": "Chemistry",
+      "unit": "Mole concept and stoichiometry",
+      "problemType": "percentage-composition",
+      "problemTypeLabel": "Percentage composition by mass",
+      "cognitive": "understanding",
+      "difficulty": 1,
+      "template": "A compound has molar mass {M} g mol⁻¹ and each mole contains {n} mol of oxygen atoms (A_r of O = 16). Calculate the percentage of oxygen by mass in the compound.",
+      "vars": {
+        "M": { "min": 60, "max": 300, "step": 2, "unit": "g mol^-1", "sigfigs": 3 },
+        "n": { "min": 1, "max": 7, "step": 1, "unit": "mol", "sigfigs": 2 }
+      },
+      "constraints": ["n*16 < M*0.75"],
+      "solutionChain": [
+        { "kind": "given", "statement": "Molar mass = {M} g mol⁻¹; oxygen contributes {n} × 16 g mol⁻¹", "justification": "Relative atomic mass (16) has no unit; molar mass (16 g mol⁻¹) does. Keep the two apart in your working." },
+        { "statement": "Mass of oxygen per mole = {n} × 16", "justification": "Multiply the number of oxygen atoms per formula unit by the atomic mass of oxygen.", "expr": "n*16", "unit": "g mol^-1", "sigfigs": 3 },
+        { "statement": "% O = (mass of O ÷ molar mass) × 100", "justification": "A percentage by mass is always part-mass over whole-mass.", "formulaTeX": "\\%O = \\frac{16n}{M}\\times 100", "expr": "n*16/M*100", "unit": "%", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "n*16/M*100", "unit": "%", "sigfigs": 3, "label": "percentage of oxygen by mass" },
+      "misconceptionTags": ["CH-M03", "CH-S08"],
+      "misconceptions": [
+        { "id": "PC-01", "trap": "n/M*100", "statement": "Used the number of oxygen atoms instead of their mass.", "feedback": "Percentage BY MASS needs the mass of oxygen, which is {n} × 16 = {n*16} g mol⁻¹, not the count {n}.", "whyItFeelsRight": "'Percentage of oxygen' sounds like a count of atoms, and the atom count is the number in front of you." }
+      ],
+      "confusableWith": ["mass-to-moles", "empirical-formula", "molarity"]
+    },
+    {
+      "id": "chem-gas-stp-volume",
+      "subject": "Chemistry",
+      "unit": "States of matter (gaseous state)",
+      "problemType": "gas-molar-volume",
+      "problemTypeLabel": "Molar volume of a gas at STP",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "Calculate the volume occupied at STP by {m} g of a gas of molar mass {M} g mol⁻¹. Take the molar volume at STP as 22.4 dm³ mol⁻¹.",
+      "vars": {
+        "m": { "min": 2, "max": 88, "step": 2, "unit": "g", "sigfigs": 3 },
+        "M": { "min": 16, "max": 64, "step": 2, "unit": "g mol^-1", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "m = {m} g, M = {M} g mol⁻¹, V_m = 22.4 dm³ mol⁻¹ at STP", "justification": "22.4 dm³ mol⁻¹ applies to GASES at STP only — never to a solid, a liquid, or a gas at some other temperature and pressure." },
+        { "statement": "n = m/M = {m}/{M}", "justification": "Convert to moles first; the molar volume is per mole.", "formulaTeX": "n = \\frac{m}{M}", "expr": "m/M", "unit": "mol", "sigfigs": 3 },
+        { "statement": "V = n × 22.4", "justification": "Avogadro's law: equal amounts of any gas occupy equal volumes at the same temperature and pressure.", "formulaTeX": "V = nV_m", "expr": "(m/M)*22.4", "unit": "dm^3", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "(m/M)*22.4", "unit": "dm^3", "sigfigs": 3, "label": "volume at STP" },
+      "misconceptionTags": ["CH-M06", "CH-M03"],
+      "misconceptions": [
+        { "id": "CH-M06", "trap": "m*22.4", "statement": "Multiplied the mass by 22.4 directly.", "feedback": "22.4 dm³ is the volume of one MOLE, not of one gram. Convert to moles first: n = {m}/{M} = {m/M} mol.", "whyItFeelsRight": "22.4 is the only volume number in the question, so it looks like a straight conversion factor." },
+        { "id": "GS-01", "trap": "22.4/(m/M)", "statement": "Divided instead of multiplied.", "feedback": "More gas means more volume, so n and V must multiply. Sanity-check the direction before you press equals.", "whyItFeelsRight": "The previous step was a division, and the hand keeps going." }
+      ],
+      "confusableWith": ["mass-to-moles", "molarity", "ideal-gas-equation"]
+    },
+    {
+      "id": "chem-ideal-gas-equation",
+      "subject": "Chemistry",
+      "unit": "States of matter (gaseous state)",
+      "problemType": "ideal-gas-equation",
+      "problemTypeLabel": "Ideal gas equation",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "{n} mol of an ideal gas occupies a container of volume {V} dm³ at a temperature of {T} °C. Taking R = 8.314 J K⁻¹ mol⁻¹, calculate the pressure of the gas in pascals.",
+      "vars": {
+        "n": { "min": 0.5, "max": 5, "step": 0.5, "unit": "mol", "sigfigs": 2 },
+        "V": { "min": 2, "max": 40, "step": 2, "unit": "dm^3", "sigfigs": 2 },
+        "T": { "min": 10, "max": 120, "step": 5, "unit": "°C", "sigfigs": 3 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "n = {n} mol, V = {V} dm³ = {V}/1000 m³, T = {T} °C = {T} + 273 K, R = 8.314 J K⁻¹ mol⁻¹", "justification": "With R in J K⁻¹ mol⁻¹ the volume must be in m³ and the temperature in KELVIN. Converting both here is worth two marks on its own." },
+        { "statement": "T = {T} + 273", "justification": "An absolute temperature is required — a gas law with °C in it is simply wrong (PH-U02).", "expr": "T+273", "unit": "K", "sigfigs": 4 },
+        { "statement": "p = nRT/V", "justification": "Ideal gas equation pV = nRT, rearranged for pressure.", "formulaTeX": "pV = nRT", "expr": "n*8.314*(T+273)/(V/1000)", "unit": "Pa", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "n*8.314*(T+273)/(V/1000)", "unit": "Pa", "sigfigs": 3, "label": "pressure" },
+      "misconceptionTags": ["PH-U02", "CH-M06", "PH-U01"],
+      "misconceptions": [
+        { "id": "PH-U02", "trap": "n*8.314*T/(V/1000)", "statement": "Left the temperature in degrees Celsius.", "feedback": "Gas laws need kelvin: {T} °C = {T+273} K. Using {T} directly makes the pressure far too small — and the marker sees it in one glance.", "whyItFeelsRight": "The question is written in °C, and °C is the temperature scale you use every day." },
+        { "id": "IG-01", "trap": "n*8.314*(T+273)/V", "statement": "Left the volume in dm³.", "feedback": "R = 8.314 J K⁻¹ mol⁻¹ is the SI value, so V must be in m³: {V} dm³ = {V/1000} m³. Your pressure is 1000 times too small.", "whyItFeelsRight": "dm³ is the volume unit chemistry uses everywhere else, including molarity." }
+      ],
+      "confusableWith": ["gas-molar-volume", "molarity", "calorimetry"]
+    }
+  ]
+}

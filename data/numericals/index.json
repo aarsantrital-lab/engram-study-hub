@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "note": "Directory listings do not exist over HTTP, so every template file that ships must be named here. numericals.js UNIONs this list with its own built-in list, so a file named in either place still loads; add new template files here and they are picked up without a code change.",
+  "files": [
+    "physics.json",
+    "chemistry.json",
+    "maths.json",
+    "chem-mole.json"
+  ]
+}

@@ -1,0 +1,347 @@
+/* =============================================================================
+   css/shell.css — the app-shell job's CSS. Job A2.
+
+   SCOPE: only what css/components.css (design job) does not already own.
+   components.css supplies .app-shell .sidebar .appbar .tabbar .tab-item
+   .nav-item .btn* .chip .icon .toast .sheet .scrim .banner .empty-state
+   .eyebrow .kbd .skip-link .modal — this file must NOT restate them.
+
+   What lives here:
+     · .app-col — the one structural class components.css has no opinion on
+     · the pieces the shell invents: boot splash, banner internals, search
+       overlay, more-sheet contents, view error card
+     · md.js output styling (.md-*), including working spoilers
+     · the disposable stub-view styling (delete with js/views/_stub.js)
+
+   Loaded BEFORE components.css so the design job always wins a collision.
+   Every colour is var(--token, <fallback>) so the shell stays legible even if
+   theme.css fails to load.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* =============================================================================
+   1. Layout glue
+   ========================================================================== */
+
+/* The column beside the sidebar: sticky app bar + banners + scrolling main.
+   .app-shell is display:flex (components.css), so this must claim the rest. */
+.app-col {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Body scrolls — never `overflow:hidden` on the shell (build-constraints §9.5). */
+html { background: var(--bg, #0a0d12); -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100dvh; overflow-x: hidden; }
+
+/* The compact logo tile is a MOBILE affordance — on desktop the sidebar brand
+   already carries it. Selector is doubled up because components.css loads after
+   this file and sets `.icon-tile { display: grid }` at equal specificity. */
+.appbar__logo { text-decoration: none; font-weight: 600; font-size: 15px; }
+@media (min-width: 768px) { .appbar .appbar__logo { display: none; } }
+
+.appbar__search-label, .appbar__kbd { display: none; }
+@media (min-width: 640px) { .appbar__search-label, .appbar__kbd { display: inline-block; } }
+
+.streak__count { font-size: var(--fs-meta, 11px); }
+.streak[data-state="lit"] { color: var(--brand, #ff8a3d); border-color: rgb(255 138 61 / .35); }
+.streak[data-state="lit"] .streak__flame { filter: drop-shadow(0 0 6px rgb(255 138 61 / .6)); }
+.streak[data-state="due"] { color: var(--warn, #f59e0b); }
+.streak[data-state="cold"] { opacity: .72; }
+
+.storage { display: flex; align-items: center; gap: 6px; font-size: var(--fs-meta, 11px); color: var(--fg-muted, #87909c); }
+.storage[data-ok="no"] { color: var(--warn, #f59e0b); }
+.storage__version { font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--fs-micro, 9px); color: var(--fg-muted, #87909c); opacity: .7; }
+
+.noscript { padding: 32px 16px; text-align: center; color: var(--fg, #f0f2f4); }
+
+/* =============================================================================
+   2. Boot splash — removed the moment app.js finishes its first render
+   ========================================================================== */
+
+.boot { display: grid; place-items: center; gap: 12px; padding: 15dvh 0; text-align: center; }
+.boot__mark {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: var(--r-xl, 12px);
+  background-image: var(--brand-grad, linear-gradient(135deg, #ffb071 0%, #d97757 60%, #c45a39 100%));
+  color: var(--fg-on-brand, #1a0d06); font-size: 20px; font-weight: 600;
+}
+.boot__text { color: var(--fg-muted, #87909c); margin: 0; font-size: 13px; }
+.is-ready .boot { display: none; }
+
+/* =============================================================================
+   3. Banners — components.css styles .banner itself (accent-driven via
+      [data-tone]); these are only its internal parts.
+   ========================================================================== */
+
+.banners { display: flex; flex-direction: column; gap: 8px; padding: 12px var(--gutter, 16px) 0; }
+.banners:empty { display: none; }
+.banner { align-items: flex-start; }
+.banner__icon { display: flex; padding-top: 2px; }
+.banner__text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.banner__title { font-weight: 600; }
+.banner__body { opacity: .88; }
+.banner__actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.banner__close {
+  background: none; border: 0; padding: 2px; cursor: pointer;
+  color: inherit; opacity: .7; flex: none;
+}
+.banner__close:hover { opacity: 1; }
+
+/* =============================================================================
+   4. More sheet — components.css owns .scrim and .sheet; these are contents
+   ========================================================================== */
+
+.sheet-layer[hidden] { display: none; }
+.sheet__grip {
+  width: 36px; height: 4px; border-radius: 2px; margin: 8px auto;
+  background: var(--border-strong, rgb(255 255 255 / .12)); flex: none;
+}
+@media (min-width: 768px) { .sheet__grip { display: none; } }
+.sheet__links { display: flex; flex-direction: column; gap: 2px; padding: 0 8px; }
+.sheet__link {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  min-height: 44px; padding: 0 10px; border-radius: var(--r-md, 6px);
+  background: none; border: 0; cursor: pointer; text-align: left;
+  color: var(--fg, #f0f2f4); text-decoration: none;
+  font: inherit; font-size: var(--fs-body, 13px); font-weight: 500;
+}
+.sheet__link:hover { background: var(--surface-hover, #1e232c); }
+.sheet__divider { height: 1px; background: var(--border, rgb(255 255 255 / .08)); margin: 8px 10px; }
+.sheet__meta {
+  padding: 10px 18px 16px; font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--fs-micro, 9px); color: var(--fg-muted, #87909c);
+}
+
+/* =============================================================================
+   5. Search overlay (⌘K) — a command palette, distinct from .modal
+   ========================================================================== */
+
+.search-overlay {
+  position: fixed; inset: 0; z-index: var(--z-modal, 60);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: calc(8dvh + var(--safe-top, 0px)) 12px 12px;
+  /* No backdrop-filter (GPU law) — opacity carries the separation instead. */
+  background: rgb(0 0 0 / .72);
+}
+.search-overlay[hidden] { display: none; }
+.search__panel {
+  display: flex; flex-direction: column; width: min(620px, 100%); max-height: 76dvh;
+  background: var(--surface, #11151b);
+  border: 1px solid var(--border-strong, rgb(255 255 255 / .12));
+  border-radius: var(--r-xl, 12px);
+  box-shadow: var(--sh-pop, 0 10px 30px -15px rgb(0 0 0 / .6)), var(--lip, inset 0 1px 0 rgb(255 255 255 / .04));
+  overflow: hidden;
+}
+.search__bar {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  border-bottom: 1px solid var(--border, rgb(255 255 255 / .08));
+}
+.search__bar-icon { color: var(--fg-muted, #87909c); }
+.search__input {
+  flex: 1 1 auto; min-width: 0; background: none; border: 0; outline: none;
+  color: var(--fg, #f0f2f4); font: inherit; font-size: var(--fs-body-lg, 15px);
+}
+.search__input::placeholder { color: var(--fg-muted, #87909c); }
+.search__input::-webkit-search-cancel-button { display: none; }
+.search__close { background: none; border: 0; color: var(--fg-muted, #87909c); cursor: pointer; padding: 4px; }
+
+.search__results { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 6px; }
+.search__group {
+  padding: 12px 10px 4px;
+  font-size: var(--fs-micro, 9px); text-transform: uppercase;
+  letter-spacing: var(--tr-micro, .2em); color: var(--fg-muted, #87909c);
+}
+.search__row {
+  display: flex; align-items: flex-start; gap: 10px; min-height: 44px;
+  padding: 8px 10px; border-radius: var(--r-md, 6px); cursor: pointer;
+}
+.search__row.is-active { background: var(--surface-hover, #1e232c); }
+.search__row-icon { color: var(--fg-muted, #87909c); padding-top: 3px; display: flex; }
+.search__row-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.search__row-title { font-size: var(--fs-body, 13px); font-weight: 500; }
+.search__row-sub, .search__row-body { font-size: var(--fs-meta, 11px); color: var(--fg-muted, #87909c); }
+.search__row-body { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search__row-enter { opacity: 0; align-self: center; font-size: 12px; color: var(--fg-muted, #87909c); }
+.search__row.is-active .search__row-enter { opacity: 1; }
+.search__mark {
+  background: rgb(255 138 61 / .22); color: var(--brand-soft, #ffb071);
+  border-radius: 2px; padding: 0 1px;
+}
+.search__empty { padding: 32px 16px; text-align: center; color: var(--fg-muted, #87909c); }
+.search__empty p { margin: 8px 0 0; }
+.search__empty-hint { font-size: var(--fs-meta, 11px); opacity: .8; }
+.search__foot {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 8px 14px; border-top: 1px solid var(--border, rgb(255 255 255 / .08));
+  font-size: var(--fs-micro, 9px); color: var(--fg-muted, #87909c);
+}
+.search__hint { display: inline-flex; align-items: center; gap: 4px; }
+.search__count { margin-left: auto; font-family: var(--font-mono, ui-monospace, monospace); }
+.is-search-open, .is-sheet-open { overflow: hidden; }
+
+/* =============================================================================
+   6. View error boundary
+   ========================================================================== */
+
+.view-error {
+  display: grid; gap: 10px; justify-items: start; padding: 20px;
+  border-radius: var(--r-xl, 12px);
+  background: rgb(var(--bad-rgb, 239 68 68) / .08);
+  border: 1px solid rgb(var(--bad-rgb, 239 68 68) / .2);
+}
+.view-error__title { margin: 0; font-size: 16px; font-weight: 600; }
+.view-error__body { margin: 0; color: var(--fg-muted, #87909c); }
+.view-error__detail {
+  margin: 0; width: 100%; padding: 8px; overflow-x: auto;
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px;
+  border-radius: var(--r-md, 6px);
+  background: var(--surface-muted, #181c22); color: var(--bad, #ef4444);
+}
+.view-error__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* dom.js spinner() — a centred loading affordance (icon-spin lives in components.css). */
+.spinner { display: grid; place-items: center; padding: 32px 0; color: var(--fg-muted, #87909c); }
+
+/* =============================================================================
+   7. Markdown output (md.js)
+   ========================================================================== */
+
+.md-h { margin: 1.4em 0 .5em; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+.md-h1 { font-size: 20px; } .md-h2 { font-size: 18px; } .md-h3 { font-size: 15px; }
+.md-h4, .md-h5, .md-h6 { font-size: 13px; }
+.md-p { margin: 0 0 .9em; }
+.md-list { margin: 0 0 .9em; padding-left: 1.3em; }
+.md-li { margin: .2em 0; }
+.md-li-task { list-style: none; margin-left: -1.1em; }
+.md-quote {
+  margin: 0 0 .9em; padding: 4px 0 4px 12px;
+  border-left: 2px solid var(--border-hover, rgb(240 242 244 / .30));
+  color: var(--fg-muted, #87909c);
+}
+.md-code-inline {
+  padding: 1px 5px; border-radius: var(--r-sm, 4px);
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: .92em;
+  background: var(--surface-muted, #181c22);
+  border: 1px solid var(--border, rgb(255 255 255 / .08));
+}
+.md-code {
+  margin: 0 0 .9em; padding: 12px; overflow-x: auto;
+  border-radius: var(--r-lg, 8px);
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 12px;
+  background: var(--surface-muted, #181c22);
+  border: 1px solid var(--border, rgb(255 255 255 / .08));
+}
+.md-code code { font: inherit; }
+.md-hr { border: 0; border-top: 1px solid var(--border, rgb(255 255 255 / .08)); margin: 1.4em 0; }
+.md-link { color: var(--brand-soft, #ffb071); text-underline-offset: 2px; }
+.md-img { border-radius: var(--r-lg, 8px); max-width: 100%; height: auto; }
+.md-table-wrap { overflow-x: auto; margin: 0 0 .9em; }   /* wide tables scroll, page never does */
+.md-table { border-collapse: collapse; min-width: 100%; font-size: 12px; }
+.md-table th, .md-table td {
+  padding: 7px 10px; text-align: left;
+  border: 1px solid var(--border, rgb(255 255 255 / .08));
+}
+.md-table th { background: var(--surface-muted, #181c22); font-weight: 600; }
+.md-task { accent-color: var(--brand, #ff8a3d); }
+
+/* Spoilers: hidden until tapped / Enter / Space (md.js installs the handler). */
+.md-spoiler {
+  background: var(--surface-hover, #1e232c); color: transparent;
+  border-radius: var(--r-sm, 4px); padding: 0 3px; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  transition: color var(--dur, 240ms) var(--ease, ease), background var(--dur, 240ms) var(--ease, ease);
+}
+.md-spoiler > * { visibility: hidden; }
+.md-spoiler.is-revealed {
+  background: var(--surface-muted, #181c22); color: inherit;
+  cursor: auto; user-select: text; -webkit-user-select: text;
+}
+.md-spoiler.is-revealed > * { visibility: visible; }
+
+/* =============================================================================
+   8. Stub views — DELETE this block together with js/views/_stub.js
+   ========================================================================== */
+
+.stub__head { margin-bottom: 20px; }
+.stub__eyebrow {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px;
+  font-size: var(--fs-eyebrow, 10px); text-transform: uppercase;
+  letter-spacing: var(--tr-eyebrow, .22em); color: var(--fg-muted, #87909c);
+}
+.eyebrow__dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent, var(--brand, #ff8a3d));
+  box-shadow: 0 0 6px var(--accent, var(--brand, #ff8a3d));
+}
+.stub__title { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+.stub__hint { margin: 0; max-width: 62ch; color: var(--fg-muted, #87909c); }
+.stub__note {
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 20px;
+  padding: 10px 12px; border-radius: var(--r-lg, 8px); font-size: 12px;
+  background: rgb(var(--info-rgb, 96 165 250) / .08);
+  border: 1px solid rgb(var(--info-rgb, 96 165 250) / .2);
+  color: var(--info, #60a5fa);
+}
+.stub__note[data-tone="bad"] {
+  background: rgb(var(--bad-rgb, 239 68 68) / .08);
+  border-color: rgb(var(--bad-rgb, 239 68 68) / .2);
+  color: var(--bad, #ef4444);
+}
+.stub__grid {
+  display: grid; gap: 10px; margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.stub__probe {
+  padding: 12px; border-radius: var(--r-xl, 12px);
+  background: var(--surface, #11151b);
+  border: 1px solid var(--border, rgb(255 255 255 / .08));
+  box-shadow: var(--lip, inset 0 1px 0 rgb(255 255 255 / .04));
+}
+.stub__probe-label {
+  font-size: var(--fs-eyebrow, 10px); text-transform: uppercase;
+  letter-spacing: var(--tr-eyebrow, .22em); color: var(--fg-muted, #87909c);
+}
+.stub__probe-value { display: flex; align-items: center; gap: 6px; margin: 6px 0 4px; font-size: 15px; font-weight: 600; }
+.stub__probe[data-ok="yes"] .stub__probe-value { color: var(--good, #10b981); }
+.stub__probe[data-ok="no"] .stub__probe-value { color: var(--warn, #f59e0b); }
+.stub__probe-detail { font-size: 11px; color: var(--fg-muted, #87909c); }
+.stub__tokens { margin-bottom: 20px; font-size: 12px; }
+.stub__tokens summary { cursor: pointer; color: var(--fg-muted, #87909c); padding: 6px 0; }
+.stub__swatches {
+  display: grid; gap: 6px; padding-top: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+.stub__swatch { display: flex; align-items: center; gap: 8px; }
+.stub__chip { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--border-strong, rgb(255 255 255 / .12)); flex: none; }
+.stub__tokname, .stub__tokval { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; }
+.stub__tokval { color: var(--fg-muted, #87909c); margin-left: auto; }
+.stub__resolve {
+  padding: 14px; margin-bottom: 12px; border-radius: var(--r-xl, 12px);
+  background: var(--surface, #11151b);
+  border: 1px solid var(--border, rgb(255 255 255 / .08));
+}
+.stub__resolve-title { display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 13px; font-weight: 600; }
+.stub__dl { display: grid; grid-template-columns: minmax(90px, auto) 1fr; gap: 4px 12px; margin: 0 0 10px; font-size: 12px; }
+.stub__dl dt { color: var(--fg-muted, #87909c); }
+.stub__dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.stub__dl code, .stub__list code { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; }
+.stub__list { margin: 0; padding-left: 1.2em; font-size: 12px; }
+.stub__list a { color: var(--brand-soft, #ffb071); }
+.stub__desc { margin: 0; font-size: 12px; color: var(--fg-muted, #87909c); }
+
+/* =============================================================================
+   9. Reduced motion — belt and braces with components.css
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

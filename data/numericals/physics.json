@@ -1,0 +1,228 @@
+{
+  "subject": "Physics",
+  "templates": [
+    {
+      "id": "phy-kin-uniform-accel",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "problemType": "uniform-acceleration",
+      "problemTypeLabel": "Uniform acceleration",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "A bus starts from rest and accelerates uniformly at {a} m s⁻² along a straight road. Find its velocity after {t} s and the distance it covers in that time.",
+      "vars": {
+        "a": { "min": 1, "max": 4, "step": 0.5, "unit": "m s^-2", "sigfigs": 2 },
+        "t": { "min": 4, "max": 20, "step": 2, "unit": "s", "sigfigs": 2 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "u = 0 m s⁻¹ (starts from rest), a = {a} m s⁻², t = {t} s", "justification": "Write every given with its unit before touching a formula. Half the lost marks in this unit start here." },
+        { "statement": "v = u + at = 0 + {a} × {t}", "justification": "First equation of motion links v, u, a and t — no distance term needed.", "formulaTeX": "v = u + at", "expr": "a*t", "unit": "m s^-1", "sigfigs": 3 },
+        { "statement": "s = ut + ½at² = 0 + ½ × {a} × {t}²", "justification": "Second equation of motion gives distance over the same interval.", "formulaTeX": "s = ut + \\tfrac{1}{2}at^2", "expr": "0.5*a*t^2", "unit": "m", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "0.5*a*t^2", "unit": "m", "sigfigs": 3, "label": "distance covered" },
+      "misconceptionTags": ["PH-U04", "PH-U06"],
+      "misconceptions": [
+        { "id": "PH-U04", "trap": "a*t^2", "statement": "Used s = at² and dropped the ½.", "feedback": "You used s = at². The ½ in s = ut + ½at² comes from averaging velocity across the interval — without it the distance doubles.", "whyItFeelsRight": "at is a velocity and multiplying a velocity by time gives a distance, so the shape looks right." },
+        { "id": "PH-U04b", "trap": "a*t", "statement": "Gave the velocity where the distance was asked for.", "feedback": "That is v, not s. Read what the question asks for last — the marks are for the distance.", "whyItFeelsRight": "v = at is the first thing you compute, so it is sitting at the top of your page when you stop." }
+      ],
+      "confusableWith": ["work-energy", "projectile-motion", "circular-motion"]
+    },
+    {
+      "id": "phy-dyn-newton2-friction",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "problemType": "newton-second-law",
+      "problemTypeLabel": "Newton's second law with friction",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A block of mass {m} kg is pulled along a horizontal floor by a horizontal force of {F} N. The coefficient of kinetic friction between block and floor is {mu}. Take g = 9.8 m s⁻². Find the acceleration of the block.",
+      "vars": {
+        "m": { "min": 2, "max": 10, "step": 1, "unit": "kg", "sigfigs": 2 },
+        "F": { "min": 30, "max": 90, "step": 5, "unit": "N", "sigfigs": 2 },
+        "mu": { "min": 0.1, "max": 0.4, "step": 0.05, "unit": "", "sigfigs": 2 }
+      },
+      "constraints": ["F > mu*m*9.8 + 4"],
+      "solutionChain": [
+        { "kind": "given", "statement": "m = {m} kg, F = {F} N, μ = {mu}, g = 9.8 m s⁻²", "justification": "μ is a ratio — it has no unit. Say so explicitly; examiners look for it." },
+        { "statement": "N = mg = {m} × 9.8", "justification": "On a horizontal floor with a horizontal pull, the normal reaction carries the whole weight.", "formulaTeX": "N = mg", "expr": "m*9.8", "unit": "N", "sigfigs": 3 },
+        { "statement": "f = μN = {mu} × N", "justification": "Kinetic friction is proportional to the normal reaction, not to the applied force.", "formulaTeX": "f = \\mu N", "expr": "mu*m*9.8", "unit": "N", "sigfigs": 3 },
+        { "statement": "F_net = F − f", "justification": "Friction opposes the motion, so it subtracts along the direction of travel.", "expr": "F - mu*m*9.8", "unit": "N", "sigfigs": 3 },
+        { "statement": "a = F_net / m", "justification": "Newton's second law, applied to the net force — never to the applied force alone.", "formulaTeX": "a = \\frac{F_{net}}{m}", "expr": "(F - mu*m*9.8)/m", "unit": "m s^-2", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "(F - mu*m*9.8)/m", "unit": "m s^-2", "sigfigs": 3, "label": "acceleration" },
+      "misconceptionTags": ["PH-F05", "PH-F12", "PH-U01"],
+      "misconceptions": [
+        { "id": "PH-F12", "trap": "F/m", "statement": "Ignored friction and used the applied force as the net force.", "feedback": "You divided the applied force by the mass. Newton's second law takes the NET force — friction of {mu*m*9.8} N is still acting the whole time.", "whyItFeelsRight": "F = ma is stated with an F, and the applied force is the F the question gives you a number for." },
+        { "id": "PH-F05", "trap": "mu*F/m", "statement": "Took friction as μ × applied force.", "feedback": "Friction is μN, not μF. The normal reaction is what presses the surfaces together — the pull is horizontal and does not change it here.", "whyItFeelsRight": "Both are forces measured in newtons, so multiplying by μ feels like the same operation either way." }
+      ],
+      "confusableWith": ["work-energy", "uniform-acceleration", "momentum-conservation"]
+    },
+    {
+      "id": "phy-work-energy-theorem",
+      "subject": "Physics",
+      "unit": "Work, energy and power",
+      "problemType": "work-energy",
+      "problemTypeLabel": "Work–energy theorem",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A car of mass {m} kg moving at {u} m s⁻¹ is brought to rest by its brakes in a distance of {s} m. Find the average braking force.",
+      "vars": {
+        "m": { "min": 800, "max": 1600, "step": 100, "unit": "kg", "sigfigs": 3 },
+        "u": { "min": 10, "max": 30, "step": 2, "unit": "m s^-1", "sigfigs": 2 },
+        "s": { "min": 20, "max": 80, "step": 5, "unit": "m", "sigfigs": 2 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "m = {m} kg, u = {u} m s⁻¹, v = 0 m s⁻¹, s = {s} m", "justification": "Brought to rest means the final velocity is zero — write it down as a given, do not carry it in your head." },
+        { "statement": "KE_initial = ½mu² = ½ × {m} × {u}²", "justification": "The energy the brakes have to remove is the kinetic energy the car starts with.", "formulaTeX": "KE = \\tfrac{1}{2}mu^2", "expr": "0.5*m*u^2", "unit": "J", "sigfigs": 3 },
+        { "statement": "Work done by brakes = ΔKE = 0 − ½mu²; magnitude = ½mu²", "justification": "Work–energy theorem: net work equals the change in kinetic energy.", "formulaTeX": "W = \\Delta KE", "expr": "0.5*m*u^2", "unit": "J", "sigfigs": 3 },
+        { "statement": "F = W / s", "justification": "Work is force × distance along the line of the force, so the average force is the work divided by the stopping distance.", "formulaTeX": "F = \\frac{W}{s}", "expr": "0.5*m*u^2/s", "unit": "N", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "0.5*m*u^2/s", "unit": "N", "sigfigs": 3, "label": "average braking force" },
+      "misconceptionTags": ["PH-F05", "PH-U06"],
+      "misconceptions": [
+        { "id": "WE-01", "trap": "m*u^2/s", "statement": "Dropped the ½ from the kinetic energy.", "feedback": "Kinetic energy is ½mv², not mv². Your force comes out exactly twice too large — a factor of 2 is a whole mark.", "whyItFeelsRight": "Momentum is mv with no fraction in front, so ½ looks like decoration." },
+        { "id": "WE-02", "trap": "m*u/s", "statement": "Used momentum divided by distance.", "feedback": "You used mu/s. That mixes momentum with a distance — check the units: kg m s⁻¹ ÷ m is not a newton. A unit check catches this in five seconds.", "whyItFeelsRight": "Both mu and ½mu² describe 'how much motion there is', so either can feel like the right starting quantity." }
+      ],
+      "confusableWith": ["momentum-conservation", "newton-second-law", "uniform-acceleration"]
+    },
+    {
+      "id": "phy-momentum-collision",
+      "subject": "Physics",
+      "unit": "Linear momentum",
+      "problemType": "momentum-conservation",
+      "problemTypeLabel": "Conservation of momentum (perfectly inelastic)",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A trolley of mass {m1} kg moving at {u1} m s⁻¹ collides head-on with a stationary trolley of mass {m2} kg. The two lock together after the collision. Find their common velocity.",
+      "vars": {
+        "m1": { "min": 2, "max": 8, "step": 1, "unit": "kg", "sigfigs": 2 },
+        "m2": { "min": 1, "max": 6, "step": 1, "unit": "kg", "sigfigs": 2 },
+        "u1": { "min": 2, "max": 12, "step": 1, "unit": "m s^-1", "sigfigs": 2 }
+      },
+      "constraints": ["m1 != m2"],
+      "solutionChain": [
+        { "kind": "given", "statement": "m₁ = {m1} kg, u₁ = {u1} m s⁻¹, m₂ = {m2} kg, u₂ = 0 m s⁻¹", "justification": "Stationary means u₂ = 0 m s⁻¹ — an explicit given, not an assumption." },
+        { "statement": "Total momentum before = m₁u₁ + m₂u₂ = {m1} × {u1} + 0", "justification": "No external horizontal force acts during the collision, so momentum is conserved.", "formulaTeX": "p = m_1u_1 + m_2u_2", "expr": "m1*u1", "unit": "kg m s^-1", "sigfigs": 3 },
+        { "statement": "Total mass after = m₁ + m₂ = {m1} + {m2}", "justification": "They lock together, so afterwards there is one object of combined mass.", "expr": "m1+m2", "unit": "kg", "sigfigs": 3 },
+        { "statement": "v = total momentum / total mass", "justification": "Momentum after equals momentum before; divide by the combined mass to get the common velocity.", "formulaTeX": "v = \\frac{m_1u_1}{m_1+m_2}", "expr": "m1*u1/(m1+m2)", "unit": "m s^-1", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "m1*u1/(m1+m2)", "unit": "m s^-1", "sigfigs": 3, "label": "common velocity after collision" },
+      "misconceptionTags": ["PH-F04", "PH-F10"],
+      "misconceptions": [
+        { "id": "MC-01", "trap": "u1*m1/m2", "statement": "Divided by the second mass instead of the total mass.", "feedback": "After the collision the moving object is both trolleys together, so the mass to divide by is m₁ + m₂ = {m1+m2} kg.", "whyItFeelsRight": "It looks like the momentum is being 'handed over' to the second trolley." },
+        { "id": "MC-02", "trap": "0.5*u1", "statement": "Assumed the velocity simply halves.", "feedback": "Halving only works when the two masses are equal. Here they are {m1} kg and {m2} kg, so the share is set by the mass ratio.", "whyItFeelsRight": "Two objects, so 'split it in two' is the fast intuition." }
+      ],
+      "confusableWith": ["work-energy", "newton-second-law", "uniform-acceleration"]
+    },
+    {
+      "id": "phy-grav-escape-velocity",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "problemType": "gravitation-escape",
+      "problemTypeLabel": "Escape and orbital velocity",
+      "cognitive": "application",
+      "difficulty": 3,
+      "template": "A planet has mass {M} × 10²⁴ kg and radius {R} × 10⁶ m. Taking G = 6.67 × 10⁻¹¹ N m² kg⁻², find the escape velocity from its surface.",
+      "vars": {
+        "M": { "min": 3, "max": 9, "step": 1, "unit": "10^24 kg", "sigfigs": 2 },
+        "R": { "min": 3, "max": 8, "step": 1, "unit": "10^6 m", "sigfigs": 2 }
+      },
+      "constants": { "G": 0.0000000000667 },
+      "solutionChain": [
+        { "kind": "given", "statement": "M = {M} × 10²⁴ kg, R = {R} × 10⁶ m, G = 6.67 × 10⁻¹¹ N m² kg⁻²", "justification": "Convert the powers of ten into the working before you press a single calculator key." },
+        { "statement": "g = GM/R²", "justification": "Surface gravity from the planet's own mass and radius.", "formulaTeX": "g = \\frac{GM}{R^2}", "expr": "G*M*10^24/(R*10^6)^2", "unit": "m s^-2", "sigfigs": 3 },
+        { "statement": "v_e = √(2GM/R)", "justification": "Escape velocity is the speed at which kinetic energy exactly cancels the gravitational potential energy.", "formulaTeX": "v_e = \\sqrt{\\frac{2GM}{R}}", "expr": "sqrt(2*G*M*10^24/(R*10^6))", "unit": "m s^-1", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "sqrt(2*G*M*10^24/(R*10^6))", "unit": "m s^-1", "sigfigs": 3, "label": "escape velocity" },
+      "misconceptionTags": ["PH-U01", "PH-U07"],
+      "misconceptions": [
+        { "id": "GR-01", "trap": "sqrt(G*M*10^24/(R*10^6))", "statement": "Used orbital velocity instead of escape velocity.", "feedback": "√(GM/R) is the ORBITAL velocity. Escape velocity carries the extra factor of 2 inside the root: v_e = √2 × v_orbital.", "whyItFeelsRight": "The two formulas differ by one character, and both describe 'the speed you need'." },
+        { "id": "GR-02", "trap": "sqrt(2*G*M/(R))", "statement": "Dropped the powers of ten.", "feedback": "The 10²⁴ and 10⁶ are part of the numbers, not decoration. Substitute them before you divide — a dimension check on the answer would have flagged this.", "whyItFeelsRight": "Powers of ten look like formatting rather than quantity." }
+      ],
+      "confusableWith": ["circular-motion", "work-energy", "newton-second-law"]
+    },
+    {
+      "id": "phy-calorimetry-latent",
+      "subject": "Physics",
+      "unit": "Quantity of heat",
+      "problemType": "calorimetry",
+      "problemTypeLabel": "Calorimetry with a change of state",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "How much heat is needed to convert {m} g of ice at 0 °C completely into water at {T} °C? Take the specific latent heat of fusion of ice as 3.36 × 10⁵ J kg⁻¹ and the specific heat capacity of water as 4200 J kg⁻¹ K⁻¹.",
+      "vars": {
+        "m": { "min": 20, "max": 200, "step": 10, "unit": "g", "sigfigs": 2 },
+        "T": { "min": 10, "max": 60, "step": 5, "unit": "°C", "sigfigs": 2 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "m = {m} g = {m}/1000 kg, L_f = 3.36 × 10⁵ J kg⁻¹, c = 4200 J kg⁻¹ K⁻¹, ΔT = {T} K", "justification": "Convert grams to kilograms first — every constant here is per kilogram. A temperature DIFFERENCE in °C equals the same number in K." },
+        { "statement": "Q₁ = mL_f (melting the ice at 0 °C)", "justification": "Melting happens at constant temperature: all the heat goes into the change of state.", "formulaTeX": "Q_1 = mL_f", "expr": "(m/1000)*336000", "unit": "J", "sigfigs": 3 },
+        { "statement": "Q₂ = mcΔT (warming the melted water from 0 °C to {T} °C)", "justification": "Only after the ice has fully melted does the temperature start to rise.", "formulaTeX": "Q_2 = mc\\Delta T", "expr": "(m/1000)*4200*T", "unit": "J", "sigfigs": 3 },
+        { "statement": "Q = Q₁ + Q₂", "justification": "The two stages happen one after the other, so the heats add.", "expr": "(m/1000)*336000 + (m/1000)*4200*T", "unit": "J", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "(m/1000)*336000 + (m/1000)*4200*T", "unit": "J", "sigfigs": 3, "label": "total heat required" },
+      "misconceptionTags": ["PH-U01", "PH-U02"],
+      "misconceptions": [
+        { "id": "CAL-01", "trap": "(m)*336000 + (m)*4200*T", "statement": "Left the mass in grams.", "feedback": "Both constants are per KILOGRAM, so {m} g must become {m}/1000 kg. Your answer is 1000 times too big — that is the single most common slip in this unit.", "whyItFeelsRight": "The question gives grams, so grams feel like the natural unit to work in." },
+        { "id": "CAL-02", "trap": "(m/1000)*4200*T", "statement": "Forgot the latent heat stage.", "feedback": "You only warmed the water. Melting the ice at 0 °C takes energy first — that is the mL_f term, and it is worth its own mark.", "whyItFeelsRight": "Nothing visible changes temperature during melting, so it looks like nothing is happening." }
+      ],
+      "confusableWith": ["thermal-expansion", "ideal-gas", "work-energy"]
+    },
+    {
+      "id": "phy-optics-lens-formula",
+      "subject": "Physics",
+      "unit": "Refraction at curved surfaces",
+      "problemType": "lens-formula",
+      "problemTypeLabel": "Thin lens formula and magnification",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "An object is placed {u} cm in front of a converging lens of focal length {f} cm. Find the image distance and the magnification.",
+      "vars": {
+        "u": { "min": 15, "max": 60, "step": 5, "unit": "cm", "sigfigs": 2 },
+        "f": { "min": 5, "max": 20, "step": 2.5, "unit": "cm", "sigfigs": 2 }
+      },
+      "constraints": ["u > f + 4"],
+      "solutionChain": [
+        { "kind": "given", "statement": "Object distance u = −{u} cm, focal length f = +{f} cm (real-is-positive convention: distances measured against the incoming light are negative)", "justification": "State the sign convention in writing. Sign-convention marks (PH-U03) are lost silently otherwise." },
+        { "statement": "1/v = 1/f + 1/u = 1/{f} + 1/(−{u})", "justification": "Thin-lens formula 1/v − 1/u = 1/f, rearranged for v.", "formulaTeX": "\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}", "expr": "1/(1/f - 1/u)", "unit": "cm", "sigfigs": 3 },
+        { "statement": "m = v/u (magnitude)", "justification": "Magnification is the ratio of image to object distance; a value below 1 means the image is smaller.", "formulaTeX": "m = \\frac{v}{u}", "expr": "(1/(1/f - 1/u))/u", "unit": "", "sigfigs": 3, "dimensionless": true }
+      ],
+      "answer": { "expr": "1/(1/f - 1/u)", "unit": "cm", "sigfigs": 3, "label": "image distance v" },
+      "misconceptionTags": ["PH-U03", "PH-U06"],
+      "misconceptions": [
+        { "id": "LN-01", "trap": "1/(1/f + 1/u)", "statement": "Added the reciprocals instead of subtracting.", "feedback": "With u = −{u} cm the formula gives 1/v = 1/f + 1/u where 1/u is negative. Adding a positive 1/u puts the image on the wrong side of the lens.", "whyItFeelsRight": "The mirror formula 1/v + 1/u = 1/f uses a plus, and the two get stored in memory as one formula." },
+        { "id": "LN-02", "trap": "f", "statement": "Gave the focal length as the image distance.", "feedback": "v equals f only when the object is at infinity. Here the object is {u} cm away, so v is larger than f.", "whyItFeelsRight": "The ray diagram everyone draws first is the parallel-rays-to-focus one." }
+      ],
+      "confusableWith": ["mirror-formula", "refractive-index", "prism-deviation"]
+    },
+    {
+      "id": "phy-elec-resistivity",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "problemType": "resistivity-ohms-law",
+      "problemTypeLabel": "Resistivity and Ohm's law",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A wire of length {L} m and cross-sectional area {A} × 10⁻⁷ m² is made of a metal of resistivity {rho} × 10⁻⁸ Ω m. It is connected across a {V} V supply. Find the resistance of the wire and the current through it.",
+      "vars": {
+        "L": { "min": 2, "max": 20, "step": 2, "unit": "m", "sigfigs": 2 },
+        "A": { "min": 2, "max": 10, "step": 1, "unit": "10^-7 m^2", "sigfigs": 2 },
+        "rho": { "min": 1.6, "max": 11, "step": 0.2, "unit": "10^-8 Ω m", "sigfigs": 2 },
+        "V": { "min": 1.5, "max": 12, "step": 0.5, "unit": "V", "sigfigs": 2 }
+      },
+      "constraints": ["rho*L/(10*A) > 1.6"],
+      "solutionChain": [
+        { "kind": "given", "statement": "L = {L} m, A = {A} × 10⁻⁷ m², ρ = {rho} × 10⁻⁸ Ω m, V = {V} V", "justification": "Write the powers of ten into the substitution, not into your head." },
+        { "statement": "R = ρL/A", "justification": "Resistance grows with length and falls with cross-section — the defining relation for resistivity.", "formulaTeX": "R = \\frac{\\rho L}{A}", "expr": "rho*10^-8*L/(A*10^-7)", "unit": "Ω", "sigfigs": 3 },
+        { "statement": "I = V/R", "justification": "Ohm's law, applied once the resistance is known.", "formulaTeX": "I = \\frac{V}{R}", "expr": "V/(rho*10^-8*L/(A*10^-7))", "unit": "A", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "V/(rho*10^-8*L/(A*10^-7))", "unit": "A", "sigfigs": 3, "label": "current" },
+      "misconceptionTags": ["PH-U01", "PH-U07"],
+      "misconceptions": [
+        { "id": "EL-01", "trap": "V/(rho*10^-8*(A*10^-7)/L)", "statement": "Multiplied by area instead of dividing.", "feedback": "R = ρL/A. A thicker wire carries current more easily, so area belongs on the bottom. Check it against the physical story before you substitute.", "whyItFeelsRight": "Every other quantity in the formula multiplies, so the division looks like the odd one out." },
+        { "id": "EL-02", "trap": "V*(rho*10^-8*L/(A*10^-7))", "statement": "Multiplied V by R instead of dividing.", "feedback": "I = V/R. Multiplying gives you V × R, whose unit is V Ω — not an ampere. One unit check kills this.", "whyItFeelsRight": "V = IR is the version most people memorise, and rearranging under time pressure flips the operation." }
+      ],
+      "confusableWith": ["series-parallel", "power-dissipation", "capacitance"]
+    }
+  ]
+}

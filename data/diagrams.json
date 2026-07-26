@@ -1,0 +1,780 @@
+{
+  "version": 1,
+  "note": "Diagram Drill seeds (pedagogy-spec §2 Tier 1). `svgInline` is a hand-drawn, self-contained SVG in a STRICT subset — only svg/g/path/line/rect/circle/ellipse/polyline/polygon/text/tspan, geometry and presentation attributes only, no script, no event handlers, no href/xlink, no url() and no data: references; colours come from currentColor and the design tokens var(--accent) / var(--surface-muted), never a raw hex. Because it is first-party static content in a validated subset, mount it with DOMParser(\"image/svg+xml\") + importNode (or an <img> with a blob), never innerHTML. The figure deliberately DOES NOT print the labels: every labellable feature is a numbered target circle, and parts[] gives {id, label, x, y} with x and y in viewBox coordinates so the drill can position an input over each target and score per part.",
+  "diagrams": [
+    {
+      "id": "phy-vernier-calliper",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "title": "Vernier calliper — name the parts",
+      "caption": "The instrument you use for the diameter of a cylinder and the internal diameter of a beaker.",
+      "examNote": "Least count = one main-scale division ÷ number of vernier divisions. Name the jaws correctly — external, internal and depth measurements are three different marks.",
+      "viewBox": "0 0 480 270",
+      "svgInline": "<svg viewBox=\"0 0 480 270\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"60\" y=\"108\" width=\"360\" height=\"22\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"80\" y1=\"108\" x2=\"80\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"90\" y1=\"108\" x2=\"90\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"100\" y1=\"108\" x2=\"100\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"110\" y1=\"108\" x2=\"110\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"120\" y1=\"108\" x2=\"120\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"130\" y1=\"108\" x2=\"130\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"140\" y1=\"108\" x2=\"140\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"150\" y1=\"108\" x2=\"150\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"160\" y1=\"108\" x2=\"160\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"170\" y1=\"108\" x2=\"170\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"180\" y1=\"108\" x2=\"180\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"190\" y1=\"108\" x2=\"190\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"200\" y1=\"108\" x2=\"200\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"210\" y1=\"108\" x2=\"210\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"220\" y1=\"108\" x2=\"220\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"230\" y1=\"108\" x2=\"230\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"240\" y1=\"108\" x2=\"240\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"250\" y1=\"108\" x2=\"250\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"260\" y1=\"108\" x2=\"260\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"270\" y1=\"108\" x2=\"270\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"280\" y1=\"108\" x2=\"280\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"290\" y1=\"108\" x2=\"290\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"300\" y1=\"108\" x2=\"300\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"310\" y1=\"108\" x2=\"310\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"320\" y1=\"108\" x2=\"320\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"330\" y1=\"108\" x2=\"330\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"340\" y1=\"108\" x2=\"340\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"350\" y1=\"108\" x2=\"350\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"360\" y1=\"108\" x2=\"360\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"370\" y1=\"108\" x2=\"370\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"380\" y1=\"108\" x2=\"380\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"390\" y1=\"108\" x2=\"390\" y2=\"104\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><path d=\"M60 130 L60 210 L78 210 L78 130 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M60 108 L60 58 L72 58 L72 108 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"160\" y=\"102\" width=\"86\" height=\"34\" rx=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"166\" y1=\"136\" x2=\"166\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"173.4\" y1=\"136\" x2=\"173.4\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"180.8\" y1=\"136\" x2=\"180.8\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"188.2\" y1=\"136\" x2=\"188.2\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"195.6\" y1=\"136\" x2=\"195.6\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"203\" y1=\"136\" x2=\"203\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"210.4\" y1=\"136\" x2=\"210.4\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"217.8\" y1=\"136\" x2=\"217.8\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"225.2\" y1=\"136\" x2=\"225.2\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"232.6\" y1=\"136\" x2=\"232.6\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"240\" y1=\"136\" x2=\"240\" y2=\"144\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"160\" y1=\"136\" x2=\"246\" y2=\"136\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><path d=\"M166 136 L166 210 L184 210 L184 136\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M166 102 L166 58 L178 58 L178 102\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"122\" cy=\"178\" r=\"42\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><line x1=\"420\" y1=\"119\" x2=\"468\" y2=\"119\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"232\" cy=\"119\" r=\"5\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g><circle cx=\"330\" cy=\"92\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"330\" y=\"92\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"203\" cy=\"158\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"203\" y=\"158\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"69\" cy=\"228\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"69\" y=\"228\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"175\" cy=\"228\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"175\" y=\"228\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"120\" cy=\"46\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"120\" y=\"46\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"448\" cy=\"100\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"448\" y=\"100\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"232\" cy=\"84\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"232\" y=\"84\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "main-scale",
+          "label": "Main scale",
+          "x": 330,
+          "y": 92
+        },
+        {
+          "id": "vernier-scale",
+          "label": "Vernier scale",
+          "x": 203,
+          "y": 158
+        },
+        {
+          "id": "fixed-jaw",
+          "label": "Fixed jaw (external)",
+          "x": 69,
+          "y": 228
+        },
+        {
+          "id": "movable-jaw",
+          "label": "Movable jaw (external)",
+          "x": 175,
+          "y": 228
+        },
+        {
+          "id": "internal-jaws",
+          "label": "Internal jaws",
+          "x": 120,
+          "y": 46
+        },
+        {
+          "id": "depth-rod",
+          "label": "Depth rod (depth bar)",
+          "x": 448,
+          "y": 100
+        },
+        {
+          "id": "retainer-screw",
+          "label": "Retainer screw",
+          "x": 232,
+          "y": 84
+        }
+      ]
+    },
+    {
+      "id": "phy-vernier-reading",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "title": "Reading a vernier scale — name each step of the reading",
+      "caption": "Main scale in millimetres; 10 vernier divisions span 9 main-scale divisions.",
+      "examNote": "Reading = main-scale reading + (coinciding vernier division × least count), then subtract the zero error with its sign.",
+      "viewBox": "0 0 480 200",
+      "svgInline": "<svg viewBox=\"0 0 480 200\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><line x1=\"40\" y1=\"110\" x2=\"460\" y2=\"110\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"50\" y1=\"110\" x2=\"50\" y2=\"78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"50\" y=\"70\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\".7\">0</text><line x1=\"84\" y1=\"110\" x2=\"84\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"118\" y1=\"110\" x2=\"118\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"152\" y1=\"110\" x2=\"152\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"186\" y1=\"110\" x2=\"186\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"220\" y=\"70\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\".7\">1</text><line x1=\"254\" y1=\"110\" x2=\"254\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"288\" y1=\"110\" x2=\"288\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"322\" y1=\"110\" x2=\"322\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"356\" y1=\"110\" x2=\"356\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"390\" y1=\"110\" x2=\"390\" y2=\"78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"390\" y=\"70\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\".7\">2</text><line x1=\"424\" y1=\"110\" x2=\"424\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><rect x=\"119.6\" y=\"112\" width=\"305.4\" height=\"34\" rx=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"131.6\" y1=\"112\" x2=\"131.6\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"131.6\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">0</text><line x1=\"162.2\" y1=\"112\" x2=\"162.2\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"162.2\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">1</text><line x1=\"192.8\" y1=\"112\" x2=\"192.8\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"192.8\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">2</text><line x1=\"223.4\" y1=\"112\" x2=\"223.4\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"223.4\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">3</text><line x1=\"254\" y1=\"112\" x2=\"254\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"254\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">4</text><line x1=\"284.6\" y1=\"112\" x2=\"284.6\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"284.6\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">5</text><line x1=\"315.2\" y1=\"112\" x2=\"315.2\" y2=\"132\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"315.2\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">6</text><line x1=\"345.8\" y1=\"112\" x2=\"345.8\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"345.8\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">7</text><line x1=\"376.4\" y1=\"112\" x2=\"376.4\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"376.4\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">8</text><line x1=\"407\" y1=\"112\" x2=\"407\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"407\" y=\"144\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" opacity=\".7\">9</text><line x1=\"315.2\" y1=\"112\" x2=\"315.2\" y2=\"96\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g><circle cx=\"430\" cy=\"62\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"430\" y=\"62\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"109.6\" cy=\"92\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"109.6\" y=\"92\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"437\" cy=\"129\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"437\" y=\"129\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"131.6\" cy=\"174\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"131.6\" y=\"174\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"315.2\" cy=\"174\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"315.2\" y=\"174\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g></svg>",
+      "parts": [
+        {
+          "id": "main-scale",
+          "label": "Main scale, graduated in millimetres",
+          "x": 430,
+          "y": 62
+        },
+        {
+          "id": "main-scale-reading",
+          "label": "Main-scale reading — the last main division before the vernier zero",
+          "x": 109.6,
+          "y": 92
+        },
+        {
+          "id": "vernier-scale",
+          "label": "Vernier scale (the sliding scale)",
+          "x": 437,
+          "y": 129
+        },
+        {
+          "id": "vernier-zero",
+          "label": "Zero of the vernier scale",
+          "x": 131.6,
+          "y": 174
+        },
+        {
+          "id": "coinciding-division",
+          "label": "Coinciding vernier division — the one division that lines up exactly",
+          "x": 315.20000000000005,
+          "y": 174
+        }
+      ]
+    },
+    {
+      "id": "phy-screw-gauge",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "title": "Screw gauge (micrometer) — name the parts",
+      "caption": "The instrument for the diameter of a wire and the thickness of a sheet.",
+      "examNote": "Pitch = distance the spindle moves in one full rotation. Least count = pitch ÷ number of circular-scale divisions.",
+      "viewBox": "0 0 480 250",
+      "svgInline": "<svg viewBox=\"0 0 480 250\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><path d=\"M96 60 C40 60 40 200 96 200 L96 182 C64 182 64 78 96 78 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"96\" y=\"108\" width=\"26\" height=\"26\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"136\" cy=\"121\" r=\"8\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><rect x=\"150\" y=\"114\" width=\"60\" height=\"14\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"210\" y=\"96\" width=\"96\" height=\"50\" rx=\"4\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"210\" y1=\"121\" x2=\"306\" y2=\"121\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"222\" y1=\"121\" x2=\"222\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"232\" y1=\"121\" x2=\"232\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"242\" y1=\"121\" x2=\"242\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"252\" y1=\"121\" x2=\"252\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"262\" y1=\"121\" x2=\"262\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"272\" y1=\"121\" x2=\"272\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"282\" y1=\"121\" x2=\"282\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"292\" y1=\"121\" x2=\"292\" y2=\"112\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><rect x=\"306\" y=\"88\" width=\"88\" height=\"66\" rx=\"6\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"318\" y1=\"88\" x2=\"318\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"329\" y1=\"88\" x2=\"329\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"340\" y1=\"88\" x2=\"340\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"351\" y1=\"88\" x2=\"351\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"362\" y1=\"88\" x2=\"362\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"373\" y1=\"88\" x2=\"373\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"384\" y1=\"88\" x2=\"384\" y2=\"100\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><rect x=\"394\" y=\"102\" width=\"30\" height=\"38\" rx=\"6\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"409\" cy=\"121\" r=\"8\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><g><circle cx=\"62\" cy=\"214\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"62\" y=\"214\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"109\" cy=\"152\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"109\" y=\"152\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"180\" cy=\"148\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"180\" y=\"148\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"258\" cy=\"168\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"258\" y=\"168\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"258\" cy=\"74\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"258\" y=\"74\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"350\" cy=\"176\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"350\" y=\"176\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"409\" cy=\"68\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"409\" y=\"68\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "u-frame",
+          "label": "U-shaped frame",
+          "x": 62,
+          "y": 214
+        },
+        {
+          "id": "anvil",
+          "label": "Anvil (stud)",
+          "x": 109,
+          "y": 152
+        },
+        {
+          "id": "spindle",
+          "label": "Spindle",
+          "x": 180,
+          "y": 148
+        },
+        {
+          "id": "sleeve",
+          "label": "Sleeve — carries the main (pitch) scale",
+          "x": 258,
+          "y": 168
+        },
+        {
+          "id": "index-line",
+          "label": "Index line (reference line)",
+          "x": 258,
+          "y": 74
+        },
+        {
+          "id": "thimble",
+          "label": "Thimble — carries the circular scale",
+          "x": 350,
+          "y": 176
+        },
+        {
+          "id": "ratchet",
+          "label": "Ratchet — sets the same pressure every time",
+          "x": 409,
+          "y": 68
+        }
+      ]
+    },
+    {
+      "id": "chem-mole-roadmap",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "title": "The mole roadmap — rebuild the four boxes and every conversion",
+      "caption": "The single map behind every stoichiometry question in the paper.",
+      "examNote": "Nothing crosses this map without passing through moles. Write the unit on every line — that alone kills the mole-ratio-applied-to-grams error.",
+      "viewBox": "0 0 480 320",
+      "svgInline": "<svg viewBox=\"0 0 480 320\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"24\" y=\"128\" width=\"116\" height=\"52\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"182\" y=\"128\" width=\"116\" height=\"52\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"340\" y=\"128\" width=\"116\" height=\"52\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"182\" y=\"244\" width=\"116\" height=\"52\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"142\" y1=\"146\" x2=\"175\" y2=\"146\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M180 146 L174 149.4 L174 142.6 Z\" style=\"fill:var(--accent)\"/><line x1=\"180\" y1=\"166\" x2=\"147\" y2=\"166\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M142 166 L148 162.6 L148 169.4 Z\" style=\"fill:var(--accent)\"/><line x1=\"300\" y1=\"146\" x2=\"333\" y2=\"146\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M338 146 L332 149.4 L332 142.6 Z\" style=\"fill:var(--accent)\"/><line x1=\"338\" y1=\"166\" x2=\"305\" y2=\"166\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M300 166 L306 162.6 L306 169.4 Z\" style=\"fill:var(--accent)\"/><line x1=\"228\" y1=\"182\" x2=\"228\" y2=\"237\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M228 242 L224.6 236 L231.4 236 Z\" style=\"fill:var(--accent)\"/><line x1=\"252\" y1=\"242\" x2=\"252\" y2=\"187\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M252 182 L255.4 188 L248.6 188 Z\" style=\"fill:var(--accent)\"/><line x1=\"298\" y1=\"269\" x2=\"322\" y2=\"269\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><rect x=\"322\" y=\"246\" width=\"134\" height=\"46\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><g><circle cx=\"82\" cy=\"110\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"82\" y=\"110\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"240\" cy=\"110\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"110\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"398\" cy=\"110\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"398\" y=\"110\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"240\" cy=\"306\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"306\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"161\" cy=\"122\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"161\" y=\"122\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"161\" cy=\"190\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"161\" y=\"190\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"319\" cy=\"122\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"319\" y=\"122\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g><g><circle cx=\"319\" cy=\"190\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"319\" y=\"190\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">8</text></g><g><circle cx=\"200\" cy=\"214\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"200\" y=\"214\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">9</text></g><g><circle cx=\"282\" cy=\"214\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"282\" y=\"214\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">10</text></g><g><circle cx=\"389\" cy=\"306\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"389\" y=\"306\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">11</text></g></svg>",
+      "parts": [
+        {
+          "id": "box-mass",
+          "label": "Mass, m (in grams)",
+          "x": 82,
+          "y": 110
+        },
+        {
+          "id": "box-moles",
+          "label": "Number of moles, n",
+          "x": 240,
+          "y": 110
+        },
+        {
+          "id": "box-particles",
+          "label": "Number of particles, N",
+          "x": 398,
+          "y": 110
+        },
+        {
+          "id": "box-volume",
+          "label": "Volume of gas at STP (in litres)",
+          "x": 240,
+          "y": 306
+        },
+        {
+          "id": "mass-to-moles",
+          "label": "Divide by molar mass M",
+          "x": 161,
+          "y": 122
+        },
+        {
+          "id": "moles-to-mass",
+          "label": "Multiply by molar mass M",
+          "x": 161,
+          "y": 190
+        },
+        {
+          "id": "moles-to-particles",
+          "label": "Multiply by Avogadro's number, 6.022 × 10²³",
+          "x": 319,
+          "y": 122
+        },
+        {
+          "id": "particles-to-moles",
+          "label": "Divide by Avogadro's number",
+          "x": 319,
+          "y": 190
+        },
+        {
+          "id": "moles-to-volume",
+          "label": "Multiply by 22.4 L mol⁻¹",
+          "x": 200,
+          "y": 214
+        },
+        {
+          "id": "volume-to-moles",
+          "label": "Divide by 22.4 L mol⁻¹",
+          "x": 282,
+          "y": 214
+        },
+        {
+          "id": "stp-condition",
+          "label": "Condition on the volume route: gases only, at 273 K and 1 atm",
+          "x": 389,
+          "y": 306
+        }
+      ]
+    },
+    {
+      "id": "phy-sigfig-tree",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "title": "Significant figures — rebuild the decision tree",
+      "caption": "Run any digit of a measurement down this tree and it tells you whether it counts.",
+      "examNote": "PH-U05 is one of the cheapest recurring mark losses in the paper. Round once, at the end.",
+      "viewBox": "0 0 480 360",
+      "svgInline": "<svg viewBox=\"0 0 480 360\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"170\" y=\"20\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"64\" x2=\"240\" y2=\"86\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 92 L236.6 86 L243.4 86 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"170\" y=\"92\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"190\" y1=\"136\" x2=\"101.68\" y2=\"166.07\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M96 168 L100.58 162.85 L102.78 169.29 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"290\" y1=\"136\" x2=\"378.32\" y2=\"166.07\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M384 168 L377.22 169.29 L379.42 162.85 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"26\" y=\"168\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"314\" y=\"168\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"96\" y1=\"212\" x2=\"96\" y2=\"244\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M96 250 L92.6 244 L99.4 244 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"384\" y1=\"212\" x2=\"384\" y2=\"244\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M384 250 L380.6 244 L387.4 244 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"26\" y=\"250\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"314\" y=\"250\" width=\"140\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><rect x=\"90\" y=\"306\" width=\"300\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><g><circle cx=\"240\" cy=\"42\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"42\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"240\" cy=\"114\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"114\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"96\" cy=\"190\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"96\" y=\"190\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"384\" cy=\"190\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"384\" y=\"190\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"96\" cy=\"272\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"96\" y=\"272\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"384\" cy=\"272\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"384\" y=\"272\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"240\" cy=\"330\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"330\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "start",
+          "label": "Start: look at one digit of the measurement",
+          "x": 240,
+          "y": 42
+        },
+        {
+          "id": "non-zero",
+          "label": "Is it a non-zero digit? If yes it always counts",
+          "x": 240,
+          "y": 114
+        },
+        {
+          "id": "leading-zero",
+          "label": "Leading zeros: never significant (0.00520 has three)",
+          "x": 96,
+          "y": 190
+        },
+        {
+          "id": "captive-zero",
+          "label": "Zeros between non-zero digits: always significant (2.005 has four)",
+          "x": 384,
+          "y": 190
+        },
+        {
+          "id": "trailing-with-decimal",
+          "label": "Trailing zeros WITH a decimal point: significant (5.20 has three)",
+          "x": 96,
+          "y": 272
+        },
+        {
+          "id": "trailing-no-decimal",
+          "label": "Trailing zeros with NO decimal point: ambiguous — write it as a × 10ⁿ instead",
+          "x": 384,
+          "y": 272
+        },
+        {
+          "id": "round-once",
+          "label": "Rule for the answer: multiply or divide keeps the fewest significant figures; add or subtract keeps the fewest decimal places",
+          "x": 240,
+          "y": 330
+        }
+      ]
+    },
+    {
+      "id": "phy-si-prefix-ladder",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "title": "SI prefix ladder — name every rung and its factor",
+      "caption": "Each step up multiplies by 10³; each step down divides by 10³.",
+      "examNote": "Unit conversion slips (PH-U01) cost more marks in this paper than any single formula. Convert to base SI units before you substitute.",
+      "viewBox": "0 0 480 400",
+      "svgInline": "<svg viewBox=\"0 0 480 400\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><line x1=\"120\" y1=\"20\" x2=\"120\" y2=\"362\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"300\" y1=\"20\" x2=\"300\" y2=\"362\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"30\" x2=\"300\" y2=\"30\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"70\" x2=\"300\" y2=\"70\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"110\" x2=\"300\" y2=\"110\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"190\" x2=\"300\" y2=\"190\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"230\" x2=\"300\" y2=\"230\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"270\" x2=\"300\" y2=\"270\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"310\" x2=\"300\" y2=\"310\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"120\" y1=\"350\" x2=\"300\" y2=\"350\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g><circle cx=\"210\" cy=\"30\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"30\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"210\" cy=\"70\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"70\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"210\" cy=\"110\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"110\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"210\" cy=\"150\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"150\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"210\" cy=\"190\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"190\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"210\" cy=\"230\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"230\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"210\" cy=\"270\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"270\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g><g><circle cx=\"210\" cy=\"310\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"310\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">8</text></g><g><circle cx=\"210\" cy=\"350\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"210\" y=\"350\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">9</text></g><line x1=\"370\" y1=\"300\" x2=\"370\" y2=\"65\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M370 60 L373.4 66 L366.6 66 Z\" style=\"fill:var(--accent)\"/><line x1=\"60\" y1=\"60\" x2=\"60\" y2=\"295\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M60 300 L56.6 294 L63.4 294 Z\" style=\"fill:var(--accent)\"/><g><circle cx=\"370\" cy=\"330\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"370\" y=\"330\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">10</text></g><g><circle cx=\"60\" cy=\"330\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"60\" y=\"330\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">11</text></g></svg>",
+      "parts": [
+        {
+          "id": "tera",
+          "label": "tera — 10¹²",
+          "x": 210,
+          "y": 30
+        },
+        {
+          "id": "giga",
+          "label": "giga — 10⁹",
+          "x": 210,
+          "y": 70
+        },
+        {
+          "id": "mega",
+          "label": "mega — 10⁶",
+          "x": 210,
+          "y": 110
+        },
+        {
+          "id": "kilo",
+          "label": "kilo — 10³",
+          "x": 210,
+          "y": 150
+        },
+        {
+          "id": "base",
+          "label": "base unit — 10⁰ (metre, gram, second)",
+          "x": 210,
+          "y": 190
+        },
+        {
+          "id": "milli",
+          "label": "milli — 10⁻³",
+          "x": 210,
+          "y": 230
+        },
+        {
+          "id": "micro",
+          "label": "micro — 10⁻⁶",
+          "x": 210,
+          "y": 270
+        },
+        {
+          "id": "nano",
+          "label": "nano — 10⁻⁹",
+          "x": 210,
+          "y": 310
+        },
+        {
+          "id": "pico",
+          "label": "pico — 10⁻¹²",
+          "x": 210,
+          "y": 350
+        },
+        {
+          "id": "step-up",
+          "label": "Going up one rung: multiply by 10³",
+          "x": 370,
+          "y": 330
+        },
+        {
+          "id": "step-down",
+          "label": "Going down one rung: divide by 10³",
+          "x": 60,
+          "y": 330
+        }
+      ]
+    },
+    {
+      "id": "chem-limiting-flow",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "title": "Limiting reactant — rebuild the decision flow",
+      "caption": "The procedure that decides which reactant runs out first.",
+      "examNote": "CH-S03: the limiting reactant is NOT the one with the smaller mass, and the trap in the paper is comparing masses instead of moles ÷ coefficient. Only moles ÷ coefficient decides it.",
+      "viewBox": "0 0 480 400",
+      "svgInline": "<svg viewBox=\"0 0 480 400\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"140\" y=\"16\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"60\" x2=\"240\" y2=\"76\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 82 L236.6 76 L243.4 76 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"82\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"126\" x2=\"240\" y2=\"142\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 148 L236.6 142 L243.4 142 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"148\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"192\" x2=\"240\" y2=\"208\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 214 L236.6 208 L243.4 208 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"214\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"258\" x2=\"240\" y2=\"274\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 280 L236.6 274 L243.4 274 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"280\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"324\" x2=\"240\" y2=\"340\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 346 L236.6 340 L243.4 340 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"346\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><g><circle cx=\"240\" cy=\"38\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"38\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"240\" cy=\"104\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"104\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"240\" cy=\"170\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"170\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"240\" cy=\"236\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"236\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"240\" cy=\"302\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"302\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"240\" cy=\"368\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"368\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g></svg>",
+      "parts": [
+        {
+          "id": "step-balance",
+          "label": "Balance the equation first — coefficients only, never subscripts",
+          "x": 240,
+          "y": 38
+        },
+        {
+          "id": "step-moles",
+          "label": "Convert every given mass to moles: n = m ÷ M",
+          "x": 240,
+          "y": 104
+        },
+        {
+          "id": "step-divide",
+          "label": "Divide each reactant’s moles by its coefficient",
+          "x": 240,
+          "y": 170
+        },
+        {
+          "id": "step-smallest",
+          "label": "The smallest value is the limiting reactant",
+          "x": 240,
+          "y": 236
+        },
+        {
+          "id": "step-product",
+          "label": "Work out every product amount from the LIMITING reactant only",
+          "x": 240,
+          "y": 302
+        },
+        {
+          "id": "step-excess",
+          "label": "Excess left over = moles taken − moles used, then × M for grams",
+          "x": 240,
+          "y": 368
+        }
+      ]
+    },
+    {
+      "id": "chem-empirical-flow",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "title": "Empirical to molecular formula — rebuild the chain",
+      "caption": "Percentage composition in, molecular formula out.",
+      "examNote": "Five of the five marks are in these steps; a ratio of 1 : 1.5 is multiplied by 2, never rounded away. The molar mass for the last step comes from 2 × vapour density, or straight from the question.",
+      "viewBox": "0 0 480 400",
+      "svgInline": "<svg viewBox=\"0 0 480 400\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"140\" y=\"16\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"60\" x2=\"240\" y2=\"76\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 82 L236.6 76 L243.4 76 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"82\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"126\" x2=\"240\" y2=\"142\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 148 L236.6 142 L243.4 142 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"148\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"192\" x2=\"240\" y2=\"208\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 214 L236.6 208 L243.4 208 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"214\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"258\" x2=\"240\" y2=\"274\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 280 L236.6 274 L243.4 274 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"280\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"240\" y1=\"324\" x2=\"240\" y2=\"340\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 346 L236.6 340 L243.4 340 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"140\" y=\"346\" width=\"200\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><g><circle cx=\"240\" cy=\"38\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"38\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"240\" cy=\"104\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"104\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"240\" cy=\"170\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"170\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"240\" cy=\"236\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"236\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"240\" cy=\"302\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"302\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"240\" cy=\"368\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"368\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g></svg>",
+      "parts": [
+        {
+          "id": "step-assume",
+          "label": "Assume a 100 g sample, so each percentage becomes grams",
+          "x": 240,
+          "y": 38
+        },
+        {
+          "id": "step-moles",
+          "label": "Divide each mass by the atomic mass to get moles",
+          "x": 240,
+          "y": 104
+        },
+        {
+          "id": "step-smallest",
+          "label": "Divide every mole value by the smallest of them",
+          "x": 240,
+          "y": 170
+        },
+        {
+          "id": "step-whole",
+          "label": "Multiply the whole set to clear halves and thirds (×2 for .5, ×3 for .33)",
+          "x": 240,
+          "y": 236
+        },
+        {
+          "id": "step-empirical",
+          "label": "Write the empirical formula and its formula mass",
+          "x": 240,
+          "y": 302
+        },
+        {
+          "id": "step-molecular",
+          "label": "n = molar mass ÷ empirical formula mass; molecular formula = (empirical formula)ₙ",
+          "x": 240,
+          "y": 368
+        }
+      ]
+    },
+    {
+      "id": "phy-concave-mirror-ray",
+      "subject": "Physics",
+      "unit": "Reflection at curved mirrors",
+      "title": "Concave mirror — object beyond C: name every marked feature",
+      "caption": "Two construction rays fix the image; the examiner marks the diagram line by line.",
+      "examNote": "Always draw the arrow heads on the rays and mark F and C. An unlabelled ray diagram scores almost nothing.",
+      "viewBox": "0 0 480 300",
+      "svgInline": "<svg viewBox=\"0 0 480 300\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><path d=\"M430 56 Q400 160 430 264\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"60\" y1=\"160\" x2=\"476\" y2=\"160\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"116\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M150 110 L153.4 116 L146.6 116 Z\" style=\"stroke:var(--accent)\" fill=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"274.44\" y1=\"160\" x2=\"274.44\" y2=\"181.78\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M274.44 187.78 L271.04 181.78 L277.84 181.78 Z\" style=\"stroke:var(--accent)\" fill=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"150\" y1=\"110\" x2=\"430\" y2=\"110\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"430\" y1=\"110\" x2=\"245.37\" y2=\"202.32\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 205 L243.85 199.28 L246.89 205.36 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"150\" y1=\"110\" x2=\"430\" y2=\"187.78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"430\" y1=\"187.78\" x2=\"246\" y2=\"187.78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M240 187.78 L246 184.38 L246 191.18 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"430\" y1=\"155\" x2=\"430\" y2=\"165\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"330\" y1=\"155\" x2=\"330\" y2=\"165\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"230\" y1=\"155\" x2=\"230\" y2=\"165\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g><circle cx=\"452\" cy=\"182\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"452\" y=\"182\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"230\" cy=\"184\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"230\" y=\"184\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"330\" cy=\"184\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"330\" y=\"184\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"92\" cy=\"142\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"92\" y=\"142\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"150\" cy=\"88\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"150\" y=\"88\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"308.44\" cy=\"214\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"308.44\" y=\"214\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"300\" cy=\"92\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"300\" y=\"92\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "pole",
+          "label": "Pole, P",
+          "x": 452,
+          "y": 182
+        },
+        {
+          "id": "centre-curvature",
+          "label": "Centre of curvature, C",
+          "x": 230,
+          "y": 184
+        },
+        {
+          "id": "focus",
+          "label": "Principal focus, F",
+          "x": 330,
+          "y": 184
+        },
+        {
+          "id": "principal-axis",
+          "label": "Principal axis",
+          "x": 92,
+          "y": 142
+        },
+        {
+          "id": "object",
+          "label": "Object, placed beyond C",
+          "x": 150,
+          "y": 88
+        },
+        {
+          "id": "image",
+          "label": "Image — real, inverted and diminished",
+          "x": 308.44444444444446,
+          "y": 214
+        },
+        {
+          "id": "parallel-ray",
+          "label": "Ray parallel to the axis, reflected through F",
+          "x": 300,
+          "y": 92
+        }
+      ]
+    },
+    {
+      "id": "phy-convex-lens-ray",
+      "subject": "Physics",
+      "unit": "Lenses",
+      "title": "Convex lens — object beyond 2F: name every marked feature",
+      "caption": "The standard construction: one ray parallel to the axis, one through the optical centre.",
+      "examNote": "Mark F and 2F on BOTH sides. The image position argument is worth as much as the ray drawing.",
+      "viewBox": "0 0 480 300",
+      "svgInline": "<svg viewBox=\"0 0 480 300\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><path d=\"M240 70 Q266 150 240 230 Q214 150 240 70 Z\" stroke=\"currentColor\" stroke-width=\"1.6\" style=\"fill:var(--surface-muted)\" opacity=\".95\"/><line x1=\"40\" y1=\"150\" x2=\"470\" y2=\"150\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><line x1=\"170\" y1=\"145\" x2=\"170\" y2=\"155\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"310\" y1=\"145\" x2=\"310\" y2=\"155\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"100\" y1=\"145\" x2=\"100\" y2=\"155\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"380\" y1=\"145\" x2=\"380\" y2=\"155\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"60\" y1=\"150\" x2=\"60\" y2=\"104\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M60 98 L63.4 104 L56.6 104 Z\" style=\"stroke:var(--accent)\" fill=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"354.55\" y1=\"150\" x2=\"354.55\" y2=\"177.09\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M354.55 183.09 L351.15 177.09 L357.95 177.09 Z\" style=\"stroke:var(--accent)\" fill=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"60\" y1=\"98\" x2=\"240\" y2=\"98\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"240\" y1=\"98\" x2=\"405.18\" y2=\"220.71\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M410 224.29 L403.16 223.44 L407.21 217.98 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"60\" y1=\"98\" x2=\"404.24\" y2=\"197.45\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M410 199.11 L403.29 200.71 L405.18 194.18 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g><circle cx=\"240\" cy=\"252\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"240\" y=\"252\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"310\" cy=\"182\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"310\" y=\"182\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"380\" cy=\"122\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"380\" y=\"122\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"170\" cy=\"182\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"170\" y=\"182\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"60\" cy=\"76\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"60\" y=\"76\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"324.55\" cy=\"216\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"324.55\" y=\"216\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"150\" cy=\"118\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"150\" y=\"118\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "optical-centre",
+          "label": "Optical centre, O",
+          "x": 240,
+          "y": 252
+        },
+        {
+          "id": "focus-far",
+          "label": "Principal focus on the image side, F",
+          "x": 310,
+          "y": 182
+        },
+        {
+          "id": "two-f",
+          "label": "2F on the image side",
+          "x": 380,
+          "y": 122
+        },
+        {
+          "id": "focus-near",
+          "label": "Principal focus on the object side, F",
+          "x": 170,
+          "y": 182
+        },
+        {
+          "id": "object",
+          "label": "Object, placed beyond 2F",
+          "x": 60,
+          "y": 76
+        },
+        {
+          "id": "image",
+          "label": "Image — real, inverted, diminished, between F and 2F",
+          "x": 324.54545454545456,
+          "y": 216
+        },
+        {
+          "id": "centre-ray",
+          "label": "Ray through the optical centre — passes undeviated",
+          "x": 150,
+          "y": 118
+        }
+      ]
+    },
+    {
+      "id": "phy-ohms-law-circuit",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "title": "Ohm's law circuit — name every component and how it is connected",
+      "caption": "The circuit for the practical \"verification of Ohm's law\".",
+      "examNote": "Ammeter in series, voltmeter in parallel — reversing them is a whole-mark error, and it is also how you blow the meter in the lab.",
+      "viewBox": "0 0 480 300",
+      "svgInline": "<svg viewBox=\"0 0 480 300\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><path d=\"M80 90 L400 90 M400 90 L400 220 M400 220 L80 220 M80 220 L80 90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"150\" y1=\"214\" x2=\"150\" y2=\"226\" stroke=\"currentColor\" stroke-width=\"2.4\"/><line x1=\"162\" y1=\"208\" x2=\"162\" y2=\"232\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"174\" y1=\"214\" x2=\"174\" y2=\"226\" stroke=\"currentColor\" stroke-width=\"2.4\"/><line x1=\"186\" y1=\"208\" x2=\"186\" y2=\"232\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"250\" y1=\"220\" x2=\"278\" y2=\"206\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"250\" cy=\"220\" r=\"3\" stroke=\"currentColor\" fill=\"currentColor\"/><circle cx=\"280\" cy=\"220\" r=\"3\" stroke=\"currentColor\" fill=\"currentColor\"/><rect x=\"388\" y=\"130\" width=\"24\" height=\"46\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"430\" y1=\"138\" x2=\"416.61\" y2=\"149.16\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M412 153 L414.43 146.55 L418.79 151.77 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"180\" cy=\"90\" r=\"17\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"180\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" opacity=\".7\">A</text><rect x=\"276\" y=\"80\" width=\"62\" height=\"20\" rx=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M276 90 L276 160 L290 160\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><path d=\"M324 160 L338 160 L338 90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><circle cx=\"307\" cy=\"160\" r=\"17\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"307\" y=\"165\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" opacity=\".7\">V</text><circle cx=\"276\" cy=\"90\" r=\"3\" stroke=\"currentColor\" fill=\"currentColor\"/><circle cx=\"338\" cy=\"90\" r=\"3\" stroke=\"currentColor\" fill=\"currentColor\"/><g><circle cx=\"168\" cy=\"258\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"168\" y=\"258\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"265\" cy=\"254\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"265\" y=\"254\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"180\" cy=\"52\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"180\" y=\"52\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"307\" cy=\"52\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"307\" y=\"52\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"307\" cy=\"210\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"307\" y=\"210\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"448\" cy=\"130\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"448\" y=\"130\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g></svg>",
+      "parts": [
+        {
+          "id": "cell",
+          "label": "Cell or battery (the source of emf)",
+          "x": 168,
+          "y": 258
+        },
+        {
+          "id": "key",
+          "label": "Key (switch)",
+          "x": 265,
+          "y": 254
+        },
+        {
+          "id": "ammeter",
+          "label": "Ammeter — connected in SERIES",
+          "x": 180,
+          "y": 52
+        },
+        {
+          "id": "resistor",
+          "label": "Resistance wire under test, R",
+          "x": 307,
+          "y": 52
+        },
+        {
+          "id": "voltmeter",
+          "label": "Voltmeter — connected in PARALLEL across R",
+          "x": 307,
+          "y": 210
+        },
+        {
+          "id": "rheostat",
+          "label": "Rheostat — varies the current",
+          "x": 448,
+          "y": 130
+        }
+      ]
+    },
+    {
+      "id": "chem-haber-flow",
+      "subject": "Chemistry",
+      "unit": "Modern chemical manufactures",
+      "title": "Haber process — rebuild the flow diagram",
+      "caption": "The industrial manufacture of ammonia — a standing Group C question.",
+      "examNote": "The marks are in the labelled flow, the conditions and the balanced equation with its sign, not in prose.",
+      "viewBox": "0 0 480 330",
+      "svgInline": "<svg viewBox=\"0 0 480 330\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><line x1=\"30\" y1=\"70\" x2=\"90\" y2=\"70\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M96 70 L90 73.4 L90 66.6 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"96\" y=\"46\" width=\"96\" height=\"48\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"192\" y1=\"70\" x2=\"244\" y2=\"70\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M250 70 L244 73.4 L244 66.6 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"250\" y=\"40\" width=\"120\" height=\"60\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"370\" y1=\"70\" x2=\"414\" y2=\"70\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M420 70 L414 73.4 L414 66.6 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M420 70 L446 70 L446 168 L370 168\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"250\" y=\"144\" width=\"120\" height=\"48\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"250\" y1=\"168\" x2=\"198\" y2=\"168\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M192 168 L198 164.6 L198 171.4 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"96\" y=\"144\" width=\"96\" height=\"48\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><line x1=\"144\" y1=\"192\" x2=\"144\" y2=\"244\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M144 250 L140.6 244 L147.4 244 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"96\" y=\"250\" width=\"96\" height=\"44\" rx=\"8\" stroke=\"currentColor\" stroke-width=\"1.3\" style=\"fill:var(--surface-muted)\" opacity=\".9\"/><path d=\"M96 168 L48 168 L48 26 L144 26\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"144\" y1=\"26\" x2=\"144\" y2=\"39\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M144 44 L140.6 38 L147.4 38 Z\" style=\"fill:var(--accent)\"/><g><circle cx=\"30\" cy=\"40\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"30\" y=\"40\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"144\" cy=\"116\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"144\" y=\"116\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"310\" cy=\"116\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"310\" y=\"116\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"310\" cy=\"22\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"310\" y=\"22\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"430\" cy=\"116\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"430\" y=\"116\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"310\" cy=\"212\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"310\" y=\"212\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"144\" cy=\"212\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"144\" y=\"212\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g><g><circle cx=\"144\" cy=\"310\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"144\" y=\"310\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">8</text></g><g><circle cx=\"48\" cy=\"118\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"48\" y=\"118\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">9</text></g></svg>",
+      "parts": [
+        {
+          "id": "feed",
+          "label": "Feed: nitrogen and hydrogen in the ratio 1 : 3 by volume",
+          "x": 30,
+          "y": 40
+        },
+        {
+          "id": "compressor",
+          "label": "Compressor — raises the pressure to about 200 atm",
+          "x": 144,
+          "y": 116
+        },
+        {
+          "id": "catalyst-chamber",
+          "label": "Catalyst chamber",
+          "x": 310,
+          "y": 116
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions: about 200 atm, 450 °C to 500 °C",
+          "x": 310,
+          "y": 22
+        },
+        {
+          "id": "catalyst",
+          "label": "Catalyst: finely divided iron with molybdenum as promoter",
+          "x": 430,
+          "y": 116
+        },
+        {
+          "id": "cooler",
+          "label": "Cooler or condenser — liquefies the ammonia",
+          "x": 310,
+          "y": 212
+        },
+        {
+          "id": "separator",
+          "label": "Separator — ammonia drawn off as a liquid",
+          "x": 144,
+          "y": 212
+        },
+        {
+          "id": "product",
+          "label": "Product: liquid ammonia",
+          "x": 144,
+          "y": 310
+        },
+        {
+          "id": "recycle",
+          "label": "Unreacted nitrogen and hydrogen recycled",
+          "x": 48,
+          "y": 118
+        }
+      ]
+    },
+    {
+      "id": "phy-vector-resolution",
+      "subject": "Physics",
+      "unit": "Vectors",
+      "title": "Resolving a vector — name each part of the construction",
+      "caption": "The construction behind every inclined-plane and projectile question.",
+      "examNote": "Tie sine and cosine to the angle on YOUR diagram before substituting; swapping them is the commonest vector slip.",
+      "viewBox": "0 0 420 300",
+      "svgInline": "<svg viewBox=\"0 0 420 300\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><line x1=\"40\" y1=\"240\" x2=\"400\" y2=\"240\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><line x1=\"70\" y1=\"280\" x2=\"70\" y2=\"40\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" opacity=\".45\"/><line x1=\"70\" y1=\"240\" x2=\"294.97\" y2=\"93.28\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M300 90 L296.83 96.13 L293.12 90.43 Z\" style=\"stroke:var(--accent)\" fill=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"300\" y1=\"90\" x2=\"300\" y2=\"240\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"70\" y1=\"90\" x2=\"300\" y2=\"90\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"70\" y1=\"240\" x2=\"294\" y2=\"240\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M300 240 L294 243.4 L294 236.6 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"70\" y1=\"240\" x2=\"70\" y2=\"96\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M70 90 L73.4 96 L66.6 96 Z\" stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M110 240 A 40 40 0 0 0 98 212\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><g><circle cx=\"200\" cy=\"138\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"200\" y=\"138\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"124\" cy=\"222\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"124\" y=\"222\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"190\" cy=\"270\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"190\" y=\"270\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"36\" cy=\"160\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"36\" y=\"160\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"300\" cy=\"165\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"300\" y=\"165\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g></svg>",
+      "parts": [
+        {
+          "id": "vector",
+          "label": "The vector F itself",
+          "x": 200,
+          "y": 138
+        },
+        {
+          "id": "angle",
+          "label": "Angle θ, measured from the x-axis",
+          "x": 124,
+          "y": 222
+        },
+        {
+          "id": "x-component",
+          "label": "Horizontal component, Fx = F cos θ",
+          "x": 190,
+          "y": 270
+        },
+        {
+          "id": "y-component",
+          "label": "Vertical component, Fy = F sin θ",
+          "x": 36,
+          "y": 160
+        },
+        {
+          "id": "construction",
+          "label": "Construction line dropped from the tip of F onto the x-axis — it closes the rectangle",
+          "x": 300,
+          "y": 165
+        }
+      ]
+    },
+    {
+      "id": "chem-titration-setup",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "title": "Titration set-up — name the apparatus",
+      "caption": "Volumetric analysis: the chemistry practical that carries the most internal marks.",
+      "examNote": "The lab record must carry aim, apparatus, theory, observation table, calculation and result. A neat labelled diagram is part of the apparatus mark.",
+      "viewBox": "0 0 400 380",
+      "svgInline": "<svg viewBox=\"0 0 400 380\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid meet\" style=\"width:100%;height:auto;color:var(--fg-muted)\"><rect x=\"56\" y=\"330\" width=\"120\" height=\"12\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"110\" y1=\"330\" x2=\"110\" y2=\"60\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"110\" y1=\"96\" x2=\"176\" y2=\"96\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"176\" y=\"40\" width=\"26\" height=\"236\" rx=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M176 276 L189 300 L202 276 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"189\" y1=\"300\" x2=\"189\" y2=\"314\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"189\" cy=\"292\" r=\"6\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"60\" x2=\"186\" y2=\"60\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"78\" x2=\"186\" y2=\"78\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"96\" x2=\"186\" y2=\"96\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"114\" x2=\"186\" y2=\"114\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"132\" x2=\"186\" y2=\"132\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"150\" x2=\"186\" y2=\"150\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"168\" x2=\"186\" y2=\"168\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"186\" x2=\"186\" y2=\"186\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"204\" x2=\"186\" y2=\"204\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"222\" x2=\"186\" y2=\"222\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"240\" x2=\"186\" y2=\"240\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"258\" x2=\"186\" y2=\"258\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><path d=\"M176 92 Q189 100 202 92\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M170 336 L208 336 L196 300 L196 288 L182 288 L182 300 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M172 330 L206 330\" style=\"stroke:var(--accent)\" fill=\"none\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"160\" y=\"336\" width=\"58\" height=\"10\" rx=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M320 96 L320 176 Q320 210 332 210 Q344 210 344 176 L344 96 Z\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"332\" y1=\"96\" x2=\"332\" y2=\"60\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"332\" y1=\"210\" x2=\"332\" y2=\"300\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"1\" stroke-linecap=\"round\"/><g><circle cx=\"232\" cy=\"150\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"232\" y=\"150\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">1</text></g><g><circle cx=\"232\" cy=\"292\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"232\" y=\"292\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">2</text></g><g><circle cx=\"140\" cy=\"92\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"140\" y=\"92\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">3</text></g><g><circle cx=\"74\" cy=\"96\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"74\" y=\"96\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">4</text></g><g><circle cx=\"118\" cy=\"318\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"118\" y=\"318\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">5</text></g><g><circle cx=\"132\" cy=\"356\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"132\" y=\"356\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">6</text></g><g><circle cx=\"368\" cy=\"180\" r=\"9\" style=\"fill:var(--surface-muted);stroke:var(--accent)\" stroke-width=\"1.2\"/><text x=\"368\" y=\"180\" dy=\".33em\" text-anchor=\"middle\" font-size=\"10\" style=\"fill:var(--accent)\">7</text></g></svg>",
+      "parts": [
+        {
+          "id": "burette",
+          "label": "Burette",
+          "x": 232,
+          "y": 150
+        },
+        {
+          "id": "stopcock",
+          "label": "Stopcock (tap)",
+          "x": 232,
+          "y": 292
+        },
+        {
+          "id": "meniscus",
+          "label": "Meniscus — read the lower curve at eye level",
+          "x": 140,
+          "y": 92
+        },
+        {
+          "id": "stand",
+          "label": "Retort stand and burette clamp",
+          "x": 74,
+          "y": 96
+        },
+        {
+          "id": "conical-flask",
+          "label": "Conical flask with the pipetted solution and indicator",
+          "x": 118,
+          "y": 318
+        },
+        {
+          "id": "white-tile",
+          "label": "White tile — makes the end-point colour change visible",
+          "x": 132,
+          "y": 356
+        },
+        {
+          "id": "pipette",
+          "label": "Pipette — delivers a fixed volume of the standard solution",
+          "x": 368,
+          "y": 180
+        }
+      ]
+    }
+  ]
+}

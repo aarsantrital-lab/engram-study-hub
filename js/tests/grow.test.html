@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>grow.js unit tests · Engram</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 24px 16px 64px;
+    font: 13px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #0a0d12; color: #f0f2f4;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 4px; }
+  .sub { color: #87909c; margin: 0 0 20px; }
+  .note {
+    padding: 10px 12px; border-radius: 8px; margin-bottom: 20px; font-size: 12px;
+    background: rgb(96 165 250 / .08); border: 1px solid rgb(96 165 250 / .2); color: #60a5fa;
+  }
+  .note.warn { background: rgb(245 158 11 / .08); border-color: rgb(245 158 11 / .25); color: #f59e0b; }
+  #summary {
+    position: sticky; top: 0; z-index: 2; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    padding: 12px 14px; margin-bottom: 16px; border-radius: 12px;
+    background: #11151b; border: 1px solid rgb(255 255 255 / .12);
+    font-size: 15px; font-weight: 600;
+  }
+  #summary .n { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .ok { color: #10b981; } .bad { color: #ef4444; } .skip { color: #f59e0b; }
+  h2 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: .22em;
+    color: #87909c; margin: 24px 0 6px; font-weight: 500;
+  }
+  .case {
+    display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start;
+    padding: 6px 10px; border-radius: 6px;
+  }
+  .case + .case { border-top: 1px solid rgb(255 255 255 / .06); }
+  .case[data-r="fail"] { background: rgb(239 68 68 / .08); }
+  .case .mark { font-weight: 700; }
+  .case .detail {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px; color: #87909c; white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>grow.js — unit tests</h1>
+  <p class="sub">The GROW unit model, the illusion-of-competence cross-check, and the “what should I study now?” decision.</p>
+
+  <div class="note">
+    Must be served over http:// — ES modules are blocked on <code>file://</code>.<br>
+    From <code>study-hub/</code>: <code>python -m http.server 8000</code> then open
+    <code>http://localhost:8000/js/tests/grow.test.html</code>
+  </div>
+
+  <div class="note warn">
+    <strong>Section B writes to this origin’s local storage.</strong> It is skipped automatically
+    when real study data is already present (a non-empty review log or any saved self-rating),
+    and it restores the keys it touched afterwards. Nothing here can delete study data.
+  </div>
+
+  <div id="summary">Running…</div>
+  <div id="out"></div>
+</main>
+
+<script type="module">
+import {
+  CDC_UNITS, GROW_SUBJECTS, SUBJECT_HOURS, RATING_META, GROW_RATINGS,
+  MEASURED_MIN_REVIEWS, EXAM_CALENDAR_SEED, NIGHTLY_LOOP_TIME,
+  getUnits, getUnit, resolveUnitId, getSelfRating, setSelfRating,
+  buildRows, growSummary, pickNext, actionFor, todayLoad, allCards,
+  getExamCalendar, upcomingExams, nightlyLoopState, invalidate,
+} from '../grow.js';
+import { store, KEYS } from '../store.js';
+import { initVault } from '../vault.js';
+
+/* ---------------------------------------------------------------- harness */
+const out = document.getElementById('out');
+let pass = 0, fail = 0, skip = 0;
+
+function section(title) {
+  const h = document.createElement('h2');
+  h.textContent = title;
+  out.appendChild(h);
+}
+function record(result, name, detail) {
+  if (result === 'pass') pass += 1; else if (result === 'fail') fail += 1; else skip += 1;
+  const row = document.createElement('div');
+  row.className = 'case';
+  row.dataset.r = result;
+  const mark = document.createElement('span');
+  mark.className = 'mark ' + (result === 'pass' ? 'ok' : result === 'fail' ? 'bad' : 'skip');
+  mark.textContent = result === 'pass' ? '✔' : result === 'fail' ? '✘' : '–';
+  const body = document.createElement('div');
+  body.textContent = name;
+  if (detail !== undefined) {
+    const d = document.createElement('div');
+    d.className = 'detail';
+    d.textContent = typeof detail === 'string' ? detail : JSON.stringify(detail);
+    body.appendChild(d);
+  }
+  row.append(mark, body);
+  out.appendChild(row);
+}
+const ok = (name, cond, detail) => record(cond ? 'pass' : 'fail', name, cond ? undefined : detail);
+const eq = (name, a, b) => record(Object.is(a, b) ? 'pass' : 'fail', name,
+  Object.is(a, b) ? undefined : 'got ' + JSON.stringify(a) + ', want ' + JSON.stringify(b));
+const skipped = (name, why) => record('skip', name, why);
+
+/* ============================================================ SECTION A
+   Pure model — safe on any machine, touches no study data.
+   ==================================================================== */
+
+section('A1 · the CDC unit spine (neb-nepal §5 — teaching hours are the weight)');
+eq('43 units seeded (Physics 26 + Chemistry 17)', CDC_UNITS.length, 43);
+eq('Physics totals 128 theory hours', SUBJECT_HOURS.Physics, 128);
+eq('Chemistry totals 128 theory hours', SUBJECT_HOURS.Chemistry, 128);
+eq('26 Physics units', getUnits('Physics').length, 26);
+eq('17 Chemistry units', getUnits('Chemistry').length, 17);
+ok('unit ids are unique', new Set(CDC_UNITS.map((u) => u.id)).size === CDC_UNITS.length);
+ok('every unit declares hours > 0', CDC_UNITS.every((u) => u.hours > 0));
+eq('Gravitation is 10 h (joint-heaviest in Physics)', getUnit('phy-gravitation').hours, 10);
+eq('DC circuits is 10 h', getUnit('phy-dc-circuits').hours, 10);
+eq('Chemistry of non-metals is 22 h (biggest unit in the syllabus)', getUnit('chem-non-metals').hours, 22);
+eq('Modern chemical manufactures is 11 h', getUnit('chem-modern-manufactures').hours, 11);
+ok('only subjects with a real CDC list are seeded', GROW_SUBJECTS.join(',') === 'Physics,Chemistry',
+  GROW_SUBJECTS.join(','));
+ok('no unit invents a marks weighting', CDC_UNITS.every((u) => u.marks === undefined));
+
+section('A2 · alias resolution (display convenience — never a data source)');
+eq('“Mole Concept” → Stoichiometry', resolveUnitId('Mole Concept'), 'chem-stoichiometry');
+eq('“Limiting Reagent” → Stoichiometry', resolveUnitId('Limiting Reagent'), 'chem-stoichiometry');
+eq('“Current Electricity” → DC circuits', resolveUnitId('Current Electricity'), 'phy-dc-circuits');
+eq('“Kirchhoff’s laws” → DC circuits', resolveUnitId("Kirchhoff's laws"), 'phy-dc-circuits');
+eq('“Haber process” → Modern chemical manufactures', resolveUnitId('Haber process'), 'chem-modern-manufactures');
+eq('“Young’s modulus” → Elasticity', resolveUnitId("Young's modulus"), 'phy-elasticity');
+eq('subject scope is respected', resolveUnitId('Gravitation', 'Chemistry'), null);
+eq('nonsense resolves to null, never a guess', resolveUnitId('qwertyuiop'), null);
+eq('empty resolves to null', resolveUnitId(''), null);
+
+section('A3 · rating vocabulary');
+ok('three cells only', GROW_RATINGS.length === 3 && GROW_RATINGS.join('') === 'RYG');
+ok('R is the weakest, G the strongest',
+  RATING_META.R.weakness > RATING_META.Y.weakness && RATING_META.Y.weakness > RATING_META.G.weakness);
+ok('every cell maps to a valid data-status',
+  GROW_RATINGS.every((k) => ['lapsed', 'due-soon', 'mastered'].includes(RATING_META[k].status)));
+ok('cell wording is exam-shaped, not a feelings scale',
+  /marks/.test(RATING_META.R.meaning) && /book open/.test(RATING_META.Y.meaning) && /cold/.test(RATING_META.G.meaning));
+
+section('A4 · exam calendar (neb-nepal §1 — extrapolated, confirm with the college)');
+const cal = getExamCalendar();
+ok('calendar is present', cal.length >= 1);
+ok('every milestone carries a confidence flag',
+  cal.every((m) => ['high', 'med', 'low'].includes(m.confidence)));
+ok('the seed is sorted by date',
+  EXAM_CALENDAR_SEED.every((m, i) => i === 0 || EXAM_CALENDAR_SEED[i - 1].ad <= m.ad));
+ok('the Grade 11 final lands in the mid-May → mid-June 2027 window',
+  /^2027-0[56]-/.test(EXAM_CALENDAR_SEED.find((m) => m.id === 'final').ad),
+  EXAM_CALENDAR_SEED.find((m) => m.id === 'final').ad);
+ok('BS values are month-level only (no invented day conversions)',
+  EXAM_CALENDAR_SEED.every((m) => !m.bs || /^[A-Za-z]+ \d{4}$/.test(m.bs)));
+const up = upcomingExams(3);
+ok('countdowns are never negative', up.every((m) => m.days >= 0), up.map((m) => m.days));
+ok('upcoming is capped at the count asked for', up.length <= 3);
+
+section('A5 · the nightly loop clock (pedagogy-spec §1.7 — 10:25 PM NPT)');
+eq('loop time comes from CONFIG', NIGHTLY_LOOP_TIME, '22:25');
+const early = nightlyLoopState({ now: new Date(2026, 6, 26, 21, 25) });
+eq('60 minutes before the loop', early.minutesAway, 60);
+eq('rendered as a 12-hour clock', early.clock, '10:25 pm');
+ok('pending while the rings are unfinished', early.pending && !early.past);
+const later = nightlyLoopState({ now: new Date(2026, 6, 26, 23, 5), done: true });
+ok('finished rings clear the strip', !later.pending);
+ok('after 10:25 it reports past', later.past);
+
+section('A6 · language rules');
+const copy = JSON.stringify(CDC_UNITS) + JSON.stringify(EXAM_CALENDAR_SEED) +
+  Object.values(RATING_META).map((m) => m.meaning).join(' ');
+ok('no e-notation anywhere in the shipped copy', !/\d[eE][+-]?\d/.test(copy));
+ok('no praise words in the rating copy', !/great|awesome|well done|good job/i.test(copy));
+
+/* ============================================================ SECTION B
+   Store-backed behaviour. Runs only on a machine with no study data yet.
+   ==================================================================== */
+
+const existingLog = store.reviewLogCount();
+const existingGrow = Object.keys(store.get(KEYS.GROW, {}) || {}).length;
+const existingSrs = Object.keys(store.get(KEYS.SRS, {}) || {}).length;
+const safe = existingLog === 0 && existingGrow === 0 && existingSrs === 0;
+
+section('B · self-rating, measured accuracy, illusion flag, the decision');
+
+if (!safe) {
+  const why = 'real study data present (review log ' + existingLog + ', ratings ' + existingGrow +
+    ', cards ' + existingSrs + ') — Section B never writes over it. Run it in a private window, ' +
+    'or use the node harness.';
+  for (const name of [
+    'self-rating round-trips', 'junk ratings are rejected', 'one row per unit',
+    'priority sort is weakness × hours × staleness', 'pickNext routes to a real action',
+    'pickNext offers alternatives from another subject', 'measured accuracy ignores pretests',
+    'illusion flag fires on green-but-weak', 'row colour follows the measurement, not the claim',
+    "today's load speaks minutes, never a due count",
+  ]) skipped(name, why);
+} else {
+  const restore = {
+    grow: store.get(KEYS.GROW, {}),
+    srs: store.get(KEYS.SRS, {}),
+    log: store.get(KEYS.REVIEW_LOG, []),
+  };
+  try {
+    /* --- ratings ------------------------------------------------------- */
+    ok('self-rating round-trips', setSelfRating('phy-gravitation', 'R') && getSelfRating('phy-gravitation') === 'R');
+    setSelfRating('phy-gravitation', null);
+    eq('a rating can be cleared', getSelfRating('phy-gravitation'), null);
+    setSelfRating('phy-gravitation', 'PURPLE');
+    eq('junk ratings are rejected', getSelfRating('phy-gravitation'), null);
+
+    /* --- rows + sort ---------------------------------------------------- */
+    let rows = buildRows();
+    eq('one row per unit', rows.length, 43);
+    ok('unrated rows report no measurement', rows.every((r) => r.measured === null));
+
+    for (const u of CDC_UNITS) setSelfRating(u.id, 'G');
+    setSelfRating('phy-elasticity', 'R');
+    invalidate();
+    rows = buildRows({ sort: 'priority' });
+    ok('priority sort is weakness × hours × staleness', rows[0].unit.id === 'phy-elasticity',
+      rows.slice(0, 3).map((r) => r.unit.id + ':' + r.score));
+    ok('scores descend', rows.every((r, i) => i === 0 || rows[i - 1].score >= r.score));
+
+    /* --- decision -------------------------------------------------------- */
+    const d = pickNext();
+    eq('pickNext picks the reddest × heaviest × stalest', d.unit.id, 'phy-elasticity');
+    ok('pickNext routes to a real action', typeof d.action.route === 'string' && d.action.route.startsWith('#/'),
+      d.action.route);
+    ok('the action is one of review / lesson / drill',
+      ['review', 'lesson', 'drill'].includes(d.action.kind), d.action.kind);
+    ok('the choice comes with a rationale', /reason this is first/i.test(d.reason), d.reason);
+    ok('the rationale cites teaching hours', /teaching hours/.test(d.reason), d.reason);
+    ok('pickNext offers alternatives from another subject',
+      d.alternatives.length === 2 && d.alternatives[0].unit.subject !== d.unit.subject,
+      d.alternatives.map((a) => a.unit.id));
+    ok('exclude is honoured', pickNext({ exclude: ['phy-elasticity'] }).unit.id !== 'phy-elasticity');
+
+    /* --- measured accuracy + the cross-check ---------------------------- */
+    initVault({
+      schema: 2,
+      topics: [{
+        id: 'mole-concept', name: 'Mole Concept', subject: 'Chemistry', unit: 'Stoichiometry',
+        flashcards: Array.from({ length: 10 }, (_, i) => ({ id: 'growtest-c' + i, q: 'q' + i, a: 'a' + i })),
+        docs: [{ title: 'Lesson 1 — the mole', kind: 'lesson', url: 'assets/mole/0001-mole.html' }],
+        notes: [], assets: [], mindmap: null,
+      }],
+    });
+    invalidate();
+
+    for (let i = 0; i < 10; i += 1) {
+      store.appendReviewLog({ cardId: 'growtest-c' + i, rating: i < 3 ? 3 : 1, kind: 'review', elapsedMs: 4000 });
+    }
+    // pretests are "never displayed, never counted" (pedagogy-spec §1.0)
+    for (let i = 0; i < 20; i += 1) {
+      store.appendReviewLog({ cardId: 'growtest-c0', rating: 4, kind: 'pretest', elapsedMs: 800 });
+    }
+    // probes are Hermes-only diagnostics — excluded too
+    store.appendReviewLog({ cardId: 'growtest-c0', rating: 4, kind: 'review', probe: true, elapsedMs: 800 });
+    invalidate();
+
+    const stoich = buildRows().find((r) => r.unit.id === 'chem-stoichiometry');
+    eq('measured accuracy ignores pretests and probes', stoich.reviews, 10);
+    eq('…and reports the honest 30%', Math.round(stoich.measured * 100), 30);
+    ok('the unit is linked to its vault cards', stoich.cardCount === 10, stoich.cardCount);
+    ok('illusion flag fires on green-but-weak',
+      stoich.illusion && stoich.illusion.kind === 'overrated', stoich.illusion);
+    ok('the flag speaks marks, not feelings', /marks go missing/.test(stoich.illusion.message));
+    eq('row colour follows the measurement, not the claim', stoich.status, 'weak');
+    ok('the next action is the lesson the vault actually has',
+      actionFor(stoich).route.indexOf('#/lesson?topic=mole-concept') === 0, actionFor(stoich).route);
+
+    setSelfRating('chem-stoichiometry', 'R');
+    invalidate();
+    const honest = buildRows().find((r) => r.unit.id === 'chem-stoichiometry');
+    ok('a red rating that matches the data is not flagged', honest.illusion === null, honest.illusion);
+    ok('measurement pulls weakness upward', honest.weakness > 0.8, honest.weakness);
+
+    ok('under-sampled units are never flagged',
+      buildRows().every((r) => !r.illusion || r.reviews >= MEASURED_MIN_REVIEWS));
+
+    /* --- today's load ---------------------------------------------------- */
+    const load = todayLoad();
+    ok("today's load speaks minutes, never a due count", /minutes?$/.test(load.label), load.label);
+    ok('cards were collected from the vault', allCards().length >= 10, allCards().length);
+
+    /* --- summary --------------------------------------------------------- */
+    const sum = growSummary('Physics');
+    eq('summary counts every Physics unit', sum.total, 26);
+    eq('summary reports CDC hours', sum.hours, 128);
+    ok('ratings + unrated account for every unit', sum.R + sum.Y + sum.G + sum.unrated === sum.total);
+  } finally {
+    store.set(KEYS.GROW, restore.grow);
+    store.set(KEYS.SRS, restore.srs);
+    store.set(KEYS.REVIEW_LOG, restore.log);
+    initVault(window.VAULT_DATA);
+    invalidate();
+  }
+}
+
+/* ------------------------------------------------------------- summary */
+const summary = document.getElementById('summary');
+summary.textContent = '';
+const add = (cls, text) => {
+  const span = document.createElement('span');
+  span.className = cls;
+  span.textContent = text;
+  summary.appendChild(span);
+};
+add(fail ? 'bad' : 'ok', fail ? '✘ ' + fail + ' FAILING' : '✔ all green');
+add('n', pass + ' passed');
+if (fail) add('n bad', fail + ' failed');
+if (skip) add('n skip', skip + ' skipped');
+document.title = (fail ? '✘ ' + fail + ' failing' : '✔ ' + pass + ' passing') + ' · grow.js tests';
+console.log('[grow.test] pass=' + pass + ' fail=' + fail + ' skip=' + skip);
+</script>
+</body>
+</html>

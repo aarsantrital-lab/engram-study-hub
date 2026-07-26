@@ -1,0 +1,61 @@
+{
+  "subject": "Mathematics",
+  "templates": [
+    {
+      "id": "math-quadratic-roots",
+      "subject": "Mathematics",
+      "unit": "Algebra — quadratic equations",
+      "problemType": "quadratic-roots",
+      "problemTypeLabel": "Roots of a quadratic",
+      "cognitive": "application",
+      "difficulty": 1,
+      "template": "Solve {a}x² + {b}x + {c} = 0 using the quadratic formula. Give the larger root.",
+      "vars": {
+        "a": { "min": 2, "max": 5, "step": 1, "unit": "", "sigfigs": 2 },
+        "b": { "min": -12, "max": 12, "step": 1, "unit": "", "sigfigs": 2 },
+        "c": { "min": -12, "max": 6, "step": 1, "unit": "", "sigfigs": 2 }
+      },
+      "constraints": ["b^2 - 4*a*c > 0", "b != 0"],
+      "solutionChain": [
+        { "kind": "given", "statement": "a = {a}, b = {b}, c = {c}", "justification": "Read the coefficients WITH their signs. A sign slip here costs the whole question." },
+        { "statement": "Δ = b² − 4ac = ({b})² − 4({a})({c})", "justification": "The discriminant decides how many real roots exist before you compute anything else.", "formulaTeX": "\\Delta = b^2 - 4ac", "expr": "b^2 - 4*a*c", "unit": "", "sigfigs": 4, "dimensionless": true },
+        { "statement": "x = (−b ± √Δ) / 2a", "justification": "Quadratic formula. The larger root takes the plus sign when a is positive.", "formulaTeX": "x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}", "expr": "(-b + sqrt(b^2 - 4*a*c))/(2*a)", "unit": "", "sigfigs": 4, "dimensionless": true }
+      ],
+      "answer": { "expr": "(-b + sqrt(b^2 - 4*a*c))/(2*a)", "unit": "", "sigfigs": 4, "label": "larger root", "dimensionless": true },
+      "misconceptionTags": ["MA-Q01"],
+      "misconceptions": [
+        { "id": "MA-Q01", "trap": "(-b + sqrt(b^2 - 4*a*c))/2", "statement": "Divided by 2 instead of 2a.", "feedback": "The denominator is 2a = {2*a}, not 2. Write the formula out in full before substituting — that is where this one is caught.", "whyItFeelsRight": "When a = 1 the two are identical, and a = 1 is what almost every practice question uses." },
+        { "id": "MA-Q02", "trap": "(b + sqrt(b^2 - 4*a*c))/(2*a)", "statement": "Dropped the minus on −b.", "feedback": "The formula opens with −b. With b = {b}, that is {-b}. Substituting a negative coefficient without brackets is how the sign goes missing.", "whyItFeelsRight": "Negative-times-negative rules are applied automatically, and the leading minus gets absorbed." }
+      ],
+      "confusableWith": ["arithmetic-progression", "derivative-as-rate"]
+    },
+    {
+      "id": "math-derivative-rate",
+      "subject": "Mathematics",
+      "unit": "Calculus — derivatives",
+      "problemType": "derivative-as-rate",
+      "problemTypeLabel": "Derivative as a rate of change",
+      "cognitive": "application",
+      "difficulty": 2,
+      "template": "A particle moves so that its displacement is s = {a}t³ − {b}t² + {c}t metres, where t is in seconds. Find its velocity at t = {t0} s.",
+      "vars": {
+        "a": { "min": 1, "max": 5, "step": 1, "unit": "", "sigfigs": 2 },
+        "b": { "min": 2, "max": 12, "step": 1, "unit": "", "sigfigs": 2 },
+        "c": { "min": 1, "max": 15, "step": 1, "unit": "", "sigfigs": 2 },
+        "t0": { "min": 1, "max": 6, "step": 1, "unit": "s", "sigfigs": 2 }
+      },
+      "solutionChain": [
+        { "kind": "given", "statement": "s = {a}t³ − {b}t² + {c}t, t = {t0} s", "justification": "Velocity is the RATE of change of displacement, so this is a differentiation question wearing a mechanics costume." },
+        { "statement": "v = ds/dt = 3({a})t² − 2({b})t + {c}", "justification": "Differentiate term by term: the power drops by one and multiplies down in front.", "formulaTeX": "v = \\frac{ds}{dt}", "expr": "3*a", "unit": "", "sigfigs": 3, "dimensionless": true, "prompt": "coefficient of t² in ds/dt" },
+        { "statement": "v({t0}) = 3({a})({t0})² − 2({b})({t0}) + {c}", "justification": "Substitute only after differentiating — never differentiate a number.", "expr": "3*a*t0^2 - 2*b*t0 + c", "unit": "m s^-1", "sigfigs": 3 }
+      ],
+      "answer": { "expr": "3*a*t0^2 - 2*b*t0 + c", "unit": "m s^-1", "sigfigs": 3, "label": "velocity at t = {t0} s" },
+      "misconceptionTags": ["MA-C01"],
+      "misconceptions": [
+        { "id": "MA-C01", "trap": "a*t0^3 - b*t0^2 + c*t0", "statement": "Substituted into s instead of differentiating first.", "feedback": "That is the displacement at t = {t0} s, in metres — the question asked for the velocity, in m s⁻¹. Differentiate, then substitute.", "whyItFeelsRight": "You are given a formula and a value of t, and substituting is the operation that formula-plus-number usually triggers." },
+        { "id": "MA-C02", "trap": "6*a*t0 - 2*b", "statement": "Differentiated twice and gave the acceleration.", "feedback": "ds/dt is velocity; d²s/dt² is acceleration. You went one step too far — units would have shown it: m s⁻² instead of m s⁻¹.", "whyItFeelsRight": "The differentiation rhythm is easy to repeat once it starts." }
+      ],
+      "confusableWith": ["quadratic-roots", "uniform-acceleration"]
+    }
+  ]
+}

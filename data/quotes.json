@@ -1,0 +1,254 @@
+{
+  "version": 2,
+  "note": "Two sets in one file, distinguished by `kind`. kind:'fact' = the research/method statements safe to show in ANY state, including after a miss (they say what the error reveals, never how he should feel). kind:'quote' = attributed motivational lines, decoration only. HARD RULE: a kind:'quote' entry must never be served as a response to struggling, procrastinating or a broken streak — pedagogy-spec §3.5 Playbook P forbids answering those with a motivational quote. Attributions reading 'Attributed to' are traditional, not sourced.",
+  "kinds": ["fact", "quote"],
+  "quotes": [
+    {
+      "id": "q-testing-effect",
+      "kind": "fact",
+      "text": "Testing yourself beats rereading. Practice testing lands at d = 0.74 in the meta-analysis; rereading sits near zero.",
+      "source": "Learning-science synthesis"
+    },
+    {
+      "id": "q-time-economics",
+      "kind": "fact",
+      "text": "75 marks in 180 minutes is 2.4 minutes per mark. A 5-mark answer gets 12 minutes, not 25.",
+      "source": "NEB time economics"
+    },
+    {
+      "id": "q-22-slots",
+      "kind": "fact",
+      "text": "The paper has 22 answer-slots: 11 x 1 mark, 8 x 5 marks, 3 x 8 marks. That is a small enough target to drill to saturation.",
+      "source": "NEB post-2077 grid"
+    },
+    {
+      "id": "q-long-answers",
+      "kind": "fact",
+      "text": "Skip all three long answers and the ceiling is 51/75 - a B+ at best. Those 24 marks are not optional.",
+      "source": "NEB grid arithmetic"
+    },
+    {
+      "id": "q-spacing",
+      "kind": "fact",
+      "text": "Distributed practice measures d = 0.85 - the largest effect in the table. The same hours, spread out, are worth about a letter grade more than the same hours massed.",
+      "source": "Learning-science synthesis"
+    },
+    {
+      "id": "q-successive-relearning",
+      "kind": "fact",
+      "text": "Retrieve to criterion, then again days later. Successive relearning measures up to d = 1.82 in real classrooms - roughly ten exam percent.",
+      "source": "Learning-science synthesis"
+    },
+    {
+      "id": "q-application-mix",
+      "kind": "fact",
+      "text": "About 50 to 55 of the 75 marks require applying or extending. Practising recall alone practises the wrong 11 marks.",
+      "source": "CDC specification grid"
+    },
+    {
+      "id": "q-who-gains",
+      "kind": "fact",
+      "text": "These methods pay the most to students who are currently behind: d = 0.47, against -0.11 for students already at the top.",
+      "source": "Learning-science synthesis"
+    },
+    {
+      "id": "q-avogadro",
+      "kind": "fact",
+      "text": "Avogadro's number is 6.022 × 10²³ per mole. It counts particles, the way a dozen counts eggs - it is not a mass.",
+      "source": "Chemistry constitution"
+    },
+    {
+      "id": "q-step-marking",
+      "kind": "fact",
+      "text": "A step-marked answer earns marks line by line. A bare final answer earns one. Formula, substitution, units, significant figures.",
+      "source": "NEB marking practice"
+    },
+    {
+      "id": "q-confidently-wrong",
+      "kind": "fact",
+      "text": "Confidently wrong is the most expensive state in the exam hall - and the cheapest to fix once it is visible.",
+      "source": "Hypercorrection effect"
+    },
+    {
+      "id": "q-desirable-difficulty",
+      "kind": "fact",
+      "text": "High-load encoding feels worse than rereading while you do it, and tests better afterwards. The discomfort is the technique working.",
+      "source": "Desirable difficulty"
+    },
+    {
+      "id": "q-maps",
+      "kind": "fact",
+      "text": "Concept maps you build yourself: g = 0.72. Concept maps handed to you: g = 0.43. The building is the learning.",
+      "source": "Concept-map meta-analysis"
+    },
+    {
+      "id": "q-practicals",
+      "kind": "fact",
+      "text": "Practicals are 25 of every 100 marks, and they are submitted early. Once submitted they are uncorrectable.",
+      "source": "NEB practical guidelines"
+    },
+    {
+      "id": "q-target",
+      "kind": "fact",
+      "text": "A+ needs about 67/75 theory per subject. From 27/75 that is +40 marks - a number you can chase, not a mood.",
+      "source": "NEB grading scale"
+    },
+    {
+      "id": "q-criterion",
+      "kind": "fact",
+      "text": "One correct recall today beats five rereads. Stop the item at criterion; drilling past it buys nothing.",
+      "source": "Successive relearning protocol"
+    },
+    {
+      "id": "q-mole-ratio",
+      "kind": "fact",
+      "text": "Mole ratios apply to moles, never to grams. Writing the unit on every line is what catches it.",
+      "source": "Stoichiometry misconception CH-S02"
+    },
+    {
+      "id": "q-heaviest-physics",
+      "kind": "fact",
+      "text": "Gravitation and DC circuits carry 10 teaching hours each - the two heaviest units in Grade 11 physics.",
+      "source": "CDC teaching hours"
+    },
+    {
+      "id": "q-heaviest-chem",
+      "kind": "fact",
+      "text": "Chemistry of non-metals is 22 teaching hours: the single biggest unit in the whole syllabus, and a Group C regular.",
+      "source": "CDC teaching hours"
+    },
+    {
+      "id": "q-interleaving",
+      "kind": "fact",
+      "text": "Mix problem types within one subject so the method has to be chosen, not remembered. Choosing is the skill the paper actually tests.",
+      "source": "Interleaving research"
+    },
+    {
+      "id": "q-feedback",
+      "kind": "fact",
+      "text": "Useful feedback says what the error reveals. \"Wrong\" says nothing; \"you used mass where the ratio needs moles\" says everything.",
+      "source": "Elaborated feedback"
+    },
+    {
+      "id": "q-attendance",
+      "kind": "fact",
+      "text": "Below 70% attendance you cannot sit the exam, whatever your marks look like.",
+      "source": "Grade 11 school-exam rules"
+    },
+    {
+      "id": "q-streak-break",
+      "kind": "fact",
+      "text": "Missing one day does not affect habit formation - the research is clear. Restarting today does.",
+      "source": "Habit formation research"
+    },
+    {
+      "id": "q-if-then",
+      "kind": "fact",
+      "text": "Implementation intentions - \"when X happens, I will do Y\" - move follow-through by about d = 0.65. Write the plan, not the wish.",
+      "source": "Implementation intentions"
+    },
+    {
+      "id": "q-sig-figs",
+      "kind": "fact",
+      "text": "Units and significant figures are marked separately from the answer. They are the cheapest marks in the paper and the most often dropped.",
+      "source": "Physics unit-procedure errors"
+    },
+    {
+      "id": "q-diagrams",
+      "kind": "fact",
+      "text": "Ray diagrams, circuit diagrams and flowcharts are marked line by line. Memorisers skip them, which is why they are cheap marks.",
+      "source": "NEB marking practice"
+    },
+    {
+      "id": "q-choice-coverage",
+      "kind": "fact",
+      "text": "With OR-choices in about two shorts and one long, reliable mastery of ~85% of the syllabus gives a full choice-set. Less does not.",
+      "source": "NEB grid arithmetic"
+    },
+    {
+      "id": "q-90-seconds",
+      "kind": "fact",
+      "text": "The floor is 90 seconds and five cards. A night that small still counts, and it is what keeps the interval schedule honest.",
+      "source": "Nightly loop protocol"
+    },
+
+    { "id": "m01", "kind": "quote", "text": "Genius is one percent inspiration and ninety-nine percent perspiration.", "author": "Thomas Edison", "tag": "perseverance" },
+    { "id": "m02", "kind": "quote", "text": "There is no substitute for hard work.", "author": "Thomas Edison", "tag": "perseverance" },
+    { "id": "m03", "kind": "quote", "text": "Nothing in life is to be feared, it is only to be understood.", "author": "Marie Curie", "tag": "curiosity" },
+    { "id": "m04", "kind": "quote", "text": "The important thing is not to stop questioning.", "author": "Albert Einstein", "tag": "curiosity" },
+    { "id": "m05", "kind": "quote", "text": "Try not to become a person of success, but rather a person of value.", "author": "Albert Einstein", "tag": "identity" },
+    { "id": "m06", "kind": "quote", "text": "Education is the most powerful weapon which you can use to change the world.", "author": "Nelson Mandela", "tag": "study" },
+    { "id": "m07", "kind": "quote", "text": "It always seems impossible until it is done.", "author": "Nelson Mandela", "tag": "perseverance" },
+    { "id": "m08", "kind": "quote", "text": "We are what we repeatedly do. Excellence, then, is not an act but a habit.", "author": "Will Durant", "tag": "habit" },
+    { "id": "m09", "kind": "quote", "text": "Perseverance is not a long race; it is many short races one after another.", "author": "Walter Elliot", "tag": "perseverance" },
+    { "id": "m10", "kind": "quote", "text": "Success is the sum of small efforts, repeated day in and day out.", "author": "Robert Collier", "tag": "habit" },
+    { "id": "m11", "kind": "quote", "text": "The only way to learn mathematics is to do mathematics.", "author": "Paul Halmos", "tag": "practice" },
+    { "id": "m12", "kind": "quote", "text": "What we learn with pleasure we never forget.", "author": "Alfred Mercier", "tag": "study" },
+    { "id": "m13", "kind": "quote", "text": "Learning is not attained by chance; it must be sought with ardour and attended with diligence.", "author": "Abigail Adams", "tag": "study" },
+    { "id": "m14", "kind": "quote", "text": "The mind is not a vessel to be filled, but a fire to be kindled.", "author": "Plutarch", "tag": "study" },
+    { "id": "m15", "kind": "quote", "text": "Study without desire spoils the memory, and it retains nothing that it takes in.", "author": "Leonardo da Vinci", "tag": "study" },
+    { "id": "m16", "kind": "quote", "text": "Knowing is not enough; we must apply. Willing is not enough; we must do.", "author": "Johann Wolfgang von Goethe", "tag": "practice" },
+    { "id": "m17", "kind": "quote", "text": "Difficulties strengthen the mind, as labour does the body.", "author": "Seneca", "tag": "perseverance" },
+    { "id": "m18", "kind": "quote", "text": "Fall seven times, stand up eight.", "author": "Japanese proverb", "tag": "perseverance" },
+    { "id": "m19", "kind": "quote", "text": "Drop by drop, an ocean is made.", "original": "थोपा थोपा गर्दा समुद्र बन्छ।", "author": "Nepali proverb", "tag": "habit" },
+    { "id": "m20", "kind": "quote", "text": "The one who searches is the one who finds.", "original": "जसले खोज्छ, उसैले पाउँछ।", "author": "Nepali proverb", "tag": "perseverance" },
+    { "id": "m21", "kind": "quote", "text": "For the one who acts there is a road; for the one who does not, an excuse.", "original": "गर्नेलाई बाटो, नगर्नेलाई निहुँ।", "author": "Nepali proverb", "tag": "habit" },
+    { "id": "m22", "kind": "quote", "text": "For the idle, home is always far away.", "original": "अल्छीको घर टाढा।", "author": "Nepali proverb", "tag": "habit" },
+    { "id": "m23", "kind": "quote", "text": "It is not the mountain we conquer, but ourselves.", "author": "Edmund Hillary", "tag": "identity" },
+    { "id": "m24", "kind": "quote", "text": "You do not climb a mountain like Everest by racing ahead on your own. You do it slowly and carefully.", "author": "Tenzing Norgay", "tag": "perseverance" },
+    { "id": "m25", "kind": "quote", "text": "The best time to plant a tree was twenty years ago. The second best time is now.", "author": "Proverb", "tag": "restart" },
+    { "id": "m26", "kind": "quote", "text": "Well begun is half done.", "author": "Greek proverb", "tag": "method" },
+    { "id": "m27", "kind": "quote", "text": "The roots of education are bitter, but the fruit is sweet.", "author": "Attributed to Aristotle", "tag": "study" },
+    { "id": "m28", "kind": "quote", "text": "Things do not change; we change.", "author": "Henry David Thoreau", "tag": "identity" },
+    { "id": "m29", "kind": "quote", "text": "Little strokes fell great oaks.", "author": "Benjamin Franklin", "tag": "habit" },
+    { "id": "m30", "kind": "quote", "text": "Energy and persistence conquer all things.", "author": "Benjamin Franklin", "tag": "perseverance" },
+    { "id": "m31", "kind": "quote", "text": "By failing to prepare, you are preparing to fail.", "author": "Attributed to Benjamin Franklin", "tag": "method" },
+    { "id": "m32", "kind": "quote", "text": "An investment in knowledge pays the best interest.", "author": "Attributed to Benjamin Franklin", "tag": "study" },
+    { "id": "m33", "kind": "quote", "text": "The secret of getting ahead is getting started.", "author": "Attributed to Mark Twain", "tag": "restart" },
+    { "id": "m34", "kind": "quote", "text": "Whether you think you can or you think you cannot, you are right.", "author": "Attributed to Henry Ford", "tag": "identity" },
+    { "id": "m35", "kind": "quote", "text": "He who has a why to live can bear almost any how.", "author": "Friedrich Nietzsche", "tag": "perseverance" },
+    { "id": "m36", "kind": "quote", "text": "Discipline is the bridge between goals and accomplishment.", "author": "Jim Rohn", "tag": "habit" },
+    { "id": "m37", "kind": "quote", "text": "Motivation is what gets you started. Habit is what keeps you going.", "author": "Jim Rohn", "tag": "habit" },
+    { "id": "m38", "kind": "quote", "text": "Practice is not the thing you do once you are good. It is the thing you do that makes you good.", "author": "Malcolm Gladwell", "tag": "practice" },
+    { "id": "m39", "kind": "quote", "text": "The scientist is not a person who gives the right answers, but one who asks the right questions.", "author": "Claude Lévi-Strauss", "tag": "curiosity" },
+    { "id": "m40", "kind": "quote", "text": "If I have seen further it is by standing on the shoulders of giants.", "author": "Isaac Newton", "tag": "study" },
+    { "id": "m41", "kind": "quote", "text": "Truth is ever to be found in simplicity, and not in the multiplicity and confusion of things.", "author": "Isaac Newton", "tag": "method" },
+    { "id": "m42", "kind": "quote", "text": "In mathematics you do not understand things. You just get used to them.", "author": "John von Neumann", "tag": "practice" },
+    { "id": "m43", "kind": "quote", "text": "A problem well stated is a problem half solved.", "author": "Charles Kettering", "tag": "method" },
+    { "id": "m44", "kind": "quote", "text": "The first principle is that you must not fool yourself — and you are the easiest person to fool.", "author": "Richard Feynman", "tag": "calibration" },
+    { "id": "m45", "kind": "quote", "text": "What I cannot create, I do not understand.", "author": "Richard Feynman", "tag": "method" },
+    { "id": "m46", "kind": "quote", "text": "Study hard what interests you the most, in the most undisciplined and original manner possible.", "author": "Richard Feynman", "tag": "study" },
+    { "id": "m47", "kind": "quote", "text": "Doubt is not a pleasant condition, but certainty is absurd.", "author": "Voltaire", "tag": "calibration" },
+    { "id": "m48", "kind": "quote", "text": "The more I read, the more I acquire, the more certain I am that I know nothing.", "author": "Voltaire", "tag": "calibration" },
+    { "id": "m49", "kind": "quote", "text": "Errors using inadequate data are much less than those using no data at all.", "author": "Charles Babbage", "tag": "calibration" },
+    { "id": "m50", "kind": "quote", "text": "Real knowledge is to know the extent of one's ignorance.", "author": "Confucius", "tag": "calibration" },
+    { "id": "m51", "kind": "quote", "text": "The one who moves a mountain begins by carrying away small stones.", "author": "Attributed to Confucius", "tag": "habit" },
+    { "id": "m52", "kind": "quote", "text": "Wisdom begins in wonder.", "author": "Socrates", "tag": "curiosity" },
+    { "id": "m53", "kind": "quote", "text": "I cannot teach anybody anything. I can only make them think.", "author": "Attributed to Socrates", "tag": "study" },
+    { "id": "m54", "kind": "quote", "text": "Ambition is the path to success. Persistence is the vehicle you arrive in.", "author": "Bill Bradley", "tag": "perseverance" },
+    { "id": "m55", "kind": "quote", "text": "Concentration is the secret of strength.", "author": "Ralph Waldo Emerson", "tag": "focus" },
+    { "id": "m56", "kind": "quote", "text": "That which we persist in doing becomes easier — not that the task has changed, but our ability to do it has increased.", "author": "Ralph Waldo Emerson", "tag": "perseverance" },
+    { "id": "m57", "kind": "quote", "text": "The reward of a thing well done is having done it.", "author": "Ralph Waldo Emerson", "tag": "identity" },
+    { "id": "m58", "kind": "quote", "text": "Nothing great was ever achieved without enthusiasm.", "author": "Ralph Waldo Emerson", "tag": "perseverance" },
+    { "id": "m59", "kind": "quote", "text": "Arise, awake, and stop not till the goal is reached.", "author": "Swami Vivekananda", "tag": "perseverance" },
+    { "id": "m60", "kind": "quote", "text": "Take up one idea. Make that one idea your life.", "author": "Swami Vivekananda", "tag": "focus" },
+    { "id": "m61", "kind": "quote", "text": "An ounce of practice is worth more than tons of preaching.", "author": "Mahatma Gandhi", "tag": "practice" },
+    { "id": "m62", "kind": "quote", "text": "Strength does not come from physical capacity. It comes from an indomitable will.", "author": "Mahatma Gandhi", "tag": "perseverance" },
+    { "id": "m63", "kind": "quote", "text": "The future depends on what you do today.", "author": "Attributed to Mahatma Gandhi", "tag": "habit" },
+    { "id": "m64", "kind": "quote", "text": "Live as if you were to die tomorrow. Learn as if you were to live forever.", "author": "Attributed to Mahatma Gandhi", "tag": "study" },
+    { "id": "m65", "kind": "quote", "text": "There are no shortcuts to any place worth going.", "author": "Beverly Sills", "tag": "perseverance" },
+    { "id": "m66", "kind": "quote", "text": "Repetition is the mother of learning.", "author": "Latin proverb", "tag": "practice" },
+    { "id": "m67", "kind": "quote", "text": "Chance favours the prepared mind.", "author": "Louis Pasteur", "tag": "method" },
+    { "id": "m68", "kind": "quote", "text": "My strength lies solely in my tenacity.", "author": "Louis Pasteur", "tag": "perseverance" },
+    { "id": "m69", "kind": "quote", "text": "Science knows no country, because knowledge belongs to humanity.", "author": "Louis Pasteur", "tag": "study" },
+    { "id": "m70", "kind": "quote", "text": "The good thing about science is that it is true whether or not you believe in it.", "author": "Neil deGrasse Tyson", "tag": "curiosity" },
+    { "id": "m71", "kind": "quote", "text": "Understanding is a kind of ecstasy.", "author": "Carl Sagan", "tag": "curiosity" },
+    { "id": "m72", "kind": "quote", "text": "Somewhere, something incredible is waiting to be known.", "author": "Attributed to Carl Sagan", "tag": "curiosity" },
+    { "id": "m73", "kind": "quote", "text": "Nothing has such power to broaden the mind as the ability to investigate systematically.", "author": "Marcus Aurelius", "tag": "method" },
+    { "id": "m74", "kind": "quote", "text": "You have power over your mind — not outside events. Realise this, and you will find strength.", "author": "Marcus Aurelius", "tag": "focus" },
+    { "id": "m75", "kind": "quote", "text": "It is not because things are difficult that we do not dare; it is because we do not dare that they are difficult.", "author": "Seneca", "tag": "perseverance" },
+    { "id": "m76", "kind": "quote", "text": "The beautiful thing about learning is that nobody can take it away from you.", "author": "B. B. King", "tag": "study" },
+    { "id": "m77", "kind": "quote", "text": "Change is the end result of all true learning.", "author": "Leo Buscaglia", "tag": "identity" },
+    { "id": "m78", "kind": "quote", "text": "I am still learning.", "author": "Attributed to Michelangelo", "tag": "identity" }
+  ]
+}

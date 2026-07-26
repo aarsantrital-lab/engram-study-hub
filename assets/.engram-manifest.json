@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "generator": "2.0.0",
+  "generated": "2026-07-26T19:23:08",
+  "note": "Written by generate_data.py. Only paths listed here are ever pruned.",
+  "paths": [
+    "assets/mole-concept/lessons/0001-what-is-a-mole.html",
+    "assets/mole-concept/lessons/0002-empirical-formula.html",
+    "assets/mole-concept/lessons/0003-molecular-formula.html",
+    "assets/mole-concept/lessons/0004-stoichiometry-mole-ratios.html",
+    "assets/mole-concept/lessons/0005-mass-particles-drills.html",
+    "assets/mole-concept/reference/mole-concept-cheatsheet.html"
+  ]
+}

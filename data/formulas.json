@@ -1,0 +1,776 @@
+{
+  "version": 1,
+  "note": "Formula sheet for the daily 5-minute speed round (pedagogy-spec §2 Tier 1) and for the Numericals Engine to quote a formula line by line. `unit` values are the canonical CDC unit names used by js/grow.js, so a sheet can be auto-assembled from the units he has covered. `formulaHTML` is deliberately PLAIN TEXT with unicode subscripts and superscripts — it carries no markup and must be rendered with el({text}) or the .formula component class, never through innerHTML. `commonTrap` is the documented mark-loser for that formula and is what the speed round should surface after a miss; several map onto the misconception ids in pedagogy-spec §3.6.",
+  "formulas": [
+    {
+      "id": "phy-lc-vernier",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Least count of a vernier calliper",
+      "formulaHTML": "LC = (value of 1 main-scale division) / (number of vernier divisions)",
+      "symbols": "LC in cm or mm",
+      "conditions": "Any vernier calliper. With a millimetre main scale and 10 vernier divisions, LC = 0.1 mm = 0.01 cm.",
+      "commonTrap": "Quoting 0.1 cm instead of 0.01 cm. Write the unit on the least count itself, then every reading inherits it."
+    },
+    {
+      "id": "phy-lc-screw-gauge",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Least count of a screw gauge",
+      "formulaHTML": "LC = pitch / (number of circular-scale divisions)",
+      "symbols": "pitch = distance the spindle advances in one full rotation",
+      "conditions": "Any micrometer screw gauge. Pitch 1 mm with 100 divisions gives LC = 0.01 mm.",
+      "commonTrap": "Using the number of main-scale divisions instead of circular-scale divisions."
+    },
+    {
+      "id": "phy-vernier-reading",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Reading an instrument with a zero error",
+      "formulaHTML": "corrected reading = MSR + (coinciding division × LC) − zero error",
+      "symbols": "MSR = main-scale reading",
+      "conditions": "Vernier callipers and screw gauges alike; the zero error is read with the jaws fully closed.",
+      "commonTrap": "Adding a negative zero error instead of subtracting it. Subtract the zero error with its own sign, always."
+    },
+    {
+      "id": "phy-mean-abs-error",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Mean value and mean absolute error",
+      "formulaHTML": "ā = (a₁ + a₂ + … + aₙ) / n  ·  Δā = (|Δa₁| + |Δa₂| + … + |Δaₙ|) / n",
+      "symbols": "aᵢ = individual readings, Δaᵢ = aᵢ − ā",
+      "conditions": "Repeated readings of one quantity with the same instrument.",
+      "commonTrap": "Letting the signed errors cancel. Take the modulus of every deviation before averaging."
+    },
+    {
+      "id": "phy-percent-error",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Relative and percentage error",
+      "formulaHTML": "relative error = Δā / ā  ·  percentage error = (Δā / ā) × 100%",
+      "symbols": "Δā = mean absolute error",
+      "conditions": "Reporting the reliability of any measured quantity.",
+      "commonTrap": "Reporting a percentage error to more figures than the measurement itself justifies."
+    },
+    {
+      "id": "phy-error-propagation",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Error in a product, quotient or power",
+      "formulaHTML": "Δz / z = p(Δa / a) + q(Δb / b) + r(Δc / c), where p, q, r are the powers of a, b, c in z",
+      "symbols": "p, q, r are the powers; errors always ADD",
+      "conditions": "Combining measured quantities. For a sphere V depends on r³, so the percentage error in V is 3 × the percentage error in r.",
+      "commonTrap": "Forgetting that a power multiplies the fractional error, and that errors add even when the quantities divide."
+    },
+    {
+      "id": "phy-sig-fig-rules",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Significant-figure rules",
+      "formulaHTML": "multiply or divide → keep the fewest significant figures  ·  add or subtract → keep the fewest decimal places",
+      "symbols": "",
+      "conditions": "Every calculated answer in physics and chemistry. Round once, at the very end.",
+      "commonTrap": "Rounding at every intermediate step, and copying the calculator display in full. Both lose marks under PH-U05."
+    },
+    {
+      "id": "phy-unit-conversion",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Converting a quantity between systems of units",
+      "formulaHTML": "n₁u₁ = n₂u₂  ⇒  n₂ = n₁ (M₁ / M₂)ᵃ (L₁ / L₂)ᵇ (T₁ / T₂)ᶜ",
+      "symbols": "a, b, c are the powers of M, L, T in the dimensional formula",
+      "conditions": "Converting between SI and CGS, for example 1 N = 1 × 10⁵ dyne, 1 J = 1 × 10⁷ erg.",
+      "commonTrap": "Inverting a ratio. The bigger unit always carries the smaller number, so check the direction against a case you know."
+    },
+    {
+      "id": "phy-homogeneity",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Principle of homogeneity of dimensions",
+      "formulaHTML": "every term on both sides of a correct equation has the same dimensions",
+      "symbols": "",
+      "conditions": "Checking any derived equation before you trust it, and deriving a relation when the dependence is known.",
+      "commonTrap": "Treating a dimensionally correct equation as proved. The method is blind to dimensionless factors such as ½ and 2π."
+    },
+    {
+      "id": "phy-core-dimensions",
+      "subject": "Physics",
+      "unit": "Physical quantities",
+      "label": "Dimensional formulae worth knowing cold",
+      "formulaHTML": "force MLT⁻² · work, energy, torque ML²T⁻² · power ML²T⁻³ · pressure, stress ML⁻¹T⁻² · momentum, impulse MLT⁻¹ · frequency T⁻¹ · G M⁻¹L³T⁻² · h ML²T⁻¹ · viscosity ML⁻¹T⁻¹ · surface tension MT⁻²",
+      "symbols": "",
+      "conditions": "Any dimensional check, conversion or derivation in the paper.",
+      "commonTrap": "Assuming that two quantities with the same dimensions are the same quantity — work and torque share ML²T⁻² and are not interchangeable."
+    },
+    {
+      "id": "phy-vector-resultant",
+      "subject": "Physics",
+      "unit": "Vectors",
+      "label": "Resultant of two vectors (parallelogram law)",
+      "formulaHTML": "R = √(P² + Q² + 2PQ cos θ)  ·  tan α = Q sin θ / (P + Q cos θ)",
+      "symbols": "θ = angle between P and Q, α = angle of R with P",
+      "conditions": "Two coplanar vectors acting at a point.",
+      "commonTrap": "Adding magnitudes arithmetically. At right angles 3 N and 4 N give 5 N, never 7 N."
+    },
+    {
+      "id": "phy-vector-resolution",
+      "subject": "Physics",
+      "unit": "Vectors",
+      "label": "Resolution of a vector",
+      "formulaHTML": "Fx = F cos θ  ·  Fy = F sin θ  ·  F = √(Fx² + Fy²)",
+      "symbols": "θ measured from the x-axis",
+      "conditions": "Inclined planes, projectiles, forces in equilibrium.",
+      "commonTrap": "Swapping sine and cosine. Tie each one to its angle on the diagram before substituting."
+    },
+    {
+      "id": "phy-suvat",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "label": "Equations of uniformly accelerated motion",
+      "formulaHTML": "v = u + at  ·  s = ut + ½at²  ·  v² = u² + 2as  ·  sₙ = u + a(2n − 1) / 2",
+      "symbols": "u, v in m s⁻¹, a in m s⁻², s in m, t in s",
+      "conditions": "Constant acceleration in a straight line only.",
+      "commonTrap": "Assuming u = 0 when the body is already moving (PH-U04), and mixing signs of a and s for a body thrown upwards."
+    },
+    {
+      "id": "phy-projectile",
+      "subject": "Physics",
+      "unit": "Kinematics",
+      "label": "Projectile fired at an angle",
+      "formulaHTML": "T = 2u sin θ / g  ·  H = u² sin²θ / 2g  ·  R = u² sin 2θ / g",
+      "symbols": "T = time of flight, H = maximum height, R = horizontal range",
+      "conditions": "Projection from and landing on the same horizontal level, air resistance neglected.",
+      "commonTrap": "Using sin θ where sin 2θ belongs in the range. Maximum range is at θ = 45°."
+    },
+    {
+      "id": "phy-newton-second",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "label": "Newton's second law and impulse",
+      "formulaHTML": "F = ma = dp/dt  ·  impulse = FΔt = Δp = mv − mu",
+      "symbols": "p = mv, the linear momentum",
+      "conditions": "Constant mass. For variable mass use the rate of change of momentum form.",
+      "commonTrap": "Dropping the sign of the change in momentum for a rebound: a ball reversing direction has Δp = m(v − (−u))."
+    },
+    {
+      "id": "phy-friction",
+      "subject": "Physics",
+      "unit": "Dynamics",
+      "label": "Friction and the angle of friction",
+      "formulaHTML": "f = μN  ·  tan λ = μ  ·  on an incline N = mg cos θ",
+      "symbols": "μ = coefficient of friction, λ = angle of friction",
+      "conditions": "Limiting friction; static and kinetic coefficients differ.",
+      "commonTrap": "Using N = mg on an inclined plane. On an incline the normal reaction is mg cos θ."
+    },
+    {
+      "id": "phy-work-energy",
+      "subject": "Physics",
+      "unit": "Work, energy and power",
+      "label": "Work, energy and the work–energy theorem",
+      "formulaHTML": "W = Fs cos θ  ·  KE = ½mv²  ·  PE = mgh  ·  net work = ΔKE",
+      "symbols": "θ = angle between force and displacement",
+      "conditions": "W = Fs cos θ needs a constant force; otherwise take the area under the force–displacement graph.",
+      "commonTrap": "Forgetting cos θ, and quoting energy in newtons. Energy is in joules on every line."
+    },
+    {
+      "id": "phy-power",
+      "subject": "Physics",
+      "unit": "Work, energy and power",
+      "label": "Power",
+      "formulaHTML": "P = W / t = Fv  ·  efficiency = (useful output / total input) × 100%",
+      "symbols": "P in watts, 1 hp = 746 W",
+      "conditions": "P = Fv gives the instantaneous power when F and v are along the same line.",
+      "commonTrap": "Leaving efficiency out of a machine or hydro-power numerical — it is usually one of the marks."
+    },
+    {
+      "id": "phy-centripetal",
+      "subject": "Physics",
+      "unit": "Circular motion",
+      "label": "Centripetal acceleration and force",
+      "formulaHTML": "a = v² / r = ω²r  ·  F = mv² / r = mω²r  ·  v = rω",
+      "symbols": "ω in rad s⁻¹, ω = 2π / T",
+      "conditions": "Uniform circular motion; the force points to the centre.",
+      "commonTrap": "Inventing an outward centrifugal force in an inertial frame (PH-F11). Nothing pushes the body outwards."
+    },
+    {
+      "id": "phy-banking",
+      "subject": "Physics",
+      "unit": "Circular motion",
+      "label": "Banking of a road and the conical pendulum",
+      "formulaHTML": "tan θ = v² / rg  ·  conical pendulum: T = 2π √(l cos θ / g)",
+      "symbols": "θ = angle of banking, l = string length",
+      "conditions": "Frictionless banking for the design speed.",
+      "commonTrap": "Putting g on the wrong side. Check by dimensions: v² / rg must be a pure number."
+    },
+    {
+      "id": "phy-newton-gravitation",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "label": "Newton's law of gravitation and g",
+      "formulaHTML": "F = G m₁m₂ / r²  ·  g = GM / R²",
+      "symbols": "G = 6.67 × 10⁻¹¹ N m² kg⁻², M and R are the mass and radius of the Earth",
+      "conditions": "Point masses, or uniform spheres with r measured centre to centre.",
+      "commonTrap": "Measuring r from the surface instead of the centre of the Earth."
+    },
+    {
+      "id": "phy-g-variation",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "label": "Variation of g with height and depth",
+      "formulaHTML": "height: g_h = g(1 − 2h / R)  for h ≪ R  ·  depth: g_d = g(1 − d / R)",
+      "symbols": "h = height above the surface, d = depth below it",
+      "conditions": "The height formula is the approximation for h ≪ R; the exact form is g_h = gR² / (R + h)².",
+      "commonTrap": "Using the h ≪ R approximation for a satellite. At satellite heights you need the exact form."
+    },
+    {
+      "id": "phy-orbital-escape",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "label": "Orbital velocity and escape velocity",
+      "formulaHTML": "v₀ = √(GM / r) = √(gR² / r)  ·  vₑ = √(2GM / R) = √(2gR) = 11.2 km s⁻¹",
+      "symbols": "r = radius of orbit from the centre of the Earth",
+      "conditions": "Circular orbit; escape velocity is independent of the mass of the escaping body.",
+      "commonTrap": "Forgetting vₑ = √2 × v₀ at the surface, and quoting 11.2 m s⁻¹ instead of 11.2 km s⁻¹."
+    },
+    {
+      "id": "phy-satellite-period",
+      "subject": "Physics",
+      "unit": "Gravitation",
+      "label": "Period of a satellite and Kepler's third law",
+      "formulaHTML": "T = 2π √(r³ / GM)  ·  T² ∝ r³",
+      "symbols": "geostationary satellite: T = 24 h, r ≈ 42 400 km",
+      "conditions": "Circular orbits about the same central body.",
+      "commonTrap": "Comparing periods with radii measured from the surface — Kepler needs the distance from the centre."
+    },
+    {
+      "id": "phy-young-modulus",
+      "subject": "Physics",
+      "unit": "Elasticity",
+      "label": "Stress, strain and Young's modulus",
+      "formulaHTML": "stress = F / A  ·  strain = ΔL / L  ·  Y = stress / strain = FL / (A ΔL)",
+      "symbols": "Y in N m⁻², strain has no unit",
+      "conditions": "Within the elastic limit, where Hooke's law holds.",
+      "commonTrap": "Giving strain a unit. Strain is a ratio of two lengths, so it is dimensionless."
+    },
+    {
+      "id": "phy-elastic-energy",
+      "subject": "Physics",
+      "unit": "Elasticity",
+      "label": "Energy stored in a stretched wire",
+      "formulaHTML": "U = ½ F ΔL  ·  energy per unit volume = ½ × stress × strain",
+      "symbols": "U in joules",
+      "conditions": "Loading within the elastic limit, with the load raised gradually.",
+      "commonTrap": "Forgetting the ½. The force grows from zero to F, so only the average force does work."
+    },
+    {
+      "id": "phy-temperature-scales",
+      "subject": "Physics",
+      "unit": "Heat and temperature",
+      "label": "Temperature-scale conversion",
+      "formulaHTML": "C / 5 = (F − 32) / 9 = (K − 273.15) / 5",
+      "symbols": "C = °C, F = °F, K = kelvin",
+      "conditions": "Any conversion between the three scales.",
+      "commonTrap": "Substituting °C where the equation needs kelvin (PH-U02). Gas-law and radiation formulae are always kelvin."
+    },
+    {
+      "id": "phy-expansion-coeffs",
+      "subject": "Physics",
+      "unit": "Thermal expansion",
+      "label": "Linear, superficial and cubical expansion",
+      "formulaHTML": "L = L₀(1 + αΔθ)  ·  A = A₀(1 + βΔθ)  ·  V = V₀(1 + γΔθ)  ·  β = 2α, γ = 3α",
+      "symbols": "α in K⁻¹ or °C⁻¹",
+      "conditions": "Isotropic solids and small temperature changes.",
+      "commonTrap": "Using the original length where the expanded length belongs, and mixing α with γ for a solid sphere."
+    },
+    {
+      "id": "phy-calorimetry",
+      "subject": "Physics",
+      "unit": "Quantity of heat",
+      "label": "Heat gained, heat lost and latent heat",
+      "formulaHTML": "Q = mcΔθ  ·  Q = mL  ·  heat lost = heat gained",
+      "symbols": "c = specific heat capacity in J kg⁻¹ K⁻¹, L = specific latent heat in J kg⁻¹",
+      "conditions": "No heat exchanged with the surroundings; use Q = mL at a change of state, where the temperature does not change.",
+      "commonTrap": "Using Q = mcΔθ across a phase change. Ice melting at 0 °C absorbs mL with Δθ = 0."
+    },
+    {
+      "id": "phy-conduction",
+      "subject": "Physics",
+      "unit": "Rate of heat flow",
+      "label": "Conduction and Stefan's law",
+      "formulaHTML": "Q / t = kA(θ₁ − θ₂) / l  ·  E = σT⁴",
+      "symbols": "k = thermal conductivity in W m⁻¹ K⁻¹, σ = 5.67 × 10⁻⁸ W m⁻² K⁻⁴",
+      "conditions": "Steady state, and lagged bars for conduction. Stefan's law needs absolute temperature.",
+      "commonTrap": "Leaving the thickness in centimetres, and putting °C into T⁴."
+    },
+    {
+      "id": "phy-gas-laws",
+      "subject": "Physics",
+      "unit": "Ideal gas",
+      "label": "Gas laws and the ideal-gas equation",
+      "formulaHTML": "p₁V₁ / T₁ = p₂V₂ / T₂  ·  pV = nRT = (m / M)RT",
+      "symbols": "R = 8.314 J mol⁻¹ K⁻¹, T in kelvin always",
+      "conditions": "An ideal gas; a fixed mass for the combined gas law.",
+      "commonTrap": "Working in °C. Every gas-law temperature is in kelvin (PH-U02)."
+    },
+    {
+      "id": "phy-kinetic-theory",
+      "subject": "Physics",
+      "unit": "Ideal gas",
+      "label": "Kinetic theory of gases",
+      "formulaHTML": "p = ⅓ ρ c̄²  ·  pV = ⅓ mN c̄²  ·  ½ m c̄² = (3/2) kT  ·  c_rms = √(3RT / M)",
+      "symbols": "k = 1.38 × 10⁻²³ J K⁻¹, M = molar mass in kg mol⁻¹",
+      "conditions": "An ideal gas of point molecules with no intermolecular forces.",
+      "commonTrap": "Putting M in g mol⁻¹ into c_rms. Use kg mol⁻¹ with R in J mol⁻¹ K⁻¹."
+    },
+    {
+      "id": "phy-mirror-formula",
+      "subject": "Physics",
+      "unit": "Reflection at curved mirrors",
+      "label": "Mirror formula and magnification",
+      "formulaHTML": "1 / f = 1 / v + 1 / u  ·  m = − v / u = height of image / height of object  ·  f = R / 2",
+      "symbols": "real-is-positive convention as used in the NEB text",
+      "conditions": "Paraxial rays on spherical mirrors.",
+      "commonTrap": "Mixing sign conventions midway. Fix the convention at the top of the answer and state it (PH-U03)."
+    },
+    {
+      "id": "phy-snell",
+      "subject": "Physics",
+      "unit": "Refraction at plane surfaces",
+      "label": "Refraction, real and apparent depth",
+      "formulaHTML": "n = sin i / sin r  ·  n = real depth / apparent depth  ·  ₁n₂ = n₂ / n₁",
+      "symbols": "n = refractive index, no unit",
+      "conditions": "Light passing between two transparent media; the apparent-depth rule needs near-normal viewing.",
+      "commonTrap": "Inverting the refractive index. Light entering a denser medium bends towards the normal — check the ray diagram."
+    },
+    {
+      "id": "phy-critical-angle",
+      "subject": "Physics",
+      "unit": "Refraction at plane surfaces",
+      "label": "Critical angle and total internal reflection",
+      "formulaHTML": "sin C = 1 / n",
+      "symbols": "C = critical angle",
+      "conditions": "Light travelling from a denser to a rarer medium, at an angle greater than C.",
+      "commonTrap": "Applying it in the wrong direction. There is no total internal reflection going from rarer to denser."
+    },
+    {
+      "id": "phy-prism",
+      "subject": "Physics",
+      "unit": "Refraction through prisms",
+      "label": "Prism formula and minimum deviation",
+      "formulaHTML": "A + δ = i + e  ·  n = sin((A + δₘ) / 2) / sin(A / 2)",
+      "symbols": "A = angle of prism, δₘ = angle of minimum deviation",
+      "conditions": "δₘ needs the symmetric passage, where i = e and the ray inside runs parallel to the base.",
+      "commonTrap": "Using the minimum-deviation formula for any deviation. It is only true at minimum deviation."
+    },
+    {
+      "id": "phy-lens-formula",
+      "subject": "Physics",
+      "unit": "Lenses",
+      "label": "Lens formula, magnification and power",
+      "formulaHTML": "1 / f = 1 / v − 1 / u  ·  m = v / u  ·  P = 1 / f (f in metres)",
+      "symbols": "P in dioptres, D",
+      "conditions": "Thin lenses and paraxial rays.",
+      "commonTrap": "Leaving f in centimetres when calculating power. f = 25 cm gives P = +4 D, not +0.04 D (PH-U01)."
+    },
+    {
+      "id": "phy-lens-maker",
+      "subject": "Physics",
+      "unit": "Lenses",
+      "label": "Lens maker's formula and lenses in contact",
+      "formulaHTML": "1 / f = (n − 1)(1 / R₁ − 1 / R₂)  ·  1 / F = 1 / f₁ + 1 / f₂",
+      "symbols": "R₁, R₂ = radii of curvature with sign",
+      "conditions": "Thin lens in air; the combination formula needs the lenses in contact.",
+      "commonTrap": "Ignoring the signs of R₁ and R₂ — they are what make a lens converging or diverging."
+    },
+    {
+      "id": "phy-coulomb",
+      "subject": "Physics",
+      "unit": "Electric charges",
+      "label": "Coulomb's law",
+      "formulaHTML": "F = (1 / 4πε₀) q₁q₂ / r²  ·  1 / 4πε₀ = 9 × 10⁹ N m² C⁻²",
+      "symbols": "ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²",
+      "conditions": "Point charges at rest, in vacuum; divide by the relative permittivity in a medium.",
+      "commonTrap": "Leaving r in centimetres. Convert to metres before squaring, or the answer is out by 10⁴."
+    },
+    {
+      "id": "phy-field-potential",
+      "subject": "Physics",
+      "unit": "Electric field",
+      "label": "Electric field and potential of a point charge",
+      "formulaHTML": "E = F / q = (1 / 4πε₀) Q / r²  ·  V = (1 / 4πε₀) Q / r  ·  E = − dV / dr",
+      "symbols": "E in N C⁻¹ or V m⁻¹, V in volts",
+      "conditions": "Point charge in vacuum; potential is a scalar, field is a vector.",
+      "commonTrap": "Adding potentials as vectors. Potentials add algebraically with their signs; fields add as vectors."
+    },
+    {
+      "id": "phy-capacitance",
+      "subject": "Physics",
+      "unit": "Capacitor",
+      "label": "Capacitance and the parallel-plate capacitor",
+      "formulaHTML": "C = Q / V  ·  C = ε₀A / d  ·  with a dielectric C = Kε₀A / d",
+      "symbols": "C in farads, K = dielectric constant",
+      "conditions": "Uniform field between close parallel plates.",
+      "commonTrap": "Assuming the charge stays constant when the battery is left connected — with the battery on, V is fixed and Q changes."
+    },
+    {
+      "id": "phy-capacitor-combination",
+      "subject": "Physics",
+      "unit": "Capacitor",
+      "label": "Capacitors in series and parallel, energy stored",
+      "formulaHTML": "series: 1 / C = 1 / C₁ + 1 / C₂  ·  parallel: C = C₁ + C₂  ·  U = ½CV² = ½QV = Q² / 2C",
+      "symbols": "U in joules",
+      "conditions": "Ideal capacitors, no leakage.",
+      "commonTrap": "Using the resistor rules. Capacitors add in PARALLEL and take reciprocals in SERIES — the opposite of resistors."
+    },
+    {
+      "id": "phy-ohm-resistivity",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "label": "Ohm's law and resistivity",
+      "formulaHTML": "V = IR  ·  R = ρl / A  ·  R_t = R₀(1 + αt)",
+      "symbols": "ρ = resistivity in Ω m, α = temperature coefficient",
+      "conditions": "Ohmic conductors at constant temperature.",
+      "commonTrap": "Forgetting that stretching a wire changes both l and A, so R changes as the square of the stretch factor."
+    },
+    {
+      "id": "phy-resistor-combination",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "label": "Resistors in series and parallel",
+      "formulaHTML": "series: R = R₁ + R₂ + R₃  ·  parallel: 1 / R = 1 / R₁ + 1 / R₂ + 1 / R₃",
+      "symbols": "R in ohms",
+      "conditions": "Steady direct current.",
+      "commonTrap": "Stopping at 1 / R and calling it the answer. Invert at the end to get R."
+    },
+    {
+      "id": "phy-kirchhoff",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "label": "Kirchhoff's laws",
+      "formulaHTML": "junction rule: ΣI = 0  ·  loop rule: ΣE = ΣIR",
+      "symbols": "signs follow the chosen loop direction",
+      "conditions": "Any network too tangled for series-parallel reduction.",
+      "commonTrap": "Changing the sign convention halfway round the loop. Mark the direction on the diagram first and keep it."
+    },
+    {
+      "id": "phy-wheatstone",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "label": "Wheatstone bridge and the metre bridge",
+      "formulaHTML": "balanced when P / Q = R / S  ·  metre bridge: R / S = l / (100 − l)",
+      "symbols": "l = balancing length in cm",
+      "conditions": "At balance, when the galvanometer reads zero.",
+      "commonTrap": "Using the balance condition when the bridge is not balanced."
+    },
+    {
+      "id": "phy-emf-power",
+      "subject": "Physics",
+      "unit": "DC circuits",
+      "label": "EMF, internal resistance and electrical power",
+      "formulaHTML": "E = I(R + r)  ·  V = E − Ir  ·  P = VI = I²R = V² / R",
+      "symbols": "r = internal resistance of the cell",
+      "conditions": "Steady current from a real cell.",
+      "commonTrap": "Using the terminal voltage where the emf belongs. They are equal only when no current flows."
+    },
+    {
+      "id": "phy-radioactive-decay",
+      "subject": "Physics",
+      "unit": "Nuclear physics",
+      "label": "Radioactive decay and half-life",
+      "formulaHTML": "N = N₀e^(−λt) → after n half-lives N = N₀ / 2ⁿ  ·  t½ = 0.693 / λ  ·  activity A = λN",
+      "symbols": "λ = decay constant in s⁻¹, activity in becquerel",
+      "conditions": "A large number of identical nuclei; decay is a statistical law.",
+      "commonTrap": "Treating half-life as \"half the total life\". After two half-lives one quarter remains, never nothing."
+    },
+    {
+      "id": "phy-mass-energy",
+      "subject": "Physics",
+      "unit": "Nuclear physics",
+      "label": "Mass defect and binding energy",
+      "formulaHTML": "Δm = [Zm_p + (A − Z)m_n] − M_nucleus  ·  E = Δm c²  ·  1 u = 931.5 MeV",
+      "symbols": "A = mass number, Z = atomic number",
+      "conditions": "Nuclear reactions and stability comparisons.",
+      "commonTrap": "Leaving Δm in atomic mass units and multiplying by c² in SI. Use the 931.5 MeV per u shortcut, or convert to kilograms first."
+    },
+    {
+      "id": "chem-mole-mass",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Moles from mass — the bridge formula",
+      "formulaHTML": "n = m / M  ·  m = n × M  ·  M = m / n",
+      "symbols": "n in mol, m in g, M in g mol⁻¹",
+      "conditions": "Any pure substance, solid, liquid or gas.",
+      "commonTrap": "Treating the mole as a mass (CH-M01). A mole is a count; the gram is the mass. Write the unit on every line."
+    },
+    {
+      "id": "chem-mole-particles",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Moles to particles",
+      "formulaHTML": "N = n × Nₐ  ·  Nₐ = 6.022 × 10²³ mol⁻¹",
+      "symbols": "N = number of atoms, molecules or ions",
+      "conditions": "Always. Multiply by the atoms per formula unit when the question asks for atoms, not molecules.",
+      "commonTrap": "Confusing molecules with atoms (CH-M04). 1 mol of CO₂ is 6.022 × 10²³ molecules but 1.807 × 10²⁴ atoms."
+    },
+    {
+      "id": "chem-mole-volume",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Moles to volume at STP",
+      "formulaHTML": "n = V / 22.4 (V in litres)  ·  V = n × 22.4 L",
+      "symbols": "STP = 273 K and 1 atm",
+      "conditions": "GASES only, and only at STP. Use pV = nRT at any other temperature or pressure.",
+      "commonTrap": "Applying 22.4 L to a solid, a liquid, or a gas at room temperature (CH-M06)."
+    },
+    {
+      "id": "chem-mole-roadmap",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "The mole roadmap",
+      "formulaHTML": "mass ⇄ moles ⇄ particles  ·  moles ⇄ volume at STP  ·  every route passes through moles",
+      "symbols": "÷M and ×M · ×Nₐ and ÷Nₐ · ×22.4 and ÷22.4",
+      "conditions": "Every stoichiometry question. Convert to moles first, use the balanced equation, then convert out.",
+      "commonTrap": "Trying to go from grams straight to litres or particles. Nothing crosses without passing through moles."
+    },
+    {
+      "id": "chem-molar-mass-def",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Molar mass and molecular mass",
+      "formulaHTML": "molecular mass (amu) and molar mass (g mol⁻¹) are numerically equal",
+      "symbols": "H₂O: 18 amu per molecule, 18 g mol⁻¹ per mole",
+      "conditions": "Any compound. The molar mass is the sum of the atomic masses of every atom in the formula.",
+      "commonTrap": "Writing g mol⁻¹ where amu belongs, or leaving the unit off entirely (CH-M03)."
+    },
+    {
+      "id": "chem-vapour-density",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Vapour density",
+      "formulaHTML": "molar mass = 2 × vapour density  ·  VD = M / 2",
+      "symbols": "vapour density has no unit",
+      "conditions": "Gases and volatile liquids, compared against hydrogen.",
+      "commonTrap": "Reporting vapour density in g mol⁻¹. It is a ratio of two densities, so it has no unit."
+    },
+    {
+      "id": "chem-percent-composition",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Percentage composition by mass",
+      "formulaHTML": "% of element = (mass of that element in 1 mol / molar mass) × 100%",
+      "symbols": "",
+      "conditions": "Any compound of known formula. The percentages must add to 100 — that is the check.",
+      "commonTrap": "Forgetting the subscript. NH₄NO₃ holds 2 nitrogen atoms, so 28 g out of 80 g, which is 35%."
+    },
+    {
+      "id": "chem-empirical-formula",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Empirical formula from percentage composition",
+      "formulaHTML": "% → grams (take 100 g) → moles (÷ atomic mass) → ÷ smallest → × a whole number if needed",
+      "symbols": "result = simplest whole-number ratio",
+      "conditions": "Percentage or mass composition data.",
+      "commonTrap": "Stopping at a ratio like 1 : 1.5. Multiply the whole set by 2 (or by 3 for .33 and .67), never round it away."
+    },
+    {
+      "id": "chem-molecular-formula",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Molecular formula from the empirical formula",
+      "formulaHTML": "n = molar mass / empirical formula mass  ·  molecular formula = (empirical formula)ₙ",
+      "symbols": "n is a whole number",
+      "conditions": "Needs the molar mass, from vapour density or from the question.",
+      "commonTrap": "Rounding n from 1.9 up to 2 without checking the arithmetic — an n that is not close to a whole number means an earlier slip."
+    },
+    {
+      "id": "chem-limiting-reactant",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Limiting reactant",
+      "formulaHTML": "for each reactant compute moles ÷ coefficient  ·  the smallest value is the limiting reactant",
+      "symbols": "the limiting reactant fixes every product amount",
+      "conditions": "Any reaction where the amounts of two or more reactants are given.",
+      "commonTrap": "Choosing the reactant with the smaller MASS (CH-S03). Mass says nothing; only moles ÷ coefficient decides."
+    },
+    {
+      "id": "chem-excess-reactant",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Excess reactant left over",
+      "formulaHTML": "excess left = (moles taken − moles used) × M  ·  moles used = coefficient ratio × moles of limiting reactant",
+      "symbols": "",
+      "conditions": "After the limiting reactant has been identified.",
+      "commonTrap": "Reporting the leftover in moles when the question asked for grams (CH-S04)."
+    },
+    {
+      "id": "chem-percent-yield",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Theoretical, experimental and percentage yield",
+      "formulaHTML": "% yield = (experimental yield / theoretical yield) × 100%",
+      "symbols": "theoretical yield comes from the limiting reactant",
+      "conditions": "Real reactions, which lose product to side reactions, reversibility and transfer losses.",
+      "commonTrap": "Computing the theoretical yield from the reactant in excess (CH-S07). A yield above 100% means a wet or impure product."
+    },
+    {
+      "id": "chem-stoichiometry-laws",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "The laws of stoichiometry",
+      "formulaHTML": "conservation of mass · definite proportions · multiple proportions · reciprocal proportions",
+      "symbols": "",
+      "conditions": "Chemical combination by mass; they are what the balanced equation encodes.",
+      "commonTrap": "Balancing an equation by changing a subscript (CH-S05). Subscripts define the substance; only coefficients may change."
+    },
+    {
+      "id": "chem-avogadro-law",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Avogadro's law",
+      "formulaHTML": "equal volumes of all gases at the same temperature and pressure contain equal numbers of molecules",
+      "symbols": "so V ∝ n at fixed T and p",
+      "conditions": "Gases only. It is what makes the 22.4 L molar volume and the volume ratios in gaseous reactions work.",
+      "commonTrap": "Applying volume ratios to reactions with a solid or liquid reactant — the ratio rule is for gases."
+    },
+    {
+      "id": "chem-photon-energy",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "label": "Energy of a photon",
+      "formulaHTML": "E = hν = hc / λ  ·  h = 6.626 × 10⁻³⁴ J s  ·  c = 3 × 10⁸ m s⁻¹",
+      "symbols": "ν in Hz, λ in m, E in J",
+      "conditions": "Electromagnetic radiation of a single frequency.",
+      "commonTrap": "Leaving λ in nanometres. Convert to metres first, or the energy is out by a factor of 10⁹."
+    },
+    {
+      "id": "chem-rydberg",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "label": "Rydberg equation for the hydrogen spectrum",
+      "formulaHTML": "1 / λ = R(1 / n₁² − 1 / n₂²)  ·  R = 1.097 × 10⁷ m⁻¹",
+      "symbols": "n₂ > n₁; Lyman n₁ = 1, Balmer n₁ = 2",
+      "conditions": "Hydrogen and hydrogen-like species only.",
+      "commonTrap": "Swapping n₁ and n₂ and getting a negative wavelength. The lower level is always n₁."
+    },
+    {
+      "id": "chem-bohr-energy",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "label": "Bohr energy levels of hydrogen",
+      "formulaHTML": "Eₙ = −13.6 / n² eV  ·  rₙ = 0.529 n² Å",
+      "symbols": "n = principal quantum number",
+      "conditions": "Single-electron species; multiply by Z² for He⁺ and Li²⁺.",
+      "commonTrap": "Dropping the minus sign. Bound electron energies are negative; the ionisation energy is the positive difference."
+    },
+    {
+      "id": "chem-quantum-numbers",
+      "subject": "Chemistry",
+      "unit": "Atomic structure",
+      "label": "Quantum-number rules",
+      "formulaHTML": "l = 0 to (n − 1)  ·  m = −l to +l  ·  s = ±½  ·  maximum electrons in a shell = 2n²",
+      "symbols": "orbitals in a subshell = 2l + 1",
+      "conditions": "Every electronic configuration and every \"is this set possible\" question.",
+      "commonTrap": "Allowing l = n. For n = 2 the only values are l = 0 and l = 1."
+    },
+    {
+      "id": "chem-boyle-charles",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "label": "Boyle's law, Charles's law and the combined gas law",
+      "formulaHTML": "p₁V₁ = p₂V₂ (T fixed)  ·  V₁ / T₁ = V₂ / T₂ (p fixed)  ·  p₁V₁ / T₁ = p₂V₂ / T₂",
+      "symbols": "T in kelvin always",
+      "conditions": "A fixed mass of an ideal gas.",
+      "commonTrap": "Using °C. Convert with T(K) = t(°C) + 273 before anything else."
+    },
+    {
+      "id": "chem-ideal-gas-eq",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "label": "Ideal-gas equation",
+      "formulaHTML": "pV = nRT = (m / M)RT  ·  density ρ = pM / RT",
+      "symbols": "R = 0.0821 L atm mol⁻¹ K⁻¹ or 8.314 J mol⁻¹ K⁻¹",
+      "conditions": "An ideal gas; pick the R that matches your pressure and volume units.",
+      "commonTrap": "Mixing atmospheres with joules. Match R to the units, then write the unit on every line."
+    },
+    {
+      "id": "chem-dalton",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "label": "Dalton's law of partial pressures",
+      "formulaHTML": "p_total = p₁ + p₂ + p₃ + …  ·  pᵢ = xᵢ × p_total",
+      "symbols": "xᵢ = mole fraction of component i",
+      "conditions": "Non-reacting gas mixtures. For a gas collected over water, subtract the aqueous tension.",
+      "commonTrap": "Forgetting to subtract the aqueous tension when a gas is collected over water."
+    },
+    {
+      "id": "chem-graham",
+      "subject": "Chemistry",
+      "unit": "States of matter",
+      "label": "Graham's law of diffusion",
+      "formulaHTML": "r ∝ 1 / √M  ·  r₁ / r₂ = √(M₂ / M₁) = √(d₂ / d₁)",
+      "symbols": "r = rate of diffusion or effusion",
+      "conditions": "Same temperature and pressure for both gases.",
+      "commonTrap": "Inverting the ratio. The lighter gas diffuses FASTER, so its rate goes on top."
+    },
+    {
+      "id": "chem-concentration",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Concentration measures",
+      "formulaHTML": "molarity M = moles of solute / volume of solution in L  ·  molality m = moles of solute / mass of solvent in kg  ·  mole fraction x = n₁ / n_total",
+      "symbols": "M in mol L⁻¹, m in mol kg⁻¹",
+      "conditions": "Molarity changes with temperature because volume does; molality does not.",
+      "commonTrap": "Dividing by the mass of the SOLVENT for molarity, or by the volume of the solution for molality (CH-M07)."
+    },
+    {
+      "id": "chem-dilution",
+      "subject": "Chemistry",
+      "unit": "Stoichiometry",
+      "label": "Dilution and titration",
+      "formulaHTML": "M₁V₁ = M₂V₂  ·  for a reaction: M₁V₁ / n₁ = M₂V₂ / n₂",
+      "symbols": "n₁, n₂ = stoichiometric coefficients",
+      "conditions": "M₁V₁ = M₂V₂ is for dilution or a 1 : 1 reaction; otherwise divide by the coefficients.",
+      "commonTrap": "Using M₁V₁ = M₂V₂ for an acid–base pair that does not react 1 : 1, such as H₂SO₄ with NaOH."
+    },
+    {
+      "id": "chem-oxidation-number",
+      "subject": "Chemistry",
+      "unit": "Oxidation and reduction",
+      "label": "Oxidation-number rules",
+      "formulaHTML": "free element 0 · H is +1 (−1 in hydrides) · O is −2 (−1 in peroxides) · sum = 0 in a molecule, = charge in an ion",
+      "symbols": "",
+      "conditions": "Assigning oxidation numbers and identifying what is oxidised or reduced.",
+      "commonTrap": "Confusing oxidation number with valency, and forgetting the sign in a polyatomic ion."
+    },
+    {
+      "id": "chem-equivalent-weight",
+      "subject": "Chemistry",
+      "unit": "Oxidation and reduction",
+      "label": "Equivalent weight",
+      "formulaHTML": "equivalent weight = molar mass / n-factor  ·  normality N = molarity × n-factor",
+      "symbols": "n-factor = electrons gained or lost, or replaceable H⁺ or OH⁻",
+      "conditions": "Redox and neutralisation calculations; N₁V₁ = N₂V₂ at the end point.",
+      "commonTrap": "Using the same n-factor for a substance in every reaction. The n-factor depends on the reaction it is in."
+    },
+    {
+      "id": "chem-equilibrium-constant",
+      "subject": "Chemistry",
+      "unit": "Chemical equilibrium",
+      "label": "Equilibrium constant",
+      "formulaHTML": "Kc = [products] / [reactants], each raised to its coefficient  ·  Kp = Kc(RT)^Δn",
+      "symbols": "Δn = moles of gaseous products − moles of gaseous reactants",
+      "conditions": "A reversible reaction at equilibrium, at a fixed temperature. Pure solids and liquids are left out.",
+      "commonTrap": "Including a pure solid or liquid in the expression, and forgetting that only temperature changes K."
+    },
+    {
+      "id": "chem-le-chatelier",
+      "subject": "Chemistry",
+      "unit": "Chemical equilibrium",
+      "label": "Le Chatelier's principle",
+      "formulaHTML": "a system at equilibrium shifts to oppose any change imposed on it",
+      "symbols": "change: concentration, pressure, temperature",
+      "conditions": "Predicting the direction of a shift; industrial conditions for the Haber and Contact processes come from it.",
+      "commonTrap": "Saying that a catalyst shifts the equilibrium. A catalyst speeds both directions equally and shifts nothing."
+    }
+  ]
+}

@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<!--
+  Engram v2 lesson · topic: Mole Concept (mole-concept)
+  lesson: 0003 — Molecular Formula from Empirical Formula
+  subject: Chemistry · unit: Stoichiometry (CDC unit 2, 8 teaching hours)
+  pacer: P (procedural)
+  built from templates/lesson-template.html v1.0.0 — style + runtime blocks byte-identical
+  updated: 2026-07-26
+-->
+<html lang="en" data-subject="chemistry" data-text="md">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="no-referrer">
+<title>Molecular Formula from Empirical Formula — Mole Concept</title>
+<meta name="description" content="One extra measurement, the molar mass, turns a ratio of atoms into the actual count of atoms in one molecule.">
+<!-- engram-lesson v1 · topic:mole-concept · lesson:0003 · subject:Chemistry · unit:Stoichiometry · pacer:P · updated:2026-07-26 -->
+<style>
+/* ==========================================================================
+   1. TOKENS — mirrors study-hub/theme.css (values only, condensed).
+      Dark is the default. Light is a real second theme (build-constraints §4)
+      and doubles as the print sheet.
+   ========================================================================== */
+:root{
+  color-scheme:dark light;
+  /* surfaces — near-black navy, hue 260. Never neutral gray, never #000 */
+  --bg:#0a0d12; --surface:#11151b; --surface-muted:#181c22; --surface-hover:#1e232c;
+  --surface-nav:#0d1116; --surface-sunken:#070a0e;
+  /* ink */
+  --fg:#f0f2f4; --fg-muted:#87909c; --fg-subtle:#5d6674; --fg-invert:#0c121a; --fg-on-brand:#ffffff;
+  /* borders — translucent white, never gray */
+  --border:rgb(255 255 255/.08); --border-strong:rgb(255 255 255/.12);
+  --border-hover:rgb(240 242 244/.3); --hairline:rgb(255 255 255/.06);
+  /* brand — orange touches <5% of pixels */
+  --brand:#ff8a3d; --brand-rgb:255 138 61; --brand-deep:#d97757;
+  --brand-grad-action:linear-gradient(135deg,#ffc371 0%,#ff7a3d 55%,#ff4e50 100%);
+  --gloss-wash:linear-gradient(180deg,rgb(255 255 255/.135) 0%,rgb(255 255 255/0) 50%);
+  --brand-bar:linear-gradient(180deg,#ffc371,#ff7a3d);
+  /* semantic — recipe everywhere: bg <c>/.10 · text <c> · border <c>/.20 */
+  --good:#10b981; --good-rgb:16 185 129; --good-bg:rgb(16 185 129/.1); --good-bd:rgb(16 185 129/.2);
+  --warn:#f59e0b; --warn-rgb:245 158 11; --warn-bg:rgb(245 158 11/.1); --warn-bd:rgb(245 158 11/.2);
+  --bad:#ef4444;  --bad-rgb:239 68 68;   --bad-bg:rgb(239 68 68/.1);   --bad-bd:rgb(239 68 68/.2);
+  --info:#60a5fa; --info-rgb:96 165 250; --info-bg:rgb(96 165 250/.1);  --info-bd:rgb(96 165 250/.2);
+  --ai:#a78bfa;   --ai-rgb:167 139 250;  --ai-bg:rgb(167 139 250/.1);   --ai-bd:rgb(167 139 250/.2);
+  --neutral:#87909c; --neutral-rgb:135 144 156;
+  --neutral-bg:rgb(135 144 156/.1); --neutral-bd:rgb(135 144 156/.2);
+  /* subject tones */
+  --sub-physics:#60a5fa; --sub-physics-rgb:96 165 250;
+  --sub-chem:#3ddc97;    --sub-chem-rgb:61 220 151;
+  --sub-math:#a78bfa;    --sub-math-rgb:167 139 250;
+  --sub-cs:#22d3ee;      --sub-cs-rgb:34 211 238;
+  --sub-english:#fbbf24; --sub-english-rgb:251 191 36;
+  --sub-nepali:#f472b6;  --sub-nepali-rgb:244 114 182;
+  /* accent channel — the one indirection every block reads */
+  --accent:var(--brand); --accent-rgb:var(--brand-rgb);
+  /* type — nothing between 14px and 18px, deliberately */
+  --font-sans:Inter,"Inter Variable",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,"Noto Sans Devanagari","Nirmala UI",Mangal,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --font-mono:"JetBrains Mono","SFMono-Regular","SF Mono",ui-monospace,"Cascadia Mono","Segoe UI Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --font-deva:"Noto Sans Devanagari","Nirmala UI",Mangal,"Kalimati",var(--font-sans);
+  --fs-micro:9px; --fs-eyebrow:10px; --fs-meta:11px; --fs-caption:12px;
+  --fs-body:13px; --fs-body-lg:14px; --fs-input:16px;
+  --fs-title:18px; --fs-title-lg:20px; --fs-display:28px;
+  --lh-tight:1.15; --lh-snug:1.35; --lh-body:1.6; --lh-loose:1.75;
+  --tr-metric:-.02em; --tr-eyebrow:.22em; --tr-micro:.2em;
+  --fw-body:400; --fw-medium:500; --fw-semibold:600;
+  --font-features:"cv11","ss01","calt" 1;
+  /* radii · spacing · layout */
+  --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-2xl:16px; --r-full:999px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px;
+  --sp-8:32px; --sp-10:40px; --sp-12:48px;
+  --tap:44px; --prose-max:68ch; --header-h:56px;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
+  /* elevation — coloured glows, never gray dumps */
+  --lip:inset 0 1px 0 rgb(255 255 255/.04);
+  --sh-card:0 10px 30px -15px rgb(0 0 0/.6);
+  --glow-accent:0 16px 48px -16px rgb(var(--accent-rgb)/.4);
+  --sh-btn-primary:0 12px 36px -10px rgb(var(--brand-rgb)/.95),inset 0 1px 0 rgb(255 255 255/.32);
+  --focus-ring:0 0 0 3px rgb(255 138 61/.18),0 0 0 1px rgb(217 119 87/.7);
+  --wash-accent:radial-gradient(120% 100% at 0% 0%,rgb(var(--accent-rgb)/.12),transparent 60%);
+  --veil:rgb(10 13 18/.85);
+  /* motion — one house easing */
+  --ease:cubic-bezier(.4,0,.2,1); --dur-fast:140ms; --dur:240ms; --lift-y:-2px;
+}
+/* accent re-pointers — same contract as theme.css §2 */
+[data-subject="physics"]{--accent:var(--sub-physics);--accent-rgb:var(--sub-physics-rgb)}
+[data-subject="chemistry"]{--accent:var(--sub-chem);--accent-rgb:var(--sub-chem-rgb)}
+[data-subject="maths"],[data-subject="math"],[data-subject="mathematics"]{--accent:var(--sub-math);--accent-rgb:var(--sub-math-rgb)}
+[data-subject="cs"],[data-subject="computer-science"]{--accent:var(--sub-cs);--accent-rgb:var(--sub-cs-rgb)}
+[data-subject="english"]{--accent:var(--sub-english);--accent-rgb:var(--sub-english-rgb)}
+[data-subject="nepali"]{--accent:var(--sub-nepali);--accent-rgb:var(--sub-nepali-rgb)}
+[data-tone="good"]{--accent:var(--good);--accent-rgb:var(--good-rgb)}
+[data-tone="warn"]{--accent:var(--warn);--accent-rgb:var(--warn-rgb)}
+[data-tone="bad"]{--accent:var(--bad);--accent-rgb:var(--bad-rgb)}
+[data-tone="info"]{--accent:var(--info);--accent-rgb:var(--info-rgb)}
+[data-tone="ai"]{--accent:var(--ai);--accent-rgb:var(--ai-rgb)}
+
+/* Text-size control. TWO sizes, both readable; --fs-input never drops below
+   16px or iOS Safari zooms the viewport on focus. */
+html[data-text="lg"]{--fs-body:15px;--fs-body-lg:17px;--fs-meta:13px;--fs-caption:14px;
+  --fs-title:21px;--fs-title-lg:24px;--fs-display:32px;--fs-eyebrow:11px}
+
+/* Light theme — real second theme, and the print sheet. */
+@media (prefers-color-scheme:light){
+  :root{
+    --bg:#f7f8fa; --surface:#fff; --surface-muted:#eef0f4; --surface-hover:#e7eaef;
+    --surface-nav:#fff; --surface-sunken:#e9ecf1;
+    --fg:#141922; --fg-muted:#5a6472; --fg-subtle:#8a93a1; --fg-invert:#fff;
+    --border:rgb(14 20 30/.12); --border-strong:rgb(14 20 30/.18);
+    --border-hover:rgb(14 20 30/.34); --hairline:rgb(14 20 30/.08);
+    --lip:inset 0 1px 0 rgb(255 255 255/.6);
+    --sh-card:0 10px 30px -18px rgb(14 20 30/.28);
+    --veil:rgb(247 248 250/.88);
+    --brand-deep:#b8542f;
+    --good:#047857;--warn:#a16207;--bad:#b91c1c;--info:#1d4ed8;--ai:#6d28d9;
+    --sub-chem:#0f8f5f;--sub-physics:#1d4ed8;--sub-math:#6d28d9;
+    --sub-cs:#0e7490;--sub-english:#a16207;--sub-nepali:#be185d;
+    --sub-chem-rgb:15 143 95;--sub-physics-rgb:29 78 216;--sub-math-rgb:109 40 217;
+    --sub-cs-rgb:14 116 144;--sub-english-rgb:161 98 7;--sub-nepali-rgb:190 24 93;
+  }
+}
+
+/* ==========================================================================
+   2. RESET + BASE
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;border:0 solid var(--border)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);
+  font-size:var(--fs-body);line-height:var(--lh-body);font-feature-settings:var(--font-features);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-left:var(--safe-left);padding-right:var(--safe-right)}
+h1,h2,h3,h4{margin:0;font-weight:var(--fw-semibold);letter-spacing:var(--tr-metric);line-height:var(--lh-snug)}
+h1{font-size:var(--fs-display)} h2{font-size:var(--fs-title-lg)} h3{font-size:var(--fs-title)} h4{font-size:var(--fs-body-lg)}
+p,ul,ol,table,figure,pre{margin:0 0 var(--sp-3)}
+p:last-child,ul:last-child,ol:last-child{margin-bottom:0}
+ul,ol{padding-inline-start:var(--sp-5)}
+li{margin-bottom:var(--sp-1)}
+a{color:var(--accent);text-decoration-color:rgb(var(--accent-rgb)/.4);text-underline-offset:2px}
+a:hover{text-decoration-color:rgb(var(--accent-rgb)/.9)}
+strong{font-weight:var(--fw-semibold);color:var(--fg)}
+code,kbd,pre,.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+button,input,textarea,select{font:inherit;color:inherit;background:none;margin:0}
+button{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+img,svg{display:block;max-width:100%}
+:where(a,button,input,textarea,select,summary,[tabindex]):focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ==========================================================================
+   3. STICKY MINI-HEADER  (topic · lesson N · text size · streak-safe close)
+   ========================================================================== */
+.lh{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:var(--sp-3);
+  min-height:var(--header-h);padding:var(--safe-top) var(--sp-3) 0;
+  background:var(--veil);border-bottom:1px solid var(--border)}
+/* No backdrop-filter (GPU law): .lh is sticky over a scrolling column, so a
+   backdrop blur re-samples on every scroll frame. Opaque chrome instead. */
+.lh{background:var(--surface-nav)}
+.lh__id{min-width:0;flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;
+  padding:var(--sp-2) 0}
+.lh__topic{display:flex;align-items:center;gap:6px;font-size:var(--fs-eyebrow);
+  font-weight:var(--fw-medium);text-transform:uppercase;letter-spacing:var(--tr-eyebrow);
+  color:var(--fg-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh__topic .ico{color:var(--accent)}
+.lh__title{font-size:var(--fs-caption);font-weight:var(--fw-medium);color:var(--fg);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh__acts{display:flex;align-items:center;gap:var(--sp-1);flex:0 0 auto}
+.lh__btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-width:var(--tap);min-height:var(--tap);padding:0 var(--sp-2);border-radius:var(--r-md);
+  color:var(--fg-muted);font-size:var(--fs-meta);font-weight:var(--fw-medium);
+  transition:background-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.lh__btn:hover{background:var(--surface-hover);color:var(--fg)}
+.lh__bar{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand-bar);
+  transform:scaleX(0);transform-origin:0 50%;box-shadow:0 0 8px rgb(255 122 61/.55)}
+
+/* ==========================================================================
+   4. PAGE FRAME
+   ========================================================================== */
+.wrap{max-width:var(--prose-max);margin:0 auto;padding:var(--sp-5) var(--sp-4) calc(var(--sp-12) + var(--safe-bottom))}
+@media (min-width:768px){.wrap{padding:var(--sp-8) var(--sp-6) var(--sp-12)}}
+.sec{margin:0 0 var(--sp-8);scroll-margin-top:calc(var(--header-h) + var(--sp-4))}
+.eyebrow{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-eyebrow);
+  font-weight:var(--fw-medium);text-transform:uppercase;letter-spacing:var(--tr-eyebrow);
+  color:var(--fg-muted);margin-bottom:var(--sp-2)}
+.eyebrow::before{content:"";width:4px;height:4px;flex:0 0 auto;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 6px rgb(var(--accent-rgb)/.8)}
+.eyebrow .ico{color:var(--accent)}
+.lede{font-size:var(--fs-body-lg);line-height:var(--lh-loose);color:var(--fg)}
+.meta{font-size:var(--fs-meta);color:var(--fg-muted)}
+.hr{height:1px;background:var(--border);margin:var(--sp-8) 0;border:0}
+
+/* card */
+.card{position:relative;overflow:hidden;padding:var(--sp-4);border:1px solid var(--border);
+  border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--lip),var(--sh-card)}
+.card--tone{background-image:var(--wash-accent)}
+.card--tone::after{content:"";position:absolute;top:-64px;right:-64px;width:176px;height:176px;
+  border-radius:50%;opacity:.28;pointer-events:none;
+  /* radial-gradient, NOT filter:blur - same look, a fraction of the cost.
+     A 48px blur is a full-surface GPU pass on every paint of this element. */
+  background:radial-gradient(circle,rgb(var(--accent-rgb) / 0.55),transparent 70%)}
+.card__title{font-size:var(--fs-title);font-weight:var(--fw-semibold);letter-spacing:var(--tr-metric)}
+.card__body{position:relative}
+
+/* pill / chip / dot */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px var(--sp-2);border:1px solid;
+  border-radius:var(--r-full);font-size:var(--fs-meta);font-weight:var(--fw-medium);line-height:1.45;
+  white-space:nowrap;background:var(--neutral-bg);color:var(--neutral);border-color:var(--neutral-bd)}
+.pill--good{background:var(--good-bg);color:var(--good);border-color:var(--good-bd)}
+.pill--warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-bd)}
+.pill--bad{background:var(--bad-bg);color:var(--bad);border-color:var(--bad-bd)}
+.pill--info{background:var(--info-bg);color:var(--info);border-color:var(--info-bd)}
+.pill--accent{background:rgb(var(--accent-rgb)/.1);color:var(--accent);border-color:rgb(var(--accent-rgb)/.2)}
+.chip{display:inline-block;font-size:var(--fs-micro);letter-spacing:var(--tr-micro);
+  text-transform:uppercase;padding:2px 6px;border-radius:var(--r-sm);
+  background:rgb(var(--accent-rgb)/.15);color:var(--accent);border:1px solid rgb(var(--accent-rgb)/.3)}
+.chip--mis{background:var(--bad-bg);color:var(--bad);border-color:var(--bad-bd);font-family:var(--font-mono)}
+.row{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);
+  min-height:var(--tap);padding:10px var(--sp-4);border:1px solid var(--border-strong);
+  border-radius:var(--r-md);background:var(--surface-muted);color:var(--fg);
+  font-size:var(--fs-body);font-weight:var(--fw-medium);line-height:1.2;text-align:center;
+  text-decoration:none;box-shadow:var(--lip);
+  transition:background-color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease)}
+.btn:hover{background:var(--surface-hover);border-color:var(--border-hover)}
+.btn:active{transform:scale(.99)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.btn-primary{border-color:transparent;color:var(--fg-on-brand);font-weight:var(--fw-semibold);
+  background-color:var(--brand);background-image:var(--gloss-wash),var(--brand-grad-action);
+  box-shadow:var(--sh-btn-primary)}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--fg-muted);box-shadow:none}
+.btn-ghost:hover{background:var(--surface-hover);color:var(--fg)}
+.btn--sm{min-height:36px;padding:6px var(--sp-3);font-size:var(--fs-meta)}
+.btn--block{width:100%}
+.btn-row{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-3)}
+
+/* maths + notation */
+.math,.sci,.formula{font-variant-numeric:tabular-nums lining-nums}
+.math sub,.math sup,.sci sub,.sci sup,.formula sub,.formula sup{font-size:.68em;line-height:0;
+  position:relative;vertical-align:baseline}
+.math sup,.sci sup,.formula sup{top:-.5em}
+.math sub,.sci sub,.formula sub{bottom:-.22em}
+.sci{white-space:nowrap}
+.unit{color:var(--fg-muted);margin-left:.28em}
+.formula{display:inline-block;padding:2px 8px;border-radius:var(--r-sm);
+  background:var(--surface-muted);font-family:var(--font-mono);font-size:.95em}
+.formula-block{display:block;padding:var(--sp-3) var(--sp-4);margin:var(--sp-3) 0;
+  border-left:2px solid rgb(var(--accent-rgb)/.5);border-radius:0 var(--r-lg) var(--r-lg) 0;
+  background:var(--surface-muted);font-size:var(--fs-body-lg);overflow-x:auto;text-align:center}
+.deva{font-family:var(--font-deva)}
+
+/* tables — always inside .scroll-x; the page body never scrolls sideways */
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);
+  border-radius:var(--r-lg);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-meta)}
+thead th{padding:var(--sp-2) var(--sp-3);background:var(--surface-muted);color:var(--fg-muted);
+  font-size:var(--fs-eyebrow);font-weight:var(--fw-medium);text-transform:uppercase;
+  letter-spacing:.08em;text-align:left;white-space:nowrap}
+tbody td{padding:10px var(--sp-3);border-bottom:1px solid var(--hairline);vertical-align:middle;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr.is-answer td{background:rgb(var(--accent-rgb)/.08);font-weight:var(--fw-semibold)}
+
+/* ==========================================================================
+   5. PEDAGOGY BLOCKS
+   ========================================================================== */
+
+/* 5.1 pretest gate ------------------------------------------------------- */
+.gate{border:1px solid rgb(var(--ai-rgb)/.28);border-radius:var(--r-2xl);
+  background:var(--surface);box-shadow:var(--lip),var(--sh-card);padding:var(--sp-4);
+  background-image:radial-gradient(120% 100% at 0% 0%,rgb(var(--ai-rgb)/.10),transparent 60%)}
+@media (min-width:768px){.gate{padding:var(--sp-6)}}
+.gate__framing{margin:var(--sp-2) 0 var(--sp-4);padding:var(--sp-3);border-radius:var(--r-lg);
+  background:var(--ai-bg);border:1px solid var(--ai-bd);color:var(--fg);font-size:var(--fs-body-lg)}
+body[data-gate="closed"] #lesson-body{display:none}
+body[data-gate="open"] #pretest-live{display:none}
+
+/* 5.2 MCQ ----------------------------------------------------------------- */
+.q{margin:0 0 var(--sp-4);padding:var(--sp-3) 0 0;border-top:1px solid var(--hairline)}
+.q:first-of-type{border-top:0;padding-top:0}
+.q__stem{font-size:var(--fs-body-lg);line-height:var(--lh-snug);margin-bottom:var(--sp-3)}
+.q__num{font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--fg-muted);margin-right:6px}
+.opts{display:flex;flex-direction:column;gap:var(--sp-2)}
+.option{display:flex;align-items:flex-start;gap:var(--sp-3);width:100%;min-height:var(--tap);
+  padding:var(--sp-3);border:1px solid var(--border-strong);border-radius:var(--r-lg);
+  background:var(--surface);color:var(--fg);font-size:var(--fs-body-lg);line-height:var(--lh-snug);
+  text-align:left;box-shadow:var(--lip);
+  transition:border-color var(--dur-fast) var(--ease),background-color var(--dur-fast) var(--ease)}
+.option:hover{border-color:var(--border-hover);background:var(--surface-hover)}
+.option__key{display:grid;place-items:center;flex:0 0 auto;width:22px;height:22px;
+  border:1px solid var(--border-strong);border-radius:var(--r-sm);background:var(--surface-muted);
+  font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--fg-muted)}
+.option.is-selected{border-color:rgb(var(--accent-rgb)/.5)}
+.option.is-correct{border-color:var(--good-bd);background:var(--good-bg)}
+.option.is-correct .option__key{background:var(--good-bg);color:var(--good);border-color:var(--good-bd)}
+.option.is-wrong{border-color:var(--bad-bd);background:var(--bad-bg)}
+.option.is-wrong .option__key{background:var(--bad-bg);color:var(--bad);border-color:var(--bad-bd)}
+.q.is-locked .option{pointer-events:none}
+.fb{margin-top:var(--sp-3);padding:var(--sp-3);border-radius:var(--r-lg);font-size:var(--fs-body);
+  border:1px solid var(--border);background:var(--surface-muted)}
+.fb--good{border-color:var(--good-bd);background:var(--good-bg)}
+.fb--bad{border-color:var(--bad-bd);background:var(--bad-bg)}
+.fb__marks{display:block;font-weight:var(--fw-semibold);margin-bottom:4px}
+
+/* 5.3 named method steps -------------------------------------------------- */
+.step{position:relative;padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-2);
+  border-left:2px solid rgb(var(--accent-rgb)/.55);border-radius:0 var(--r-lg) var(--r-lg) 0;
+  background:var(--surface)}
+.step__n{display:inline-block;font-family:var(--font-mono);font-size:var(--fs-eyebrow);
+  letter-spacing:var(--tr-micro);text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.step strong{color:var(--fg)}
+
+/* 5.4 interactive model (predict → act → explain) -------------------------- */
+.model__stage{padding:var(--sp-4);border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--surface-muted);margin-top:var(--sp-3)}
+.model__stage[hidden]{display:none}
+.ctl{display:block;margin-bottom:var(--sp-4)}
+.ctl__lab{display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-3);
+  font-size:var(--fs-meta);color:var(--fg-muted);margin-bottom:6px}
+.ctl__val{font-family:var(--font-mono);font-size:var(--fs-body-lg);font-weight:var(--fw-semibold);
+  color:var(--fg);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:var(--tap);
+  background:transparent;display:block}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:var(--r-full);
+  background:var(--surface-hover);border:1px solid var(--border)}
+input[type=range]::-moz-range-track{height:6px;border-radius:var(--r-full);
+  background:var(--surface-hover);border:1px solid var(--border)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;
+  margin-top:-10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);
+  box-shadow:0 0 10px rgb(var(--accent-rgb)/.6)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--accent);
+  border:2px solid var(--bg);box-shadow:0 0 10px rgb(var(--accent-rgb)/.6)}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:var(--sp-2);
+  margin-top:var(--sp-3)}
+.ro{padding:var(--sp-3);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface)}
+.ro__lab{font-size:var(--fs-eyebrow);text-transform:uppercase;letter-spacing:var(--tr-eyebrow);
+  color:var(--fg-muted)}
+.ro__val{margin-top:4px;font-size:var(--fs-title);font-weight:var(--fw-semibold);
+  font-variant-numeric:tabular-nums;letter-spacing:var(--tr-metric)}
+.ro--key .ro__val{color:var(--accent);text-shadow:0 0 24px rgb(var(--accent-rgb)/.35)}
+.verdict{margin-top:var(--sp-3);font-size:var(--fs-body);color:var(--fg-muted)}
+.particles{display:flex;flex-wrap:wrap;gap:4px;margin-top:var(--sp-3);min-height:24px}
+.particles i{width:12px;height:12px;border-radius:50%;background:rgb(var(--accent-rgb)/.75);
+  box-shadow:0 0 6px rgb(var(--accent-rgb)/.5)}
+.particles i.alt{background:rgb(var(--info-rgb)/.75);box-shadow:0 0 6px rgb(var(--info-rgb)/.5)}
+
+/* 5.5 pitfalls ------------------------------------------------------------ */
+.pit{padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-3);border:1px solid var(--bad-bd);
+  border-left:2px solid var(--bad);border-radius:0 var(--r-lg) var(--r-lg) 0;background:var(--bad-bg)}
+.pit__head{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:6px}
+.pit__head .ico{color:var(--bad)}
+.pit__name{font-weight:var(--fw-semibold);font-size:var(--fs-body-lg)}
+.pit__why{margin-top:6px;padding-top:6px;border-top:1px solid var(--bad-bd);
+  font-size:var(--fs-meta);color:var(--fg-muted)}
+.pit__why b{color:var(--fg);font-weight:var(--fw-medium)}
+
+/* 5.6 retrieval check + produced-answer problems + reveal ------------------ */
+.rc,.prob{padding:var(--sp-4);border:1px solid var(--border);border-radius:var(--r-xl);
+  background:var(--surface);box-shadow:var(--lip);margin-bottom:var(--sp-4)}
+.rc{border-color:rgb(var(--accent-rgb)/.25)}
+textarea.pad{width:100%;min-height:96px;padding:var(--sp-3);border:1px solid var(--border-strong);
+  border-radius:var(--r-lg);background:var(--surface-muted);color:var(--fg);
+  font-size:var(--fs-input);line-height:var(--lh-body);resize:vertical;font-family:var(--font-sans)}
+textarea.pad::placeholder{color:var(--fg-subtle)}
+.conf{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin:var(--sp-3) 0 0}
+.conf__b{flex:1 1 auto;min-width:96px;min-height:var(--tap);padding:8px var(--sp-3);
+  border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface-muted);
+  font-size:var(--fs-meta);color:var(--fg-muted)}
+.conf__b[aria-pressed="true"]{border-color:rgb(var(--accent-rgb)/.6);color:var(--accent);
+  background:rgb(var(--accent-rgb)/.1)}
+.reveal{margin-top:var(--sp-3);padding:var(--sp-3) var(--sp-4);border:1px solid var(--border);
+  border-radius:var(--r-lg);background:var(--surface-muted)}
+.reveal[hidden]{display:none}
+.chain{list-style:none;padding:0;margin:0;counter-reset:st}
+.chain li{position:relative;padding:0 0 var(--sp-3) var(--sp-6);margin:0}
+.chain li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:1px;
+  width:20px;height:20px;display:grid;place-items:center;border-radius:50%;
+  background:rgb(var(--accent-rgb)/.15);color:var(--accent);border:1px solid rgb(var(--accent-rgb)/.35);
+  font-family:var(--font-mono);font-size:var(--fs-micro)}
+.chain .just{display:block;font-size:var(--fs-meta);color:var(--fg-muted);margin-top:2px}
+.chain .mk{float:right;margin-left:var(--sp-2);font-family:var(--font-mono);font-size:var(--fs-micro);
+  color:var(--good);background:var(--good-bg);border:1px solid var(--good-bd);
+  border-radius:var(--r-sm);padding:1px 5px}
+.ladder{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-micro);
+  letter-spacing:var(--tr-micro);text-transform:uppercase;color:var(--fg-muted)}
+.ladder b{color:var(--accent);font-weight:var(--fw-semibold)}
+.selfscore{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-3);
+  padding-top:var(--sp-3);border-top:1px solid var(--hairline)}
+.selfscore__b{min-width:var(--tap);min-height:var(--tap);padding:0 var(--sp-3);
+  border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface);
+  font-family:var(--font-mono);font-size:var(--fs-body)}
+.selfscore__b[aria-pressed="true"]{border-color:rgb(var(--accent-rgb)/.6);color:var(--accent);
+  background:rgb(var(--accent-rgb)/.1)}
+.marks-out{margin-top:var(--sp-3);font-size:var(--fs-body-lg);font-weight:var(--fw-medium)}
+
+/* 5.7 reconstruction ------------------------------------------------------ */
+.spine{list-style:none;padding:0;margin:var(--sp-3) 0 0}
+.spine li{margin:0 0 var(--sp-2)}
+.spine label{display:flex;align-items:flex-start;gap:var(--sp-3);min-height:var(--tap);
+  padding:var(--sp-2) var(--sp-3);border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--surface-muted);cursor:pointer}
+.spine input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--accent)}
+.spine label:has(input:checked){border-color:var(--good-bd);background:var(--good-bg)}
+
+/* 5.8 citation / next ----------------------------------------------------- */
+.cite{padding:var(--sp-3) var(--sp-4);border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--surface-muted);font-size:var(--fs-meta);color:var(--fg-muted)}
+.cite b{color:var(--fg);font-weight:var(--fw-medium)}
+.nav-next{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-4)}
+.nav-next a{flex:1 1 200px}
+
+/* 5.9 QC panel (authoring errors) — visible, loud, never silent ------------ */
+.qc{position:sticky;top:var(--header-h);z-index:90;margin:0 0 var(--sp-4);padding:var(--sp-3) var(--sp-4);
+  border:1px solid var(--bad-bd);border-left:3px solid var(--bad);border-radius:var(--r-lg);
+  background:var(--bad-bg);font-size:var(--fs-meta)}
+.qc[hidden]{display:none}
+.qc h4{color:var(--bad);margin-bottom:6px}
+.qc ul{margin:0;padding-inline-start:var(--sp-4)}
+.qc code{font-size:var(--fs-micro);color:var(--fg)}
+
+/* icons */
+.ico{width:16px;height:16px;flex:0 0 auto;stroke-width:2}
+.ico--14{width:14px;height:14px} .ico--12{width:12px;height:12px}
+
+/* ==========================================================================
+   6. REDUCED MOTION — every transition/animation collapses
+   ========================================================================== */
+@media (prefers-reduced-motion:reduce){
+  :root{--dur-fast:.01ms;--dur:.01ms;--lift-y:0px}
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ==========================================================================
+   7. PRINT — one clean paper copy, all answers revealed, no controls
+   ========================================================================== */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-muted:#f4f5f7;--surface-hover:#eee;
+    --fg:#111;--fg-muted:#555;--fg-subtle:#777;--border:#ccc;--border-strong:#bbb;
+    --hairline:#ddd;--lip:none;--sh-card:none;--good:#0a6b4b;--bad:#a11;--warn:#8a5a00;
+    --accent:#333;--accent-rgb:51 51 51;--wash-accent:none;--veil:#fff}
+  @page{margin:14mm}
+  body{background:#fff;color:#111;font-size:11pt;line-height:1.45}
+  .lh,.lh__acts,.btn,.btn-row,.conf,.selfscore,.qc,.no-print,input[type=range],.model__stage .ctl{display:none!important}
+  .card--tone::after{display:none}
+  .reveal,.model__stage,#lesson-body,#pretest-live{display:block!important}
+  .sec{page-break-inside:avoid;margin-bottom:14pt}
+  .prob,.rc,.card,.gate{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  textarea.pad{min-height:80pt;background:#fff;border:1px dashed #999}
+  a{color:#111;text-decoration:underline}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
+}
+</style>
+</head>
+<body data-gate="closed">
+
+<!-- Inline icon subset. Lessons ship standalone and cannot reach
+     study-hub/assets/icons.svg — these six shapes are copied from it. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-subject" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+</defs></svg>
+
+<!-- ======================= STICKY MINI-HEADER ======================= -->
+<header class="lh">
+  <div class="lh__id">
+    <span class="lh__topic"><svg class="ico ico--12"><use href="#i-subject"/></svg>Mole Concept · Lesson 3</span>
+    <span class="lh__title">Molecular Formula from Empirical Formula</span>
+  </div>
+  <div class="lh__acts">
+    <button class="lh__btn" id="text-size" type="button" aria-pressed="false"
+            aria-label="Larger text">A<span style="font-size:1.25em">A</span></button>
+    <button class="lh__btn" id="close-lesson" type="button"
+            aria-label="Close this lesson. Your streak is safe — nothing is lost.">
+      <svg class="ico ico--14"><use href="#i-x"/></svg><span class="sr-only">Close</span>
+    </button>
+  </div>
+  <span class="lh__bar" id="progress-bar" aria-hidden="true"></span>
+</header>
+
+<main class="wrap">
+
+  <div class="qc" id="qc-panel" hidden role="alert">
+    <h4>Authoring errors — do not ship this lesson</h4>
+    <ul id="qc-list"></ul>
+  </div>
+
+  <p class="eyebrow">Chemistry · Stoichiometry · Lesson 0003</p>
+  <h1>Molecular Formula from Empirical Formula</h1>
+  <p class="meta" style="margin-top:var(--sp-2)">
+    About 18 minutes · PACER P (procedural) ·
+    In the NEB paper this shows up as the second half of a 5-mark Group B question whose
+    first half was Lesson 2
+  </p>
+
+  <!-- ================= 1. PRETEST GATE (delayed answers) ================= -->
+  <section class="sec gate" id="pretest" data-tone="ai" aria-labelledby="pretest-h">
+    <p class="eyebrow"><svg class="ico ico--12"><use href="#i-brain"/></svg>Before any teaching</p>
+    <h2 id="pretest-h">Pretest — 3 questions</h2>
+    <p class="gate__framing">
+      <strong>You are expected to get these wrong — that is the point.</strong>
+      Guessing before you learn something makes the lesson stick harder. Nothing is
+      scored, nothing is recorded, and the answers stay hidden until the very end.
+    </p>
+
+    <div id="pretest-live">
+      <div class="q" data-q="pt1" data-pretest="1" data-correct="ratio"
+           data-key-note="a discrimination between ratio and count — no formula decides it">
+        <p class="q__stem"><span class="q__num">P1</span>Methanal, ethanoic acid and glucose all
+          analyse as 40.0% carbon, 6.7% hydrogen and 53.3% oxygen by mass, yet a lab can tell them
+          apart in a minute. What must be true of the three?</p>
+        <div class="opts">
+          <button class="option" type="button" data-value="ratio" data-why="Percentages fix the ratio of atoms only. Three substances can share one ratio and still hold different numbers of atoms per molecule — that gap is this whole lesson."><span class="option__key"></span><span>They share the ratio of atoms but hold different numbers of them</span></button>
+          <button class="option" type="button" data-value="wrong" data-why="Nothing was measured wrongly. Percentage composition simply stops at the ratio; it is not a fine enough measurement to separate these three."><span class="option__key"></span><span>At least two of the three percentage analyses must be mistakes</span></button>
+          <button class="option" type="button" data-value="samemass" data-why="Their molar masses are 30, 60 and 180 g/mol. That difference is exactly the measurement you are about to use."><span class="option__key"></span><span>All three must have the same mass for one mole of substance</span></button>
+          <button class="option" type="button" data-value="nothing" data-why="Percentages carry a great deal — they fix the ratio, which is half the answer. They stop short of the count."><span class="option__key"></span><span>Percentages by mass carry no useful information at all</span></button>
+        </div>
+        <div class="fb" hidden></div>
+      </div>
+
+      <div class="q" data-q="pt2" data-pretest="1" data-correct="molarmass"
+           data-key-note="asks which measurement is needed — a judgement, not a calculation">
+        <p class="q__stem"><span class="q__num">P2</span>Which single extra measurement turns
+          "the ratio of atoms" into "the number of atoms in one molecule"?</p>
+        <div class="opts">
+          <button class="option" type="button" data-value="molarmass" data-why="The molar mass fixes the mass of one mole of the real molecule, so it fixes how many empirical units fit inside that molecule."><span class="option__key"></span><span>The molar mass of the whole compound, in g/mol</span></button>
+          <button class="option" type="button" data-value="samplemass" data-why="The sample mass is your own choice on the day. Burning 2 g or 200 g leaves the formula unchanged, as Lesson 2 showed."><span class="option__key"></span><span>The mass of the sample that was burnt, in g</span></button>
+          <button class="option" type="button" data-value="percent" data-why="More decimal places on the same percentages give the same ratio again. Precision does not create a count."><span class="option__key"></span><span>The percentage of the heaviest element, more precisely</span></button>
+          <button class="option" type="button" data-value="melting" data-why="Melting point identifies a compound against a table of known values; it enters no formula calculation."><span class="option__key"></span><span>The temperature at which the compound melts, in K</span></button>
+        </div>
+        <div class="fb" hidden></div>
+      </div>
+
+      <div class="q" data-q="pt3" data-pretest="1" data-free="1">
+        <p class="q__stem"><span class="q__num">P3</span>A student divides the molar mass by the
+          empirical formula mass, gets 2.5, rounds it to 3 and writes his formula. In one or two
+          lines, say what is wrong with that move.</p>
+        <textarea class="pad" id="pt3-pad" rows="3" placeholder="Best guess, even if you are sure it is wrong. One or two lines."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="pretest-lock" type="button" disabled>
+          Lock in my answers and start the lesson
+        </button>
+        <button class="btn btn-ghost btn--sm" id="pretest-skip" type="button">
+          Skip the pretest (you lose the effect that makes this lesson stick)
+        </button>
+      </div>
+      <p class="meta" id="pretest-hint" style="margin-top:var(--sp-2)">
+        Answer all 3 to unlock. Answers are revealed at the end of the lesson.
+      </p>
+    </div>
+
+    <p class="row" id="pretest-done" hidden>
+      <span class="pill pill--info">Answers locked</span>
+      <span class="meta">Revealed at the end of the lesson.</span>
+    </p>
+  </section>
+
+  <div id="lesson-body">
+
+  <!-- ========================== 2. BIG IDEA ========================== -->
+  <section class="sec" id="big-idea" aria-labelledby="big-idea-h">
+    <p class="eyebrow"><svg class="ico ico--12"><use href="#i-target"/></svg>The big idea</p>
+    <h2 id="big-idea-h">The empirical formula is a ratio. The molecular formula is a count.</h2>
+    <p class="lede">Lesson 2 ended at CH<sub>2</sub>O, which says "one carbon for every two
+      hydrogens for every one oxygen" and stops. It cannot say whether the real molecule holds one
+      of those units or six. One extra measurement settles it — the <strong>molar mass M of the
+      compound, in g/mol</strong>. Divide M by the mass of a single empirical unit and the answer
+      is <em>n</em>, the number of units inside one molecule.</p>
+    <div class="formula-block"><span class="math">n = M ÷ E &nbsp;&nbsp;→&nbsp;&nbsp; molecular formula = (empirical formula)<sub>n</sub></span></div>
+    <p>A trader in Itahari sells cardamom in identical bundles. "Two green pods for every one black
+      pod" is a ratio and it is true of one bundle or of twenty. To know what is actually inside a
+      carton, weigh the carton and divide by the weight of one bundle. <em>M</em> is the carton,
+      <em>E</em> is one bundle, <em>n</em> is how many bundles are inside.</p>
+  </section>
+
+  <!-- ===================== 3. NAMED METHOD ===================== -->
+  <section class="sec" id="method" aria-labelledby="method-h">
+    <p class="eyebrow">The method</p>
+    <h2 id="method-h">The ×n method — four lines, every time</h2>
+    <p>This method starts where Lesson 2 stopped. If the question hands you the empirical formula
+      outright, line 1 is already written and you begin at line 2.</p>
+
+    <p class="meta">The atomic masses this topic uses — read the board before any molar-mass work,
+      because the paper does not always print it:</p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr>
+          <th>Element</th><th class="num">H</th><th class="num">C</th><th class="num">N</th>
+          <th class="num">O</th><th class="num">Na</th><th class="num">S</th>
+          <th class="num">Cl</th><th class="num">Ca</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Atomic mass (amu, per atom)</td><td class="num">1</td><td class="num">12</td><td class="num">14</td><td class="num">16</td><td class="num">23</td><td class="num">32</td><td class="num">35.5</td><td class="num">40</td></tr>
+          <tr><td>Molar mass (g/mol, per mole)</td><td class="num">1</td><td class="num">12</td><td class="num">14</td><td class="num">16</td><td class="num">23</td><td class="num">32</td><td class="num">35.5</td><td class="num">40</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="meta" style="margin-top:var(--sp-2)">One molecule of glucose has a mass of 180 amu;
+      one mole of glucose has a mass of 180 g, so M = 180 g/mol. Same number, different unit — and
+      the g/mol version is the one that makes n come out unitless.</p>
+
+    <div class="step"><span class="step__n">Step 1 · Get the ratio</span>
+      <div><strong>Find the empirical formula first</strong>, by the ÷smallest method of Lesson 2,
+        or take it from the question when it is given.</div></div>
+    <div class="step"><span class="step__n">Step 2 · Weigh one unit</span>
+      <div><strong>Add up the empirical formula mass E in g/mol.</strong> For CH<sub>2</sub>O:
+        12 + 2(1) + 16 = 30 g/mol. This is one bundle, not the molecule.</div></div>
+    <div class="step"><span class="step__n">Step 3 · Divide</span>
+      <div><strong>n = M ÷ E.</strong> Both quantities are in g/mol, so the units cancel and n is a
+        bare number. It comes out whole, or the data is wrong — n is never rounded.</div></div>
+    <div class="step"><span class="step__n">Step 4 · Multiply every subscript</span>
+      <div><strong>Multiply every subscript by n</strong>, not only the first element, and write
+        the molecular formula on its own line. That line is the mark.</div></div>
+
+    <p class="meta" style="margin-top:var(--sp-3)">
+      Write the unit on every line. An examiner marks the line, not your intention.
+    </p>
+  </section>
+
+  <!-- =============== 4. GUIDED MODEL — predict → act → explain =============== -->
+  <section class="sec card card--tone" id="model" aria-labelledby="model-h">
+    <div class="card__body">
+      <p class="eyebrow">Interactive · predict first</p>
+      <h2 id="model-h">Watch n count whole bundles</h2>
+      <p>Below, the measured molar mass <em>M</em> and the empirical formula mass <em>E</em> both
+        move. Each dot is one whole empirical unit inside the molecule. Commit to a prediction
+        before you touch anything.</p>
+
+      <div class="q" data-q="model-pred" data-model-predict="1" data-key="carbonsAtSeventy">
+        <p class="q__stem"><strong>Predict first.</strong> A hydrocarbon has empirical formula
+          CH<sub>2</sub> (E = 14 g/mol). Its molar mass is re-measured as 70 g/mol instead of
+          42 g/mol. How many carbon atoms does one molecule now hold?</p>
+        <div class="opts">
+          <button class="option" type="button" data-value="5" data-why="n = 70 ÷ 14 = 5, and the empirical unit holds one carbon, so the molecule holds 5 carbon atoms: C₅H₁₀."><span class="option__key"></span><span>Five carbon atoms, because n rises to 5</span></button>
+          <button class="option" type="button" data-value="3" data-why="Three carbons belongs to M = 42 g/mol, the old measurement. A new molar mass means a new n."><span class="option__key"></span><span>Three carbon atoms, unchanged by M</span></button>
+          <button class="option" type="button" data-value="2" data-why="n scales with M and never steps down when M rises. A bigger molar mass means more units, not fewer."><span class="option__key"></span><span>Two carbon atoms, since 70 is under 84</span></button>
+        </div>
+        <div class="fb" hidden></div>
+      </div>
+
+      <div class="model__stage" id="model-act" hidden>
+        <p class="eyebrow">Now act</p>
+        <label class="ctl">
+          <span class="ctl__lab">Measured molar mass of the compound, M
+            <span class="ctl__val" data-out="M"></span></span>
+          <input type="range" data-var="M" data-unit="g/mol"
+                 min="28" max="240" step="2"
+                 value="180" aria-label="Measured molar mass of the compound, M">
+        </label>
+        <label class="ctl">
+          <span class="ctl__lab">Empirical formula mass, E (CH₂O is 30 g/mol)
+            <span class="ctl__val" data-out="E"></span></span>
+          <input type="range" data-var="E" data-unit="g/mol"
+                 min="12" max="60" step="1"
+                 value="30" aria-label="Empirical formula mass, E">
+        </label>
+
+        <div class="readout" id="model-readout" role="status" aria-live="polite"></div>
+        <div class="particles" id="model-particles" aria-hidden="true"></div>
+        <p class="verdict" id="model-verdict"></p>
+        <div class="btn-row">
+          <button class="btn" id="model-explain-btn" type="button">I have seen enough — explain it</button>
+        </div>
+      </div>
+
+      <div class="model__stage" id="model-explain" hidden>
+        <p class="eyebrow">Why it behaved that way</p>
+        <p>Every dot is one whole empirical unit, so <em>n</em> counts things that cannot be cut in
+          half. A molecule holding 2.5 units of CH<sub>2</sub>O is as impossible as a carton
+          holding 2.5 bundles when the bundles are sealed. Whenever you pushed M and E to a pair
+          that gave a fraction, the model refused to name a formula: that is the arithmetic
+          reporting a bad measurement, not inviting a round-up.</p>
+        <p class="meta">That is Step 3 working as a check as well as a calculation — the cheapest
+          error-detector in the whole unit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 5. WORKED TABLE ========================= -->
+  <section class="sec" id="worked" aria-labelledby="worked-h">
+    <p class="eyebrow">Worked example · rung 1 of 4 (fully worked)</p>
+    <h2 id="worked-h">CH₂O with a measured molar mass of 180 g/mol</h2>
+    <p>A sugar has empirical formula CH<sub>2</sub>O and its molar mass is measured as 180 g/mol.
+      Find the molecular formula. (C = 12, H = 1, O = 16 g/mol.)</p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr>
+          <th>Element</th><th class="num">Atoms in CH₂O</th><th class="num">Atomic mass (g/mol)</th>
+          <th class="num">Mass in one unit (g/mol)</th><th class="num">Atoms after × n</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>C</td><td class="num">1</td><td class="num">12</td><td class="num">12</td><td class="num">6</td></tr>
+          <tr><td>H</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num">12</td></tr>
+          <tr><td>O</td><td class="num">1</td><td class="num">16</td><td class="num">16</td><td class="num">6</td></tr>
+          <tr><td>E, one empirical unit</td><td class="num">—</td><td class="num">—</td><td class="num">30</td><td class="num">—</td></tr>
+          <tr class="is-answer"><td>n = 180 ÷ 30 = 6</td><td class="num" colspan="4">Molecular formula = C₆H₁₂O₆ (glucose)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="meta" style="margin-top:var(--sp-2)">Units check: 180 g/mol ÷ 30 g/mol = 6, a bare
+      number. If n arrives with g/mol still attached, the division was against the wrong quantity.
+      Final check: 6(12) + 12(1) + 6(16) = 180 g/mol, which matches the measurement.</p>
+    <p style="margin-top:var(--sp-3)"><strong>Self-explanation (do not skip):</strong> say out loud
+      why the hydrogen column ends at 12 and not at 2. If the sentence does not come, read Step 4
+      again — that sentence is the lesson.</p>
+  </section>
+
+  <!-- ===================== 6. RETRIEVAL CHECK 1 ===================== -->
+  <section class="sec rc" id="rc-1" data-rc="1" aria-labelledby="rc1-h">
+    <p class="eyebrow">Retrieval check 1 of 2 · notes closed</p>
+    <h3 id="rc1-h">Write the four lines of the ×n method from memory, with the unit on every quantity.</h3>
+    <textarea class="pad" rows="4" data-pad="rc1" placeholder="From memory. Do not scroll up."></textarea>
+    <div class="conf" role="group" aria-label="How sure are you?">
+      <button class="conf__b" type="button" data-conf="1" aria-pressed="false">Guess</button>
+      <button class="conf__b" type="button" data-conf="3" aria-pressed="false">Fairly sure</button>
+      <button class="conf__b" type="button" data-conf="5" aria-pressed="false">Certain</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" type="button" data-reveal="rc1-ans" data-needs="rc1" data-min="12">Check against the model answer</button>
+    </div>
+    <div class="reveal" id="rc1-ans" hidden>
+      <p><strong>Model answer.</strong> 1 — Get the empirical formula, from percentages or from the
+        question. 2 — E = sum of the atomic masses in one empirical unit, in g/mol.
+        3 — n = M ÷ E, both in g/mol, so n is a bare whole number. 4 — Multiply every subscript by
+        n and write the molecular formula on its own line.</p>
+      <p class="meta">In a 4-mark question those four lines are the four marks. Line 3 written
+        without units is the one examiners most often refuse.</p>
+    </div>
+  </section>
+
+  <!-- ========================= 7. PITFALLS ========================= -->
+  <section class="sec" id="pitfalls" aria-labelledby="pitfalls-h">
+    <p class="eyebrow"><svg class="ico ico--12"><use href="#i-warn"/></svg>Where marks are lost</p>
+    <h2 id="pitfalls-h">Pitfalls</h2>
+
+    <div class="pit" data-misconception="CH-S08">
+      <div class="pit__head">
+        <svg class="ico ico--14"><use href="#i-warn"/></svg>
+        <span class="pit__name">"The empirical formula already tells me how many atoms the molecule has."</span>
+        <span class="chip chip--mis">CH-S08</span>
+      </div>
+      <div>It gives the ratio and nothing more. CH<sub>2</sub>O is the empirical formula of methanal
+        (M = 30 g/mol), of ethanoic acid (M = 60 g/mol) and of glucose (M = 180 g/mol) — three
+        different substances, one ratio. Only the molar mass separates them.</div>
+      <div class="pit__why"><b>Why it feels right:</b> for the compounds met first —
+        H<sub>2</sub>O, CO<sub>2</sub>, NaCl — the empirical and molecular formulas happen to be
+        identical, so the distinction never bites until the day it costs a mark.</div>
+    </div>
+
+    <div class="pit" data-misconception="CH-M03">
+      <div class="pit__head">
+        <svg class="ico ico--14"><use href="#i-warn"/></svg>
+        <span class="pit__name">"Molecular mass in amu and molar mass in g/mol are different quantities."</span>
+        <span class="chip chip--mis">CH-M03</span>
+      </div>
+      <div>Same number, different unit. One molecule of glucose has a mass of 180 amu; one mole of
+        glucose — 6.022 × 10²³ molecules — has a mass of 180 g, so M = 180 g/mol. Write g/mol in
+        the working, because g/mol ÷ g/mol is what leaves n unitless. An n carrying a unit is a
+        signal that E was taken in amu and M in g/mol, or the reverse.</div>
+      <div class="pit__why"><b>Why it feels right:</b> two unit names look like two different
+        physical quantities, and the sentence "same number, different unit" is almost never said
+        out loud in class.</div>
+    </div>
+
+    <div class="pit" data-misconception="CH-S05">
+      <div class="pit__head">
+        <svg class="ico ico--14"><use href="#i-warn"/></svg>
+        <span class="pit__name">"n came out 2.5, so I round it up and adjust one subscript."</span>
+        <span class="chip chip--mis">CH-S05</span>
+      </div>
+      <div>Two different steps are being mixed. In Lesson 2 a <em>ratio</em> ending in .5 is
+        multiplied by 2, because a ratio may be scaled. Here n is a <em>count of whole units</em>,
+        and a count of 2.5 is impossible: it means the molar mass is wrong, the percentages are
+        wrong, or the starting formula was not the simplest ratio. And when n is finally known,
+        every subscript takes the ×n — changing one subscript by hand writes a different compound.</div>
+      <div class="pit__why"><b>Why it feels right:</b> the ×2 move worked one lesson ago on a
+        number that also ended in .5, so the hand repeats it before the head checks which step it
+        is standing in.</div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. RETRIEVAL CHECK 2 (MCQ) ===================== -->
+  <section class="sec rc" id="rc-2" data-rc="2" aria-labelledby="rc2-h">
+    <p class="eyebrow">Retrieval check 2 of 2 · discriminate the pitfall</p>
+    <h3 id="rc2-h">One ratio, four candidate molecules</h3>
+    <div class="q" data-q="rc2" data-key="molecularFromCH2O">
+      <p class="q__stem">A compound has empirical formula CH<sub>2</sub>O and a measured molar mass
+        of 60 g/mol. Which is its molecular formula?</p>
+      <div class="opts">
+        <button class="option" type="button" data-value="n2" data-why="E = 12 + 2(1) + 16 = 30 g/mol; n = 60 ÷ 30 = 2; every subscript ×2 gives C₂H₄O₂, whose mass is 60 g/mol."><span class="option__key"></span><span>C₂H₄O₂, because n = 60 ÷ 30 = 2 here</span></button>
+        <button class="option" type="button" data-value="n1" data-why="That is the empirical unit alone, mass 30 g/mol — half the measured molar mass, so it is the wrong molecule."><span class="option__key"></span><span>CH₂O, because the ratio is already simplest</span></button>
+        <button class="option" type="button" data-value="n3" data-why="n = 3 needs a molar mass of 90 g/mol. The measurement given is 60 g/mol."><span class="option__key"></span><span>C₃H₆O₃, because 60 is a multiple of 3</span></button>
+        <button class="option" type="button" data-value="partial" data-why="Only carbon and hydrogen were multiplied here. Every subscript takes the ×n, oxygen included."><span class="option__key"></span><span>C₂H₄O, because oxygen was already one</span></button>
+      </div>
+      <div class="fb" hidden></div>
+    </div>
+    <p class="meta">Now use it: without writing any working, say which molar mass would have made
+      C₃H₆O₃ the answer. (90 g/mol.)</p>
+  </section>
+
+  <!-- ============ 9. PRODUCED-ANSWER PROBLEMS (completion→faded→cold) ============ -->
+  <section class="sec" id="problems" aria-labelledby="problems-h">
+    <p class="eyebrow">Produce the answer · nothing is multiple choice from here</p>
+    <h2 id="problems-h">Three problems, scaffolding removed one rung at a time</h2>
+    <p class="meta">Rung 1 (fully worked) was the table above. These are rungs 2, 3 and 4.</p>
+
+    <div class="prob" id="prob-1" data-prob="1" data-level="completion">
+      <p class="ladder">Rung 2 · <b>Completion</b> — the start is done for you</p>
+      <p class="q__stem">A hydrocarbon has empirical formula CH₂ and a measured molar mass of
+        84 g/mol. Find its molecular formula. (C = 12, H = 1 g/mol.)</p>
+      <div class="formula-block"><span class="math">E(CH<sub>2</sub>) = 12 + 2(1) = 14 g/mol</span></div>
+      <p class="meta">Two lines are left: find n, then write the formula.</p>
+      <textarea class="pad" rows="3" data-pad="p1" placeholder="Finish it. Units on every line."></textarea>
+      <div class="btn-row">
+        <button class="btn" type="button" data-reveal="p1-ans" data-needs="p1" data-min="6">Show the marking scheme</button>
+        <button class="btn btn-ghost btn--sm" type="button" data-stuck="p1">I am stuck — open it anyway</button>
+      </div>
+      <div class="reveal" id="p1-ans" hidden>
+        <ol class="chain">
+          <li><span class="mk">1</span>n = M ÷ E = 84 g/mol ÷ 14 g/mol = 6<span class="just">Both masses in g/mol, so the units cancel and n is a bare count.</span></li>
+          <li><span class="mk">1</span>Multiply every subscript by 6: C₆H₁₂<span class="just">Hydrogen goes 2 → 12, not 2 → 6. Every subscript takes the ×n.</span></li>
+          <li><span class="mk">1</span>Molecular formula = C₆H₁₂; check 6(12) + 12(1) = 84 g/mol<span class="just">The check line costs ten seconds and catches a wrong n.</span></li>
+        </ol>
+        <div class="selfscore" role="group" data-score="p1" data-total="3"
+             aria-label="How many of those lines did you write?">
+          <span class="meta" style="width:100%">How many of those lines did you actually write?</span>
+        </div>
+        <p class="marks-out" data-marks="p1"></p>
+      </div>
+    </div>
+
+    <div class="prob" id="prob-2" data-prob="2" data-level="faded">
+      <p class="ladder">Rung 3 · <b>Faded</b> — one nudge, then it is yours</p>
+      <p class="q__stem">A hydrocarbon is 92.3% carbon and 7.7% hydrogen by mass, and its molar mass
+        is 78 g/mol. Find its molecular formula. (C = 12, H = 1 g/mol.)</p>
+      <p class="meta">Nudge: this one starts where Lesson 2 started — assume a 100 g sample.</p>
+      <textarea class="pad" rows="4" data-pad="p2" placeholder="Every line: quantity, number, unit."></textarea>
+      <div class="btn-row">
+        <button class="btn" type="button" data-reveal="p2-ans" data-needs="p2" data-min="10">Show the marking scheme</button>
+        <button class="btn btn-ghost btn--sm" type="button" data-stuck="p2">I am stuck — open it anyway</button>
+      </div>
+      <div class="reveal" id="p2-ans" hidden>
+        <ol class="chain">
+          <li><span class="mk">1</span>In 100 g: 92.3 g C and 7.7 g H<span class="just">Percentages become grams under the 100 g assumption.</span></li>
+          <li><span class="mk">1</span>n(C) = 92.3 ÷ 12 = 7.69 mol; n(H) = 7.7 ÷ 1 = 7.70 mol<span class="just">Each element by its own atomic mass, unit mol on both lines.</span></li>
+          <li><span class="mk">1</span>Divide by the smallest: C = 1.00, H = 1.00 → empirical formula CH<span class="just">7.70 ÷ 7.69 = 1.001, which is measurement noise, so the ratio is 1 : 1.</span></li>
+          <li><span class="mk">1</span>E(CH) = 13 g/mol; n = 78 ÷ 13 = 6 → molecular formula C₆H₆<span class="just">Check: 6(12) + 6(1) = 78 g/mol. That is benzene.</span></li>
+        </ol>
+        <div class="selfscore" role="group" data-score="p2" data-total="4"
+             aria-label="How many of those lines did you write?">
+          <span class="meta" style="width:100%">How many of those lines did you actually write?</span>
+        </div>
+        <p class="marks-out" data-marks="p2"></p>
+      </div>
+    </div>
+
+    <div class="prob" id="prob-3" data-prob="3" data-level="cold">
+      <p class="ladder">Rung 4 · <b>Cold</b> — exam conditions, no help on the page</p>
+      <p class="q__stem">A compound of nitrogen and oxygen only is 25.9% nitrogen by mass and its
+        molar mass is 108 g/mol. Find its empirical formula and its molecular formula.
+        (N = 14, O = 16 g/mol.)</p>
+      <p class="meta">Worth 5 marks in the real paper. Give yourself 12 minutes — the exam pays
+        about 2.4 minutes per mark.</p>
+      <textarea class="pad" rows="5" data-pad="p3" placeholder="Full working. This is what an examiner will see."></textarea>
+      <div class="btn-row">
+        <button class="btn" type="button" data-reveal="p3-ans" data-needs="p3" data-min="16">Show the marking scheme</button>
+        <button class="btn btn-ghost btn--sm" type="button" data-stuck="p3">I am stuck — open it anyway</button>
+      </div>
+      <div class="reveal" id="p3-ans" hidden>
+        <ol class="chain">
+          <li><span class="mk">1</span>In 100 g: 25.9 g N and 74.1 g O<span class="just">Only two elements, so oxygen is the remainder: 100 − 25.9 = 74.1.</span></li>
+          <li><span class="mk">1</span>n(N) = 25.9 ÷ 14 = 1.85 mol; n(O) = 74.1 ÷ 16 = 4.63 mol<span class="just">Mass ÷ atomic mass, unit mol on both lines.</span></li>
+          <li><span class="mk">1</span>Divide by 1.85: N = 1.00, O = 2.50 → multiply both by 2 → N₂O₅<span class="just">An exact half is cleared by scaling, never by rounding.</span></li>
+          <li><span class="mk">1</span>E(N₂O₅) = 2(14) + 5(16) = 108 g/mol; n = 108 ÷ 108 = 1<span class="just">n = 1 is a real answer: it means the empirical and molecular formulas are the same.</span></li>
+          <li><span class="mk">1</span>Molecular formula = N₂O₅<span class="just">Both formulas stated, each on its own line — the question asked for two things.</span></li>
+        </ol>
+        <div class="selfscore" role="group" data-score="p3" data-total="5"
+             aria-label="How many of those lines did you write?">
+          <span class="meta" style="width:100%">How many of those lines did you actually write?</span>
+        </div>
+        <p class="marks-out" data-marks="p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 10. BLANK-PAGE RECONSTRUCTION ==================== -->
+  <section class="sec card" id="reconstruct" aria-labelledby="recon-h">
+    <div class="card__body">
+      <p class="eyebrow"><svg class="ico ico--12"><use href="#i-brain"/></svg>Close the lesson before you do this</p>
+      <h2 id="recon-h">Blank-page reconstruction</h2>
+      <p>Shut this page — or at least stop scrolling. On a blank page, rebuild the lesson from
+        memory: the big idea in one sentence, the four steps of the ×n method with units, one
+        pitfall and why it feels right, and one worked line of your own numbers.</p>
+      <p class="meta">Paper is better than typing here. Either is fine — the page keeps nothing either way.</p>
+      <textarea class="pad" rows="6" data-pad="recon" placeholder="Rebuild it from memory: the big idea, the 4 steps, one pitfall, one worked line."></textarea>
+      <div class="btn-row">
+        <button class="btn" type="button" data-reveal="recon-spine" data-needs="recon" data-min="20">Compare with the spine</button>
+        <button class="btn btn-ghost btn--sm" type="button" data-stuck="recon">I wrote it on paper — show the spine</button>
+      </div>
+      <div class="reveal" id="recon-spine" hidden>
+        <p class="meta">Tick everything you produced without looking.</p>
+        <ul class="spine" id="spine-list" data-spine="1">
+          <li><label><input type="checkbox"><span>The empirical formula is a ratio; the molecular formula is a count.</span></label></li>
+          <li><label><input type="checkbox"><span>The one extra measurement needed is the molar mass M, in g/mol.</span></label></li>
+          <li><label><input type="checkbox"><span>E is the empirical formula mass — the atomic masses of one unit, in g/mol.</span></label></li>
+          <li><label><input type="checkbox"><span>n = M ÷ E, and because both are g/mol, n is a bare whole number.</span></label></li>
+          <li><label><input type="checkbox"><span>Every subscript is multiplied by n, oxygen and hydrogen included.</span></label></li>
+          <li><label><input type="checkbox"><span>A fractional n means the data is wrong; n is never rounded.</span></label></li>
+          <li><label><input type="checkbox"><span>CH₂O with M = 180 g/mol gives n = 6 and the formula C₆H₁₂O₆.</span></label></li>
+        </ul>
+        <p class="marks-out" id="spine-out"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 11. PRETEST ANSWERS (delayed) ==================== -->
+  <section class="sec" id="pretest-answers" aria-labelledby="pta-h">
+    <p class="eyebrow">Now the pretest</p>
+    <h2 id="pta-h">What you predicted before the lesson</h2>
+    <p>Delayed on purpose. Comparing what you thought then with what you know now is
+      the part that sticks — especially anywhere you were confident and wrong.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="reveal-pretest" type="button">Reveal the pretest answers</button>
+    </div>
+    <div class="reveal" id="pretest-answer-body" hidden>
+      <p><strong>P1 · They share the ratio of atoms but hold different numbers of them.</strong><br>
+        Methanal is CH₂O at 30 g/mol, ethanoic acid is C₂H₄O₂ at 60 g/mol and glucose is
+        C₆H₁₂O₆ at 180 g/mol. All three report the same percentages, because percentages fix the
+        ratio and stop there.</p>
+      <p><strong>P2 · The molar mass of the whole compound, in g/mol.</strong><br>
+        It is the only quantity in the list that differs between those three compounds, so it is
+        the only one that can separate them. That is why the entire method is one division.</p>
+      <p><strong>P3 · n counts whole empirical units, so 2.5 is not a number you may round.</strong><br>
+        Rounding 2.5 up to 3 invents a molecule 20% heavier than the one that was measured. A
+        fractional n means the molar mass is wrong, the percentages are wrong, or the starting
+        formula was not the simplest ratio. Compare that with what you wrote before the lesson.</p>
+      <p class="meta">No score, by design. What matters is which one surprised you —
+        that is the one to bring to Hermes tonight.</p>
+    </div>
+  </section>
+
+  <!-- ==================== 12. CITATION + NEXT LESSON ==================== -->
+  <section class="sec" id="citation-next">
+    <div class="cite">
+      <b>Source:</b> none — no textbook was opened to write this lesson, so no page range is
+      claimed. Content follows the CDC Grade XI Chemistry syllabus, Unit 2 (Stoichiometry, 8
+      teaching hours) and the standard atomic masses used in NEB papers. Add the exact book,
+      edition and pp. range once the class text is in hand.
+      <br>Cards minted from this lesson: <span class="mono">mole-concept-0003-01 … -04</span> ·
+      Mindmap node: <span class="mono">Molecular formula</span>
+    </div>
+    <nav class="nav-next" aria-label="Lesson navigation">
+      <a class="btn" href="0002-empirical-formula.html">← Lesson 2: Empirical Formula</a>
+      <a class="btn btn-primary" href="0004-stoichiometry-mole-ratios.html" id="next-lesson">
+        Lesson 4: Mole Ratios from a Balanced Equation
+        <svg class="ico ico--14"><use href="#i-next"/></svg>
+      </a>
+    </nav>
+    <p class="meta" style="margin-top:var(--sp-3)">
+      Stuck on any line above? Send Hermes the exact line you stopped at — that is
+      faster than sending the whole question.
+    </p>
+  </section>
+
+  </div><!-- /#lesson-body -->
+</main>
+
+<script>
+/* ============================================================================
+   LESSON CONFIG — the only JS an author edits.
+   ========================================================================== */
+var LESSON = {
+  id: 'mole-concept-0003',
+  topic: 'mole-concept',
+  subject: 'Chemistry',
+  unit: 'Stoichiometry',
+  lesson: '0003',
+  version: '2026-07-26',
+  misconceptions: ['CH-S08', 'CH-M03', 'CH-S05'],
+
+  /* ---- ANSWER KEYS, COMPUTED — write the arithmetic, never the answer. ---- */
+  keys: {
+    carbonsAtSeventy: function () {
+      /* E(CH2) = 12 + 2(1) = 14 g/mol; n = 70 / 14 = 5.
+         The empirical unit holds 1 carbon, so the molecule holds 1 x n. */
+      var E_CH2 = 12 + 2 * 1;
+      return String(1 * Math.round(70 / E_CH2));
+    },
+    molecularFromCH2O: function () {
+      /* E(CH2O) = 12 + 2(1) + 16 = 30 g/mol; n = 60 / 30 = 2.
+         Options are labelled by n, so the key is "n" + n. */
+      var E_CH2O = 12 + 2 * 1 + 16;
+      return 'n' + Math.round(60 / E_CH2O);
+    }
+  },
+
+  /* ---- THE INTERACTIVE MODEL ---------------------------------------------
+     v.M = measured molar mass (g/mol), v.E = empirical formula mass (g/mol).
+     n = M / E and must be whole: n counts whole empirical units. Each dot is
+     one unit. Numbers are formatted only through E.num / E.sci. ----------- */
+  model: {
+    compute: function (v, E) {
+      var nRaw = v.E > 0 ? v.M / v.E : 0;
+      var n = Math.round(nRaw);
+      var whole = n >= 1 && Math.abs(nRaw - n) <= 0.03;
+      var nShow = whole ? n : 'not a whole number';
+      var verdict = whole
+        ? 'M ÷ E = ' + E.num(nRaw, 3) + ', a whole number. One molecule holds ' + n +
+          ' empirical unit' + (n === 1 ? '' : 's') + ', so every subscript is multiplied by ' +
+          n + '.'
+        : 'M ÷ E = ' + E.num(nRaw, 3) + ', which is not whole. These two measurements cannot ' +
+          'both be right, and n is a count of whole units — it may not be rounded.';
+      return {
+        readouts: [
+          { label: 'M ÷ E', value: nRaw, unit: '', sig: 3 },
+          { label: 'Whole empirical units, n', value: nShow, unit: '', sig: 3, key: true }
+        ],
+        particles: whole ? n : 0,
+        verdict: verdict
+      };
+    }
+  }
+};
+
+/* ============================================================================
+   RUNTIME v1.0.0 — IDENTICAL IN EVERY LESSON. DO NOT EDIT PER LESSON.
+   Responsibilities: notation-safe numbers · MCQ keys computed + verified ·
+   pretest gate with delayed answers · predict→act→explain sequencing ·
+   commit-before-reveal · self-scored marks · reconstruction · text size ·
+   streak-safe close · QC self-check. Persists NOTHING.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------- 0. notation: a × 10ⁿ ONLY. e-notation is unreachable. ------- */
+  var SUPS = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³',
+               '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+  function sup(n) {
+    var s = String(n), o = '', i;
+    for (i = 0; i < s.length; i++) o += (SUPS[s[i]] || s[i]);
+    return o;
+  }
+  function round(x, s) {
+    if (!isFinite(x) || x === 0) return x;
+    var d = Math.ceil(Math.log10(Math.abs(x))), p = s - d;
+    var f = Math.pow(10, p);
+    return Math.round(x * f) / f;
+  }
+  function sci(x, s) {
+    s = s || 3;
+    if (!isFinite(x)) return '—';
+    if (x === 0) return '0';
+    var e = Math.floor(Math.log10(Math.abs(x)));
+    var m = round(x / Math.pow(10, e), s);
+    if (Math.abs(m) >= 10) { m = m / 10; e += 1; m = round(m, s); }
+    var ms = m.toFixed(Math.max(0, s - 1)).replace(/\.?0+$/, '');
+    return ms + ' × 10' + sup(e);
+  }
+  function num(x, s) {
+    if (typeof x === 'string') return x;
+    if (x === null || x === undefined || !isFinite(x)) return '—';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e6 || a < 1e-4) return sci(x, s || 3);
+    var r = s ? round(x, s) : x;
+    var out = String(r);
+    /* belt and braces: if the engine ever reaches for e-notation, convert. */
+    if (out.indexOf('e') >= 0 || out.indexOf('E') >= 0) return sci(x, s || 3);
+    return out;
+  }
+  var E = { num: num, sci: sci, sup: sup, round: round };
+  window.ENGRAM_LESSON_FMT = E;
+
+  /* ---------- 1. tiny DOM helpers (no innerHTML with authored text) ------- */
+  function qs(s, r) { return (r || document).querySelector(s); }
+  function qsa(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function txt(node, s) { node.textContent = s == null ? '' : String(s); return node; }
+  function mk(tag, cls, t) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (t != null) n.textContent = String(t);
+    return n;
+  }
+
+  /* ---------- 2. QC — authoring errors are LOUD, never silent ------------- */
+  var QC = { errors: [], warnings: [] };
+  function fail(msg) { QC.errors.push(msg); }
+  function warn(msg) { QC.warnings.push(msg); }
+  function paintQC() {
+    var panel = qs('#qc-panel'), list = qs('#qc-list');
+    var showWarnings = /(?:^|[?&])qc=1(?:&|$)/.test(location.search);
+    var items = QC.errors.concat(showWarnings ? QC.warnings.map(function (w) { return 'warning: ' + w; }) : []);
+    if (!items.length) return;
+    items.forEach(function (m) { list.appendChild(mk('li', null, m)); });
+    panel.hidden = false;
+  }
+
+  /* ---------- 3. parent-frame reporting (the hub owns all persistence) ---- */
+  function report(type, detail) {
+    var payload = { source: 'engram-lesson', type: type, lesson: LESSON.id,
+                    topic: LESSON.topic, subject: LESSON.subject, detail: detail || {} };
+    try { window.dispatchEvent(new CustomEvent('engram:lesson-event', { detail: payload })); } catch (e) {}
+    try { if (window.parent && window.parent !== window) window.parent.postMessage(payload, '*'); } catch (e) {}
+  }
+
+  /* ---------- 4. MCQ: key computed, exactly one correct, elaborated FB ---- */
+  var LETTERS = 'ABCDEFGH';
+  function correctValueFor(q) {
+    var keyName = q.getAttribute('data-key');
+    if (keyName) {
+      var fn = LESSON.keys && LESSON.keys[keyName];
+      if (typeof fn !== 'function') { fail('question ' + q.dataset.q + ': no key function named "' + keyName + '" in LESSON.keys'); return null; }
+      try { return String(fn(E)); }
+      catch (err) { fail('question ' + q.dataset.q + ': key function threw — ' + err.message); return null; }
+    }
+    if (q.hasAttribute('data-correct')) {
+      if (!q.getAttribute('data-key-note')) warn('question ' + q.dataset.q + ': hand-typed data-correct without a data-key-note explaining why it cannot be computed');
+      return String(q.getAttribute('data-correct'));
+    }
+    fail('question ' + q.dataset.q + ': needs data-key (computed) or data-correct (+ data-key-note)');
+    return null;
+  }
+
+  function initQuestion(q) {
+    var opts = qsa('.option', q);
+    if (!opts.length) return;
+    var isFree = q.hasAttribute('data-free');
+    if (isFree) return;
+
+    opts.forEach(function (o, i) {
+      var k = qs('.option__key', o);
+      if (k) txt(k, LETTERS[i] || String(i + 1));
+      o.setAttribute('data-letter', LETTERS[i] || String(i + 1));
+    });
+
+    /* equal-length options — the one mechanically checkable fairness rule */
+    var lens = opts.map(function (o) { return o.textContent.trim().length; });
+    var lo = Math.min.apply(null, lens), hi = Math.max.apply(null, lens);
+    if (hi - lo > 14 && hi / Math.max(1, lo) > 1.6) {
+      warn('question ' + q.dataset.q + ': option lengths ' + lo + '–' + hi + ' chars — the longest option leaks the answer');
+    }
+
+    var want = correctValueFor(q);
+    if (want === null) { q.classList.add('is-locked'); return; }
+    var matches = opts.filter(function (o) { return String(o.getAttribute('data-value')) === want; });
+    if (matches.length !== 1) {
+      fail('question ' + q.dataset.q + ': key resolves to "' + want + '" which matches ' +
+           matches.length + ' options — exactly one is required');
+      q.classList.add('is-locked');
+      return;
+    }
+    q.__correct = matches[0];
+
+    opts.forEach(function (o) {
+      o.addEventListener('click', function () { answer(q, o); });
+      o.addEventListener('keydown', function (ev) {
+        var i = opts.indexOf(o), n = -1;
+        if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') n = (i + 1) % opts.length;
+        if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') n = (i - 1 + opts.length) % opts.length;
+        if (n >= 0) { ev.preventDefault(); opts[n].focus(); }
+      });
+    });
+  }
+
+  function answer(q, chosen) {
+    if (q.classList.contains('is-locked')) return;
+    q.classList.add('is-locked');
+    var right = q.__correct, isRight = chosen === right;
+    var pretest = q.hasAttribute('data-pretest');
+    var fb = qs('.fb', q);
+
+    if (pretest) {
+      /* R5: delayed feedback for pretests only. Nothing is revealed now. */
+      chosen.classList.add('is-selected');
+      q.__chosen = chosen;
+      pretestProgress();
+      return;
+    }
+
+    chosen.classList.add(isRight ? 'is-correct' : 'is-wrong');
+    if (!isRight) right.classList.add('is-correct');
+
+    if (fb) {
+      fb.className = 'fb ' + (isRight ? 'fb--good' : 'fb--bad');
+      fb.textContent = '';
+      var head = mk('span', 'fb__marks', isRight
+        ? 'Correct — that is the mark.'
+        : 'Not this one. In the paper that is 0 of 1, and here is exactly why.');
+      fb.appendChild(head);
+      var why = chosen.getAttribute('data-why');
+      if (why) fb.appendChild(mk('div', null, why));
+      if (!isRight) {
+        var rw = right.getAttribute('data-why');
+        fb.appendChild(mk('div', null, 'Correct answer: ' + right.getAttribute('data-letter') +
+          '. ' + (rw || '')));
+      }
+      fb.hidden = false;
+    }
+    if (q.hasAttribute('data-model-predict')) unlockModel();
+    report('question-answered', { q: q.dataset.q, correct: isRight });
+  }
+
+  /* ---------- 5. pretest gate + delayed reveal ---------------------------- */
+  var pretestQs = [];
+  function pretestProgress() {
+    var pad = qs('#pt3-pad');
+    var done = pretestQs.every(function (q) {
+      return q.hasAttribute('data-free') ? (pad && pad.value.trim().length >= 4) : !!q.__chosen;
+    });
+    var btn = qs('#pretest-lock');
+    if (btn) btn.disabled = !done;
+  }
+  function openGate(skipped) {
+    document.body.setAttribute('data-gate', 'open');
+    var d = qs('#pretest-done'); if (d) d.hidden = false;
+    report('pretest-locked', { skipped: !!skipped });
+    var b = qs('#big-idea'); if (b) b.scrollIntoView({ block: 'start' });
+  }
+  function revealPretest() {
+    var body = qs('#pretest-answer-body');
+    if (body) body.hidden = false;
+    pretestQs.forEach(function (q) {
+      if (q.hasAttribute('data-free')) return;
+      var right = q.__correct, chosen = q.__chosen;
+      if (right) right.classList.add('is-correct');
+      if (chosen && chosen !== right) chosen.classList.add('is-wrong');
+      var fb = qs('.fb', q);
+      if (fb && chosen) {
+        fb.className = 'fb ' + (chosen === right ? 'fb--good' : 'fb--bad');
+        fb.textContent = '';
+        fb.appendChild(mk('span', 'fb__marks', chosen === right
+          ? 'You had this before the lesson.'
+          : 'You picked ' + chosen.getAttribute('data-letter') + ' before the lesson.'));
+        var w = chosen.getAttribute('data-why');
+        if (w) fb.appendChild(mk('div', null, w));
+        fb.hidden = false;
+      }
+    });
+    /* Score is never displayed and never counted (pedagogy-spec §1.0). */
+    var btn = qs('#reveal-pretest');
+    if (btn) { btn.disabled = true; btn.textContent = 'Pretest answers revealed'; }
+    report('pretest-revealed', {});
+  }
+
+  /* ---------- 6. interactive model: predict → act → explain --------------- */
+  var modelMoves = 0;
+  function unlockModel() {
+    var act = qs('#model-act');
+    if (act) { act.hidden = false; renderModel(); }
+  }
+  function modelVars() {
+    var v = {};
+    qsa('#model-act [data-var]').forEach(function (inp) {
+      v[inp.getAttribute('data-var')] = Number(inp.value);
+    });
+    return v;
+  }
+  function renderModel() {
+    var out = qs('#model-readout');
+    if (!out || !LESSON.model || typeof LESSON.model.compute !== 'function') return;
+    var v = modelVars(), res;
+    try { res = LESSON.model.compute(v, E); }
+    catch (err) { fail('model.compute threw — ' + err.message); paintQC(); return; }
+
+    qsa('#model-act [data-var]').forEach(function (inp) {
+      var name = inp.getAttribute('data-var');
+      var lab = qs('[data-out="' + name + '"]');
+      if (lab) txt(lab, num(Number(inp.value), 4) + ' ' + (inp.getAttribute('data-unit') || ''));
+    });
+
+    out.textContent = '';
+    (res.readouts || []).forEach(function (r) {
+      var box = mk('div', 'ro' + (r.key ? ' ro--key' : ''));
+      box.appendChild(mk('div', 'ro__lab', r.label));
+      var val = mk('div', 'ro__val');
+      val.appendChild(document.createTextNode(num(r.value, r.sig || 3)));
+      if (r.unit) { var u = mk('span', 'unit', r.unit); val.appendChild(u); }
+      box.appendChild(val);
+      out.appendChild(box);
+    });
+
+    var pbox = qs('#model-particles');
+    if (pbox) {
+      pbox.textContent = '';
+      var n = Math.max(0, Math.min(60, Math.round(res.particles || 0)));
+      for (var i = 0; i < n; i++) pbox.appendChild(mk('i', i % 2 ? 'alt' : null));
+    }
+    var vd = qs('#model-verdict');
+    if (vd) txt(vd, res.verdict || '');
+  }
+
+  /* ---------- 7. commit-before-reveal ------------------------------------- */
+  function padValue(name) {
+    var t = qs('[data-pad="' + name + '"]');
+    return t ? t.value.trim() : '';
+  }
+  function wireReveals() {
+    qsa('[data-reveal]').forEach(function (btn) {
+      var targetId = btn.getAttribute('data-reveal');
+      var needs = btn.getAttribute('data-needs');
+      var min = Number(btn.getAttribute('data-min') || 0);
+      function sync() {
+        if (!needs) return;
+        var ok = padValue(needs).length >= min;
+        btn.disabled = !ok;
+        btn.title = ok ? '' : 'Write your attempt first — ' + min + ' characters minimum. Retrieval only works if you commit.';
+      }
+      if (needs) {
+        var pad = qs('[data-pad="' + needs + '"]');
+        if (pad) pad.addEventListener('input', sync);
+        sync();
+      }
+      btn.addEventListener('click', function () {
+        var tgt = document.getElementById(targetId);
+        if (tgt) tgt.hidden = false;
+        btn.disabled = true;
+        report('revealed', { id: targetId, attempted: true, chars: needs ? padValue(needs).length : null });
+      });
+    });
+    qsa('[data-stuck]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var name = btn.getAttribute('data-stuck');
+        var opener = qs('[data-needs="' + name + '"]');
+        var tgt = opener && document.getElementById(opener.getAttribute('data-reveal'));
+        if (tgt) tgt.hidden = false;
+        if (opener) opener.disabled = true;
+        btn.disabled = true;
+        report('revealed', { id: name, attempted: false, stuck: true });
+      });
+    });
+  }
+
+  /* ---------- 8. self-scored marks (marks-language, never praise) --------- */
+  function wireSelfScore() {
+    qsa('[data-score]').forEach(function (group) {
+      var name = group.getAttribute('data-score');
+      var total = Number(group.getAttribute('data-total') || 0);
+      var steps = qsa('.chain li', group.parentNode).length || total;
+      var out = qs('[data-marks="' + name + '"]');
+      for (var i = 0; i <= steps; i++) {
+        (function (n) {
+          var b = mk('button', 'selfscore__b', String(n));
+          b.type = 'button';
+          b.setAttribute('aria-pressed', 'false');
+          b.addEventListener('click', function () {
+            qsa('.selfscore__b', group).forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+            b.setAttribute('aria-pressed', 'true');
+            var earned = steps ? Math.round(total * n / steps) : 0;
+            if (out) {
+              txt(out, n === steps
+                ? earned + ' of ' + total + ' marks. Nothing missing — do this one cold again in three days.'
+                : earned + ' of ' + total + ' marks. The ' + (steps - n) + ' line' + (steps - n === 1 ? '' : 's') +
+                  ' you did not write are the ' + (total - earned) + ' mark' + (total - earned === 1 ? '' : 's') +
+                  ' you are currently losing in the paper.');
+            }
+            report('self-scored', { problem: name, lines: n, of: steps, marks: earned, total: total });
+          });
+          group.appendChild(b);
+        })(i);
+      }
+    });
+  }
+
+  /* ---------- 9. reconstruction spine ------------------------------------- */
+  function wireSpine() {
+    var list = qs('#spine-list');
+    if (!list) return;
+    var boxes = qsa('input[type=checkbox]', list);
+    var out = qs('#spine-out');
+    boxes.forEach(function (b) {
+      b.addEventListener('change', function () {
+        var n = boxes.filter(function (x) { return x.checked; }).length;
+        if (!out) return;
+        txt(out, n === boxes.length
+          ? 'You rebuilt all ' + boxes.length + ' spine items from memory. That is the whole lesson held without the page.'
+          : 'You rebuilt ' + n + ' of ' + boxes.length + ' spine items. Re-read only the ' +
+            (boxes.length - n) + ' you missed — not the whole lesson.');
+        report('reconstruction', { got: n, of: boxes.length });
+      });
+    });
+  }
+
+  /* ---------- 10. confidence (picked, never inferred) --------------------- */
+  function wireConfidence() {
+    qsa('.conf').forEach(function (group) {
+      qsa('.conf__b', group).forEach(function (b) {
+        b.addEventListener('click', function () {
+          qsa('.conf__b', group).forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+          b.setAttribute('aria-pressed', 'true');
+          report('confidence', { value: Number(b.getAttribute('data-conf')) });
+        });
+      });
+    });
+  }
+
+  /* ---------- 11. chrome: text size, close, scroll progress --------------- */
+  function wireChrome() {
+    var ts = qs('#text-size');
+    if (ts) ts.addEventListener('click', function () {
+      var big = document.documentElement.getAttribute('data-text') === 'lg';
+      document.documentElement.setAttribute('data-text', big ? 'md' : 'lg');
+      ts.setAttribute('aria-pressed', big ? 'false' : 'true');
+      ts.setAttribute('aria-label', big ? 'Larger text' : 'Normal text');
+    });
+
+    var close = qs('#close-lesson');
+    if (close) close.addEventListener('click', function () {
+      report('lesson-close', { streakSafe: true });
+      if (window.parent && window.parent !== window) return;
+      if (history.length > 1) history.back();
+    });
+
+    var bar = qs('#progress-bar');
+    if (bar) {
+      var tick = function () {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var p = max > 0 ? Math.min(1, h.scrollTop / max) : 0;
+        bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      };
+      window.addEventListener('scroll', tick, { passive: true });
+      window.addEventListener('resize', tick);
+      tick();
+    }
+  }
+
+  /* ---------- 12. structural QC (the Explorable Contract, mechanised) ----- */
+  var REQUIRED = ['pretest', 'big-idea', 'method', 'model', 'worked', 'rc-1',
+                  'pitfalls', 'rc-2', 'prob-1', 'prob-2', 'prob-3',
+                  'reconstruct', 'pretest-answers', 'citation-next'];
+  function structuralQC() {
+    REQUIRED.forEach(function (id) {
+      if (!document.getElementById(id)) fail('missing required section #' + id);
+    });
+    if (qsa('.rc').length < 2) fail('fewer than 2 embedded retrieval checks');
+    if (qsa('.prob').length < 3) fail('fewer than 3 produced-answer problems');
+    if (qsa('.pit[data-misconception]').length < 1) fail('no misconception-tagged pitfall');
+    var next = qs('#next-lesson');
+    if (!next || !next.getAttribute('href')) fail('no next-lesson link');
+    if (!qs('#citation-next .cite')) fail('no citation block');
+    /* Scope every content scan to OUR subtree. document.body also carries
+       whatever a browser extension injected, and a hex colour such as #1e232c
+       matches the e-notation pattern — scanning outerHTML would show the
+       student errors he did not cause. */
+    var root = qs('main.wrap');
+    if (!root) { fail('missing <main class="wrap">'); return; }
+    if (root.querySelector('[onclick]')) fail('inline onclick found — quiz options must be real focusable buttons');
+    var clone = root.cloneNode(true);
+    qsa('script, style', clone).forEach(function (n) { n.parentNode.removeChild(n); });
+    var text = clone.textContent;   /* markup and comments excluded */
+    if (/\d[eE][+-]?\d/.test(text)) {
+      fail('e-notation found in the lesson text — scientific notation is a × 10ⁿ only');
+    }
+    if (text.indexOf('{' + '{') >= 0) warn('an unfilled placeholder is still in the document');
+    qsa('a[href], img[src], link[href], script[src]', root).forEach(function (n) {
+      var u = n.getAttribute('href') || n.getAttribute('src') || '';
+      if (/^(https?:)?\/\//i.test(u)) fail('external origin referenced: ' + u);
+    });
+  }
+
+  /* ---------- 13. boot ---------------------------------------------------- */
+  function boot() {
+    pretestQs = qsa('#pretest .q');
+    qsa('.q').forEach(initQuestion);
+
+    var pad3 = qs('#pt3-pad');
+    if (pad3) pad3.addEventListener('input', pretestProgress);
+    pretestProgress();
+
+    var lock = qs('#pretest-lock');
+    if (lock) lock.addEventListener('click', function () { openGate(false); });
+    var skip = qs('#pretest-skip');
+    if (skip) skip.addEventListener('click', function () { openGate(true); });
+
+    var mx = qs('#model-explain-btn');
+    if (mx) mx.addEventListener('click', function () {
+      var ex = qs('#model-explain');
+      if (ex) ex.hidden = false;
+      mx.disabled = true;
+      report('model-explained', { moves: modelMoves });
+    });
+    qsa('#model-act [data-var]').forEach(function (inp) {
+      inp.addEventListener('input', function () { modelMoves++; renderModel(); });
+    });
+
+    var rp = qs('#reveal-pretest');
+    if (rp) rp.addEventListener('click', revealPretest);
+
+    wireReveals(); wireSelfScore(); wireSpine(); wireConfidence(); wireChrome();
+    structuralQC(); paintQC();
+
+    window.__LESSON_QC__ = { id: LESSON.id, errors: QC.errors, warnings: QC.warnings,
+                             questions: qsa('.q:not([data-free])').length,
+                             bytes: document.documentElement.outerHTML.length };
+    report('lesson-open', { version: LESSON.version });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>

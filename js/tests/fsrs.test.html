@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engram · FSRS-4.5 golden-vector tests</title>
+<!--
+===============================================================================
+ fsrs.test.html — self-running golden-vector suite for js/fsrs.js + js/scheduler.js
+ Engram v2 · Job A3 · no dependencies, no CDNs, no build step, offline-safe.
+===============================================================================
+
+ HOW TO RUN
+ ----------
+ ES modules cannot be imported from file:// (the browser blocks the request as a
+ cross-origin read). Serve the hub root, then open this page:
+
+     cd study-hub
+     python -m http.server 8000
+     start http://localhost:8000/js/tests/fsrs.test.html
+
+ The page runs on load and prints a green/red table plus a one-line verdict.
+ Exit criterion for CI/hand checks: the verdict bar must read ALL PASS.
+
+ WHERE THE GOLD COMES FROM
+ -------------------------
+ Every expected number below was produced by EXECUTING the scheduler of record:
+
+   engram-engine/scripts/engram.py  (v1.1.1, SCHEMA 1)
+   → constants  engram.py:43-72
+   → FSRS core  engram.py:167-244
+
+ The FSRS core was extracted verbatim (lines 31-72, 92-128, 169-244), executed
+ under CPython 3.12, and its outputs serialised into the GOLD block below. They
+ are not hand-transcribed from a paper and they are not this port's own output —
+ they are engram.py's actual return values. Contract R3 (pedagogy-spec) requires
+ the browser to be a bit-equal provisional mirror of that engine.
+
+ Coverage (28 full apply_rating scenarios + 60 leaf vectors + 60 hub assertions):
+   1-4   new card, each of the four ratings (again/hard/good/easy)
+   5-9   second review 4 days later, each rating, incl. the first lapse
+   10    SAME-DAY review — the spacing effect: r = 1 ⇒ no prediction error ⇒
+         no stability growth. engram.py:5038-5042 pins this; so do we.
+   11-14 mature card (s = 250 d, 207 days elapsed): lapse / good / hard / easy
+   15    RELEARNING: the day after a mature lapse (state 'learning', s = 10.55)
+   16-21 EXAM-RAMP boundary retentions 0.90 · 0.902381 · 0.9166… · 0.95 · 0.97 · 0.70
+   22-24 interval-multiplier clamps (0.5 / 1.5 / out-of-range 9.0 → 1.5)
+   25-28 corruption paths: null difficulty, non-numeric stability, missing
+         `last`, a `last` in the FUTURE (backwards clock ⇒ elapsed floored at 0)
+   +     interval cap at 365 d, stability clamp at 36500 d
+   +     UTC+05:45 midnight edge (audit C1): 2026-07-25T18:45:00Z is
+         2026-07-26 00:30 in Nepal — toISOString() would schedule the WRONG DAY.
+   +     scheduler: exam ramp boundaries, retention gates, leech suspend,
+         new-card cap, lowest-retrievability ordering, time budget, retention
+         metrics excluding the 0-3 d re-encoding window, preview == applied.
+
+===============================================================================
+ AMBIGUITIES IN engram.py's MATH, AND HOW THIS PORT RESOLVED THEM
+===============================================================================
+
+ A1. PYTHON round() IS HALF-TO-EVEN; JS HAS NO EQUIVALENT.
+     engram.py stores round(s, 4) / round(d, 4) and computes
+     int(clamp(round(days), 1, 365)). CPython rounds the EXACT binary value of
+     the double, ties to even (round(2.5) == 2, round(2.675, 2) == 2.67).
+     Math.round is half-up and integer-only; toFixed is half-away-from-zero.
+     RESOLUTION: fsrs.js `pyRound()` reproduces CPython exactly — BigInt exact-
+     value rounding with a half-to-even tie rule, then a correctly-rounded
+     string→double conversion, which is precisely CPython's dtoa→strtod path.
+     Verified here against round(2.5), round(3.5), round(-0.5), round(2.675, 2),
+     round(0.03125, 4) and round(0.09375, 4).
+
+ A2. WHICH DIFFICULTY FEEDS THE STABILITY UPDATE?
+     engram.py:225 passes the OLD difficulty d0 into next_stability_recall /
+     next_stability_forget, while line 224 has already computed the NEW d.
+     Several FSRS reference implementations use the new one.
+     RESOLUTION: mirror engram.py exactly — d0. The `mature-good` vector
+     (250 → 560.5056) only reproduces under d0; it is the discriminating test.
+
+ A3. THE MEAN-REVERSION ANCHOR IS D0(3), NOT D0(4).
+     engram.py:193-195 reverts difficulty toward init_difficulty(3) — the
+     FSRS-4.5 rule. FSRS-5 reverts toward D0(4), which would inflate stability
+     growth ~20% under this weight vector. engram.py pins it with a selftest
+     (engram.py:4752-4756). RESOLUTION: D0(3); asserted below as a fixed point.
+
+ A4. IS THERE INTERVAL FUZZ?
+     No. `random` is imported in engram.py only for SEEDED experiment
+     assignment; nothing in the scheduler path draws from it, and there is no
+     fuzz/jitter term anywhere. RESOLUTION: fully deterministic port. Two
+     devices with the same card produce the same interval, forever.
+
+ A5. LEARNING / RELEARNING STEPS.
+     engram.py has NO sub-day learning steps and no separate relearning queue.
+     'again' simply rewrites stability through next_stability_forget, and the
+     interval falls out of interval_for, which floors at 1 day. NODE_STATES are
+     new | learning | review, and the transition (engram.py:1240-1245) is:
+     again → learning; first-exposure + hard → learning; otherwise → review.
+     RESOLUTION: ported verbatim. This is also why build-constraints §9.9 bans
+     "<10m" grade-button labels — the scheduler cannot deliver them.
+
+ A6. TIME GRANULARITY.
+     engram.py schedules on datetime.date, never timestamps; elapsed time is a
+     whole number of days, floored at 0. RESOLUTION: the hub speaks 'YYYY-MM-DD'
+     LOCAL civil dates end to end, computed from getFullYear/getMonth/getDate
+     (build-constraints §9.1 — Nepal is UTC+05:45 and toISOString would be off
+     by one day for every review before 06:15 local).
+
+ A7. LEECHES ARE NOT AN engram.py CONCEPT.
+     engram.py has no leech / suspend logic at all (the audit's "leech handling"
+     claim refers to the surrounding workflow, not to code in the engine).
+     RESOLUTION: leech policy lives in scheduler.js, per pedagogy-spec §1.6 +
+     R12 — lapses >= 6 → suspended: true → surfaced for a Hermes rewrite. It
+     never touches the FSRS numbers, so replay into engram.py is unaffected.
+
+ A8. desired_retention AND interval_multiplier ARE LEARNER-MODEL FIELDS.
+     engram.py:1197-1198 copies them onto fsrs just before apply_rating and pops
+     them straight after (engram.py:1236-1237) — they are inputs, not card state.
+     RESOLUTION: they are OPTIONS to applyRating(), never stored on the card.
+     The exam ramp therefore changes only future intervals, never history.
+
+ A9. REPLAY RE-DATES REVIEWS.
+     engram.py's make_receipt stamps `ts` with its OWN today() and offers no way
+     to supply the client's date, so a batch replayed late lands on the replay
+     day. RESOLUTION: every review-log line carries `ts_client` (the true study
+     date) plus a deterministic `sid`, which makes replay idempotent via
+     engram.py's transaction guard (engram.py:1150-1170). Sync daily, not monthly.
+-->
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#0A0D12; --surface:#11151B; --surface-muted:#181C22; --surface-hover:#1E232C;
+    --fg:#F0F2F4; --fg-muted:#87909C;
+    --border:rgb(255 255 255/.08); --border-strong:rgb(255 255 255/.12);
+    --brand:#FF8A3D; --good:#10B981; --bad:#EF4444; --warn:#F59E0B; --info:#60A5FA;
+    --font-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --r-md:6px; --r-xl:12px;
+    --lip: inset 0 1px 0 rgb(255 255 255/.04);
+  }
+  *{box-sizing:border-box;border-color:var(--border)}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);
+       font-size:13px;line-height:1.6;padding:16px;
+       padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+  h1{font-size:20px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px}
+  .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-muted);
+           display:flex;align-items:center;gap:6px;margin-bottom:10px}
+  .eyebrow::before{content:"";width:4px;height:4px;border-radius:999px;background:var(--brand)}
+  #verdict{margin:16px 0;padding:14px 16px;border-radius:var(--r-xl);border:1px solid var(--border-strong);
+           box-shadow:var(--lip);font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+  #verdict.pass{background:rgb(16 185 129/.10);color:var(--good);border-color:rgb(16 185 129/.30)}
+  #verdict.fail{background:rgb(239 68 68/.10);color:var(--bad);border-color:rgb(239 68 68/.30)}
+  #verdict.err {background:rgb(245 158 11/.10);color:var(--warn);border-color:rgb(245 158 11/.30)}
+  .kpis{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+       padding:10px 14px;box-shadow:var(--lip);min-width:92px}
+  .kpi b{display:block;font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .kpi span{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-muted)}
+  section{margin:24px 0}
+  h2{font-size:14px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+  h2 small{font-weight:400;color:var(--fg-muted);font-size:11px;margin-left:8px;letter-spacing:0}
+  .scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--lip)}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:12px}
+  thead th{background:var(--surface-muted);text-align:left;padding:8px 10px;font-weight:600;
+           font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--fg-muted);
+           position:sticky;top:0}
+  td{padding:7px 10px;border-top:1px solid var(--border);vertical-align:top}
+  tr:hover td{background:var(--surface-hover)}
+  td.mono,th.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:11px}
+  .st{font-weight:600;white-space:nowrap}
+  .ok .st{color:var(--good)} .no .st{color:var(--bad)}
+  .no td{background:rgb(239 68 68/.07)}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:999px;margin-right:6px;vertical-align:1px}
+  .ok .dot{background:var(--good);box-shadow:0 0 6px rgb(16 185 129/.8)}
+  .no .dot{background:var(--bad);box-shadow:0 0 6px rgb(239 68 68/.8)}
+  .note{color:var(--fg-muted);font-size:11px;margin:6px 2px 0}
+  code{font-family:var(--font-mono);font-size:11px;background:var(--surface-muted);
+       padding:1px 4px;border-radius:4px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="eyebrow">Engram v2 · Job A3</div>
+<h1>FSRS-4.5 golden vectors <small style="font-weight:400;color:var(--fg-muted);font-size:13px">js/fsrs.js + js/scheduler.js vs engram.py v1.1.1</small></h1>
+<p class="note">Expected values are engram.py's own return values (CPython 3.12), not this port's.
+Must be served over http:// — ES modules are blocked on file://.</p>
+
+<div id="verdict" class="err">running…</div>
+<div class="kpis" id="kpis"></div>
+<div id="out"></div>
+
+<script type="application/json" id="gold">
+{"W":[0.4872,1.4003,3.7145,13.8206,5.1618,1.2298,0.8975,0.031,1.6474,0.1367,1.0461,2.1072,0.0793,0.3246,1.587,0.2272,2.8755],"DECAY":-0.5,"cases":[{"name":"new-again","in":{"s":null,"d":null,"due":null,"last":null,"reps":0,"lapses":0},"rating":"again","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":0.4872,"d":7.6214,"due":"2026-07-27","last":"2026-07-26","reps":1,"lapses":0},"extra":{"s_before":null,"s_after":0.4872,"interval_days":1,"retrievability":null}},{"name":"new-hard","in":{"s":null,"d":null,"due":null,"last":null,"reps":0,"lapses":0},"rating":"hard","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":1.4003,"d":6.3916,"due":"2026-07-27","last":"2026-07-26","reps":1,"lapses":0},"extra":{"s_before":null,"s_after":1.4003,"interval_days":1,"retrievability":null}},{"name":"new-good","in":{"s":null,"d":null,"due":null,"last":null,"reps":0,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"extra":{"s_before":null,"s_after":3.7145,"interval_days":4,"retrievability":null}},{"name":"new-easy","in":{"s":null,"d":null,"due":null,"last":null,"reps":0,"lapses":0},"rating":"easy","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":13.8206,"d":3.932,"due":"2026-08-09","last":"2026-07-26","reps":1,"lapses":0},"extra":{"s_before":null,"s_after":13.8206,"interval_days":14,"retrievability":null}},{"name":"new-good(anchor)","in":{"s":null,"d":null,"due":null,"last":null,"reps":0,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"extra":{"s_before":null,"s_after":3.7145,"interval_days":4,"retrievability":null}},{"name":"2nd-good-after-4d","in":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"rating":"good","on":"2026-07-30","retention":0.9,"im":1.0,"out":{"s":14.8081,"d":5.1618,"due":"2026-08-14","last":"2026-07-30","reps":2,"lapses":0},"extra":{"s_before":3.7145,"s_after":14.8081,"interval_days":15,"retrievability":0.8935}},{"name":"2nd-hard-after-4d","in":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"rating":"hard","on":"2026-07-30","retention":0.9,"im":1.0,"out":{"s":6.235,"d":6.0315,"due":"2026-08-05","last":"2026-07-30","reps":2,"lapses":0},"extra":{"s_before":3.7145,"s_after":6.235,"interval_days":6,"retrievability":0.8935}},{"name":"2nd-easy-after-4d","in":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"rating":"easy","on":"2026-07-30","retention":0.9,"im":1.0,"out":{"s":35.6141,"d":4.2921,"due":"2026-09-04","last":"2026-07-30","reps":2,"lapses":0},"extra":{"s_before":3.7145,"s_after":35.6141,"interval_days":36,"retrievability":0.8935}},{"name":"2nd-again-after-4d(lapse)","in":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"rating":"again","on":"2026-07-30","retention":0.9,"im":1.0,"out":{"s":1.4332,"d":6.9012,"due":"2026-07-31","last":"2026-07-30","reps":2,"lapses":1},"extra":{"s_before":3.7145,"s_after":1.4332,"interval_days":1,"retrievability":0.8935}},{"name":"same-day-good","in":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":1,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":3.7145,"d":5.1618,"due":"2026-07-30","last":"2026-07-26","reps":2,"lapses":0},"extra":{"s_before":3.7145,"s_after":3.7145,"interval_days":4,"retrievability":1.0}},{"name":"mature-lapse","in":{"s":250.0,"d":5.5,"due":"2026-08-01","last":"2026-01-01","reps":9,"lapses":1},"rating":"again","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":10.5484,"d":7.2289,"due":"2026-08-06","last":"2026-07-26","reps":10,"lapses":2},"extra":{"s_before":250.0,"s_after":10.5484,"interval_days":11,"retrievability":0.9154}},{"name":"mature-good","in":{"s":250.0,"d":5.5,"due":"2026-08-01","last":"2026-01-01","reps":9,"lapses":1},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":560.5056,"d":5.4895,"due":"2027-07-26","last":"2026-07-26","reps":10,"lapses":1},"extra":{"s_before":250.0,"s_after":560.5056,"interval_days":365,"retrievability":0.9154}},{"name":"mature-hard","in":{"s":250.0,"d":5.5,"due":"2026-08-01","last":"2026-01-01","reps":9,"lapses":1},"rating":"hard","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":320.5469,"d":6.3592,"due":"2027-06-12","last":"2026-07-26","reps":10,"lapses":1},"extra":{"s_before":250.0,"s_after":320.5469,"interval_days":321,"retrievability":0.9154}},{"name":"mature-easy","in":{"s":250.0,"d":5.5,"due":"2026-08-01","last":"2026-01-01","reps":9,"lapses":1},"rating":"easy","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":1142.8589,"d":4.6198,"due":"2027-07-26","last":"2026-07-26","reps":10,"lapses":1},"extra":{"s_before":250.0,"s_after":1142.8589,"interval_days":365,"retrievability":0.9154}},{"name":"mature-lapse(anchor)","in":{"s":250.0,"d":5.5,"due":"2026-08-01","last":"2026-01-01","reps":9,"lapses":1},"rating":"again","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":10.5484,"d":7.2289,"due":"2026-08-06","last":"2026-07-26","reps":10,"lapses":2},"extra":{"s_before":250.0,"s_after":10.5484,"interval_days":11,"retrievability":0.9154}},{"name":"relearn-good-next-day","in":{"s":10.5484,"d":7.2289,"due":"2026-08-06","last":"2026-07-26","reps":10,"lapses":2},"rating":"good","on":"2026-07-27","retention":0.9,"im":1.0,"out":{"s":12.271,"d":7.1648,"due":"2026-08-08","last":"2026-07-27","reps":11,"lapses":2},"extra":{"s_before":10.5484,"s_after":12.271,"interval_days":12,"retrievability":0.9891}},{"name":"ramp-good-R0.900000","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2026-10-28","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":94,"retrievability":0.9339}},{"name":"ramp-good-R0.902381","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.902381,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2026-10-25","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":91,"retrievability":0.9339}},{"name":"ramp-good-R0.916667","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9166666666666666,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2026-10-10","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":76,"retrievability":0.9339}},{"name":"ramp-good-R0.950000","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.95,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2026-09-07","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":43,"retrievability":0.9339}},{"name":"ramp-good-R0.970000","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.97,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2026-08-20","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":25,"retrievability":0.9339}},{"name":"ramp-good-R0.700000","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.7,"im":1.0,"out":{"s":93.9075,"d":5.005,"due":"2027-07-26","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":365,"retrievability":0.9339}},{"name":"im-0.5","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":0.5,"out":{"s":93.9075,"d":5.005,"due":"2026-09-11","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":47,"retrievability":0.9339}},{"name":"im-1.5","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.5,"out":{"s":93.9075,"d":5.005,"due":"2026-12-14","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":141,"retrievability":0.9339}},{"name":"im-out-of-range-9","in":{"s":40.0,"d":5.0,"due":"2026-08-01","last":"2026-07-01","reps":5,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":9.0,"out":{"s":93.9075,"d":5.005,"due":"2026-12-14","last":"2026-07-26","reps":6,"lapses":0},"extra":{"s_before":40.0,"s_after":93.9075,"interval_days":141,"retrievability":0.9339}},{"name":"corrupt-d-null","in":{"s":10.0,"d":null,"last":"2026-07-16","reps":3,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":34.4075,"d":5.1618,"last":"2026-07-26","reps":4,"lapses":0,"due":"2026-08-29"},"extra":{"s_before":10.0,"s_after":34.4075,"interval_days":34,"retrievability":0.9}},{"name":"corrupt-s-string","in":{"s":"NaN","d":5.0,"last":"2026-07-16","reps":"many","lapses":null},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":3.7145,"d":5.1618,"last":"2026-07-26","reps":1,"lapses":0,"due":"2026-07-30"},"extra":{"s_before":null,"s_after":3.7145,"interval_days":4,"retrievability":null}},{"name":"no-last-date","in":{"s":10.0,"d":5.0,"last":null,"reps":1,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":10.0,"d":5.005,"last":"2026-07-26","reps":2,"lapses":0,"due":"2026-08-05"},"extra":{"s_before":10.0,"s_after":10.0,"interval_days":10,"retrievability":1.0}},{"name":"future-last(negative-elapsed)","in":{"s":10.0,"d":5.0,"last":"2026-08-10","reps":1,"lapses":0},"rating":"good","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":10.0,"d":5.005,"last":"2026-07-26","reps":2,"lapses":0,"due":"2026-08-05"},"extra":{"s_before":10.0,"s_after":10.0,"interval_days":10,"retrievability":1.0}},{"name":"interval-cap-365","in":{"s":5000.0,"d":3.0,"last":"2020-01-01","reps":30,"lapses":0},"rating":"easy","on":"2026-07-26","retention":0.9,"im":1.0,"out":{"s":15404.8963,"d":2.1973,"last":"2026-07-26","reps":31,"lapses":0,"due":"2027-07-26"},"extra":{"s_before":5000.0,"s_after":15404.8963,"interval_days":365,"retrievability":0.9481}}],"leaves":{"retrievability":[[0,10.0,1.0],[10,10.0,0.9],[1,3.7145,0.9698462273634281],[4,3.7145,0.8934995006528037],[30,250.0,0.9862162432175648],[207,250.0,0.9150765493551642],[5,0.4872,0.5417443965896315],[100,1.0,0.20220890233055122],[0,0.0,0.0],[7,-1.0,0.0]],"interval_for":[[0.4872,0.9,1.0,1],[1.4003,0.9,1.0,1],[3.7145,0.9,1.0,4],[13.8206,0.9,1.0,14],[40.0,0.95,1.0,18],[40.0,0.9,1.0,40],[40.0,0.97,1.0,11],[40.0,0.7,1.0,177],[40.0,0.99,1.0,11],[40.0,0.5,1.0,177],[0.1,0.9,1.0,1],[5000.0,0.9,1.0,365],[2.5,0.9,1.0,2],[1.5,0.9,1.0,1],[0.5,0.9,1.0,1],[40.0,0.9,0.5,20],[40.0,0.9,1.5,60],[40.0,0.9,9.0,60]],"init_stability":[[1,0.4872],[2,1.4003],[3,3.7145],[4,13.8206]],"init_difficulty":[[1,7.6214],[2,6.3916],[3,5.1618],[4,3.9320000000000004]],"next_difficulty":[[1.0,1,2.8683708],[1.0,2,1.9986933],[1.0,3,1.1290158],[1.0,4,1.0],[5.0,1,6.7443707999999996],[5.0,2,5.8746933],[5.0,3,5.0050158],[5.0,4,4.1353383],[5.1618,1,6.901155],[5.1618,2,6.0314775],[5.1618,3,5.1618],[5.1618,4,4.2921225000000005],[10.0,1,10.0],[10.0,2,10.0],[10.0,3,9.8500158],[10.0,4,8.9803383]],"next_stability_recall":[[5.0,10.0,0.9,2,15.69906077821316],[5.0,10.0,0.9,3,35.08389427030441],[5.0,10.0,0.9,4,82.12873797426035],[5.0,10.0,1.0,2,10.0],[5.0,10.0,1.0,3,10.0],[5.0,10.0,1.0,4,10.0],[2.0,250.0,0.5,2,1107.6510568946917],[2.0,250.0,0.5,3,4024.872609571706],[2.0,250.0,0.5,4,11104.64618882344],[9.0,3.7145,0.8637,2,4.837264089209972],[9.0,3.7145,0.8637,3,8.656243350396005],[9.0,3.7145,0.8637,4,17.924483004063713]],"next_stability_forget":[[5.0,10.0,0.9,2.5603830063191944],[5.5,250.0,0.4353,22.600070300764163],[2.0,0.5,0.99,0.2850502050321554],[1.0,100.0,0.1,30.529399993925008]]}}</script>
+
+<script type="module">
+/* ---------------------------------------------------------------------------
+   Runner. Zero dependencies. Everything below is plain DOM + the two modules
+   under test. No network, no fonts, no framework — this page works offline and
+   inside the service-worker cache like every other file in the hub.
+--------------------------------------------------------------------------- */
+const GOLD = JSON.parse(document.getElementById('gold').textContent);
+const groups = [];   // [{title, note, rows:[{name, got, want, ok, detail}]}]
+let cur = null;
+let nPass = 0, nFail = 0;
+
+function group(title, note) { cur = { title, note, rows: [] }; groups.push(cur); }
+function push(name, got, want, ok, detail) {
+  cur.rows.push({ name, got, want, ok, detail: detail || '' });
+  if (ok) nPass += 1; else nFail += 1;
+}
+const show = (v) => (v === undefined ? 'undefined'
+  : (typeof v === 'string' ? v : JSON.stringify(v)));
+
+/** Bit-equal assertion (Object.is, so -0 and NaN behave). */
+function is(name, got, want, detail) {
+  push(name, show(got), show(want), Object.is(got, want) || got === want, detail);
+}
+/** Tolerance assertion — used ONLY where a value is derived, never for engine output. */
+function near(name, got, want, tol, detail) {
+  const ok = typeof got === 'number' && Number.isFinite(got) && Math.abs(got - want) <= tol;
+  push(name, show(got), `${show(want)} ±${tol}`, ok, detail);
+}
+function ok(name, cond, detail) { push(name, cond ? 'true' : 'false', 'true', !!cond, detail); }
+
+function render(fatal) {
+  const out = document.getElementById('out');
+  const verdict = document.getElementById('verdict');
+  const kpis = document.getElementById('kpis');
+  if (fatal) {
+    verdict.className = 'err';
+    verdict.textContent = 'COULD NOT RUN — ' + fatal;
+    out.innerHTML = '<p class="note">If this says the module failed to load, you are almost '
+      + 'certainly opening the file directly. Serve the hub: '
+      + '<code>cd study-hub &amp;&amp; python -m http.server 8000</code> then open '
+      + '<code>http://localhost:8000/js/tests/fsrs.test.html</code>.</p>';
+    return;
+  }
+  kpis.innerHTML = [
+    ['assertions', nPass + nFail], ['passed', nPass], ['failed', nFail],
+    ['scenarios', GOLD.cases.length],
+  ].map(([k, v]) => `<div class="kpi"><b style="color:${k === 'failed' && v ? 'var(--bad)' : k === 'passed' ? 'var(--good)' : 'var(--fg)'}">${v}</b><span>${k}</span></div>`).join('');
+  verdict.className = nFail ? 'fail' : 'pass';
+  verdict.textContent = nFail
+    ? `${nFail} FAILED · ${nPass} passed — the browser is NOT a mirror of engram.py`
+    : `ALL PASS · ${nPass} assertions · bit-equal to engram.py v1.1.1`;
+
+  out.innerHTML = groups.map((g) => {
+    const bad = g.rows.filter((r) => !r.ok).length;
+    const rows = g.rows.map((r) => `<tr class="${r.ok ? 'ok' : 'no'}">
+      <td class="st"><span class="dot"></span>${r.ok ? 'PASS' : 'FAIL'}</td>
+      <td>${esc(r.name)}${r.detail ? `<div class="note">${esc(r.detail)}</div>` : ''}</td>
+      <td class="mono">${esc(r.got)}</td>
+      <td class="mono">${esc(r.want)}</td></tr>`).join('');
+    return `<section><h2>${esc(g.title)}<small>${g.rows.length} assertions${bad ? ` · ${bad} failed` : ''}</small></h2>
+      ${g.note ? `<p class="note">${esc(g.note)}</p>` : ''}
+      <div class="scroll"><table><thead><tr>
+        <th style="width:70px">result</th><th>assertion</th>
+        <th class="mono" style="width:200px">got</th><th class="mono" style="width:200px">expected (engram.py)</th>
+      </tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  }).join('');
+}
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+/* ------------------------------------------------------------------------ */
+
+let F, S;
+try {
+  F = await import('../fsrs.js');
+  S = await import('../scheduler.js');
+} catch (e) {
+  render('module import failed: ' + (e && e.message ? e.message : e));
+  throw e;
+}
+
+/* == 1. constants ======================================================== */
+group('Parameter vector + constants', 'engram.py:43-48. A single drifted weight silently rewrites every interval the student will ever see.');
+GOLD.W.forEach((w, i) => is(`W[${i}]`, F.W[i], w));
+is('DECAY', F.DECAY, GOLD.DECAY);
+is('FACTOR === 19/81', F.FACTOR, 19 / 81);
+is('R(t = S) === 0.9 exactly', F.retrievabilityRaw(10, 10), 0.9, 'engram.py:4579 — the property FACTOR was chosen for');
+is('RETENTION_DEFAULT', F.RETENTION_DEFAULT, 0.90);
+is('INTERVAL_MAX', F.INTERVAL_MAX, 365);
+is('RETENTION_MIN/MAX', `${F.RETENTION_MIN}/${F.RETENTION_MAX}`, '0.7/0.97');
+is('MULTIPLIER_MIN/MAX', `${F.MULTIPLIER_MIN}/${F.MULTIPLIER_MAX}`, '0.5/1.5');
+
+/* == 2. Python-compatible rounding ====================================== */
+group('pyRound() === CPython round()', 'Ambiguity A1. Half-to-EVEN on the exact binary value. Math.round and toFixed both get these wrong.');
+is('round(0.5) → 0', F.pyRound(0.5), 0);
+is('round(1.5) → 2', F.pyRound(1.5), 2);
+is('round(2.5) → 2  (NOT 3 — Math.round would say 3)', F.pyRound(2.5), 2);
+is('round(3.5) → 4', F.pyRound(3.5), 4);
+is('round(-2.5) → -2', F.pyRound(-2.5), -2);
+is('round(2.675, 2) → 2.67  (the double is really 2.674999…)', F.pyRound(2.675, 2), 2.67);
+is('round(2.675, 3) → 2.675', F.pyRound(2.675, 3), 2.675);
+is('round(0.03125, 4) → 0.0312  (exact tie → even)', F.pyRound(0.03125, 4), 0.0312);
+is('round(0.09375, 4) → 0.0938  (exact tie → even)', F.pyRound(0.09375, 4), 0.0938);
+is('round(1.0000000000000002, 4) → 1.0', F.pyRound(1.0000000000000002, 4), 1.0);
+
+/* == 3. leaf functions ================================================== */
+group('FSRS leaf functions — bit-equal', 'engram.py:172-207. Expected values are CPython return values; the assertion is exact equality, not a tolerance.');
+for (const [g, want] of GOLD.leaves.init_stability) is(`init_stability(${g})`, F.initStability(g), want);
+for (const [g, want] of GOLD.leaves.init_difficulty) is(`init_difficulty(${g})`, F.initDifficulty(g), want);
+for (const [e, s, want] of GOLD.leaves.retrievability) is(`retrievability(elapsed=${e}, S=${s})`, F.retrievabilityRaw(e, s), want);
+for (const [s, r, m, want] of GOLD.leaves.interval_for) is(`interval_for(S=${s}, R=${r}, im=${m})`, F.intervalForStability(s, r, m), want);
+for (const [d, g, want] of GOLD.leaves.next_difficulty) is(`next_difficulty(D=${d}, g=${g})`, F.nextDifficulty(d, g), want);
+for (const [d, s, r, g, want] of GOLD.leaves.next_stability_recall) is(`next_stability_recall(D=${d}, S=${s}, R=${r}, g=${g})`, F.nextStabilityRecall(d, s, r, g), want);
+for (const [d, s, r, want] of GOLD.leaves.next_stability_forget) is(`next_stability_forget(D=${d}, S=${s}, R=${r})`, F.nextStabilityForget(d, s, r), want);
+
+group('FSRS invariants engram.py pins with its own selftest', 'engram.py:4579-4597 and 4752-4756. These are the properties a wrong port breaks first.');
+{
+  const d = 5.0, s = 10.0, r = 0.9;
+  const h = F.nextStabilityRecall(d, s, r, 2), gd = F.nextStabilityRecall(d, s, r, 3), ez = F.nextStabilityRecall(d, s, r, 4);
+  ok('stability growth ordered hard < good < easy', h < gd && gd < ez);
+  ok('every recall rating grows stability', s < h);
+  ok('a lapse shrinks stability', F.nextStabilityForget(d, s, r) < s);
+  ok('a lapse is capped at the prior S', F.nextStabilityForget(2.0, 0.5, 0.99) <= 0.5);
+  ok('again raises difficulty', F.nextDifficulty(5.0, 1) > 5.0);
+  ok('easy lowers difficulty', F.nextDifficulty(5.0, 4) < 5.0);
+  ok('difficulty clamps to [1, 10]', F.nextDifficulty(10.0, 1) <= 10.0 && F.nextDifficulty(1.0, 4) >= 1.0);
+  ok('R is monotonically decreasing in elapsed', F.retrievabilityRaw(20, 10) < F.retrievabilityRaw(5, 10));
+  ok('a harder card grows stability less', F.nextStabilityRecall(9.0, s, r, 3) < F.nextStabilityRecall(2.0, s, r, 3));
+  near('difficulty mean-reverts to D0(3) — FSRS-4.5 anchor (A3)', F.nextDifficulty(F.initDifficulty(3), 3), F.initDifficulty(3), 0.001);
+  ok('the anchor is NOT D0(4) (that is the FSRS-5 rule)', Math.abs(F.nextDifficulty(F.initDifficulty(4), 3) - F.initDifficulty(4)) > 0.001);
+  near('a same-day review buys NO stability (r=1 ⇒ zero prediction error)', F.nextStabilityRecall(5.0, 10.0, 1.0, 3), 10.0, 0.001, 'engram.py:5038-5042 — the spacing effect, asserted');
+}
+
+/* == 4. full transition scenarios ======================================= */
+group(`applyRating() — ${GOLD.cases.length} full scenarios`, 'engram.py:209-244 + the state transition at engram.py:1240-1245. Every field of the resulting card is checked, not just the interval.');
+for (const c of GOLD.cases) {
+  const card = {
+    ...F.initCard('t'),
+    stability: c.in.s, difficulty: c.in.d,
+    due: c.in.due === undefined ? null : c.in.due,
+    last: c.in.last === undefined ? null : c.in.last,
+    reps: c.in.reps, lapses: c.in.lapses,
+  };
+  const o = F.applyRating(card, c.rating, c.on, {
+    desiredRetention: c.retention, intervalMultiplier: c.im,
+  });
+  const tag = `[${c.name}] ${c.rating} on ${c.on} @R=${c.retention}`;
+  is(`${tag} · stability`, o.stability, c.out.s);
+  is(`${tag} · difficulty`, o.difficulty, c.out.d);
+  is(`${tag} · due`, o.due, c.out.due);
+  is(`${tag} · last`, o.last, c.out.last);
+  is(`${tag} · reps`, o.reps, c.out.reps);
+  is(`${tag} · lapses`, o.lapses, c.out.lapses);
+  is(`${tag} · interval_days`, o.review.interval_days, c.extra.interval_days);
+  is(`${tag} · retrievability`, o.review.retrievability, c.extra.retrievability);
+  is(`${tag} · s_before`, o.review.s_before, c.extra.s_before);
+}
+
+group('State machine', 'engram.py:1240-1245. Ambiguity A5 — there is no relearning-step queue; "relearning" is the learning state at a short interval.');
+{
+  const fresh = F.initCard('x');
+  is('new + again → learning', F.applyRating(fresh, 'again', '2026-07-26').state, 'learning');
+  is('new + hard → learning', F.applyRating(fresh, 'hard', '2026-07-26').state, 'learning');
+  is('new + good → review', F.applyRating(fresh, 'good', '2026-07-26').state, 'review');
+  is('new + easy → review', F.applyRating(fresh, 'easy', '2026-07-26').state, 'review');
+  const mature = { ...fresh, stability: 250, difficulty: 5.5, last: '2026-01-01', due: '2026-08-01', reps: 9, lapses: 1, state: 'review' };
+  is('review + again → learning (lapse)', F.applyRating(mature, 'again', '2026-07-26').state, 'learning');
+  is('review + hard → review (NOT learning — only first exposure demotes)', F.applyRating(mature, 'hard', '2026-07-26').state, 'review');
+  const lapsed = F.applyRating(mature, 'again', '2026-07-26');
+  is('relearning: good the next day → review', F.applyRating(lapsed, 'good', '2026-07-27').state, 'review');
+  is('first exposure does NOT count as a lapse', F.applyRating(fresh, 'again', '2026-07-26').lapses, 0);
+  is('a lapse on a seen card counts', lapsed.lapses, 2);
+  is('reps always advance', F.applyRating(fresh, 'again', '2026-07-26').reps, 1);
+  is('introducedOn stamped once (day 0 for retention)', F.applyRating(lapsed, 'good', '2026-07-27').introducedOn, lapsed.introducedOn);
+  is('rating accepts the numeric form', F.applyRating(fresh, 3, '2026-07-26').stability, F.applyRating(fresh, 'good', '2026-07-26').stability);
+  let threw = false; try { F.applyRating(fresh, 'ok', '2026-07-26'); } catch { threw = true; }
+  ok('a bad rating throws instead of silently defaulting', threw, 'an invented rating would ride an append-only log forever');
+  const snapshot = JSON.stringify(fresh);
+  F.applyRating(fresh, 'easy', '2026-07-26');
+  is('applyRating is PURE (input untouched)', JSON.stringify(fresh), snapshot);
+}
+
+/* == 5. dates ========================================================== */
+group('Local civil dates — UTC+05:45 (audit C1 / build-constraints §9.1)', 'Nepal Standard Time is +05:45. Any review graded before 06:15 local would be filed on the PREVIOUS day by toISOString().');
+{
+  is('dayNumber(1970-01-01)', F.dayNumber(1970, 1, 1), 0);
+  is('dayNumber round-trips', F.formatLocalDate(F.fromDayNumber(F.dayNumber(2026, 7, 26))), '2026-07-26');
+  is('addDays across a month end', F.addDays('2026-07-31', 1), '2026-08-01');
+  is('addDays across a year end', F.addDays('2026-12-31', 1), '2027-01-01');
+  is('addDays into a leap day', F.addDays('2028-02-28', 1), '2028-02-29');
+  is('addDays skips a non-leap Feb 29', F.addDays('2027-02-28', 1), '2027-03-01');
+  is('daysBetween one year', F.daysBetween('2026-01-01', '2027-01-01'), 365);
+  is('daysBetween a leap year', F.daysBetween('2028-01-01', '2029-01-01'), 366);
+  is('daysBetween is signed', F.daysBetween('2026-07-26', '2026-07-20'), -6);
+  is('an impossible date is rejected', F.parseLocalDate('2026-02-31'), null);
+  is('a garbled date is rejected', F.parseLocalDate('26-7-2026'), null);
+  is('a null date is tolerated (returns null, never throws)', F.daysBetween(null, '2026-07-26'), null);
+
+  // THE MIDNIGHT EDGE. 2026-07-25T18:45:00Z is 2026-07-26 00:30 in Kathmandu.
+  const instant = Date.UTC(2026, 6, 25, 18, 45, 0);
+  is('Nepal civil date at 00:30 NPT', F.ymdAtOffset(instant, F.NEPAL_UTC_OFFSET_MIN), '2026-07-26',
+    'ymdAtOffset() — timezone-independent, so this assertion holds on any device');
+  is('toISOString() would have said', new Date(instant).toISOString().slice(0, 10), '2026-07-25',
+    'the bug audit C1 documents: a whole day of reviews filed on the wrong date');
+  ok('…so the two genuinely differ at the Nepal midnight edge',
+    F.ymdAtOffset(instant, F.NEPAL_UTC_OFFSET_MIN) !== new Date(instant).toISOString().slice(0, 10));
+  is('23:59 NPT is still the same Nepal day', F.ymdAtOffset(Date.UTC(2026, 6, 26, 18, 14, 0), 345), '2026-07-26');
+  is('00:00 NPT rolls over exactly at 18:15 UTC', F.ymdAtOffset(Date.UTC(2026, 6, 26, 18, 15, 0), 345), '2026-07-27');
+  is('todayLocal() reads local Y/M/D, never UTC',
+    F.todayLocal(new Date(2026, 6, 26, 0, 30, 0)), '2026-07-26',
+    'constructed with LOCAL components, so this is true in every timezone');
+  ok('fsrs.js scheduling never depends on toISOString', typeof F.todayLocal === 'function');
+
+  // A review graded at 00:30 NPT must schedule from the 26th, not the 25th.
+  const c0 = F.initCard('mid');
+  const rated = F.applyRating(c0, 'good', F.ymdAtOffset(instant, 345));
+  is('a 00:30 NPT review schedules from the 26th', rated.due, '2026-07-30');
+}
+
+/* == 6. scheduler: exam ramp =========================================== */
+group('Exam ramp — desiredRetention 0.90 → 0.95 over the final 21 days', 'pedagogy-spec §1.6. Per subject, linear, then RESET after the paper.');
+{
+  is('no exam scheduled → 0.90', S.examRamp(null, '2026-07-26'), 0.90);
+  is('22 days out → 0.90 (ramp has not started)', S.examRamp('2026-08-17', '2026-07-26'), 0.90);
+  is('21 days out → 0.90 (ramp boundary, inclusive)', S.examRamp('2026-08-16', '2026-07-26'), 0.90);
+  is('20 days out → 0.902381', S.examRamp('2026-08-15', '2026-07-26'), 0.902381);
+  near('10.5 days out → 0.925 (the midpoint)', S.examRamp('2026-08-05', '2026-07-26'), 0.90 + 0.05 * (11 / 21), 1e-6);
+  is('1 day out → 0.947619', S.examRamp('2026-07-27', '2026-07-26'), 0.947619);
+  is('paper day → 0.95', S.examRamp('2026-07-26', '2026-07-26'), 0.95);
+  is('the day after → 0.90 (RESET)', S.examRamp('2026-07-25', '2026-07-26'), 0.90);
+  is('a year later → 0.90', S.examRamp('2027-05-20', '2026-07-26'), 0.90);
+
+  // The ramp must SHORTEN intervals as the paper approaches — that is its job.
+  const card = { ...F.initCard('r'), stability: 40, difficulty: 5, last: '2026-07-01', due: '2026-08-01', reps: 5, state: 'review' };
+  const far = S.gradePreview(card, '2026-07-26', { examDates: { Chemistry: '2026-12-01' } });
+  const near1 = S.gradePreview({ ...card, subject: 'Chemistry' }, '2026-07-26', { examDates: { Chemistry: '2026-07-26' } });
+  is('at R=0.90 a Good earns 94 days', far[2].intervalDays, 94);
+  is('at R=0.95 the same Good earns 43 days', near1[2].intervalDays, 43, 'the exam ramp compressing the schedule, using engram.py\'s own numbers');
+  ok('the ramp only ever shortens', near1[2].intervalDays < far[2].intervalDays);
+  is('per-subject: a Physics card ignores the Chemistry paper',
+    S.desiredRetentionFor({ ...card, subject: 'Physics' }, '2026-07-26', { examDates: { Chemistry: '2026-07-26' } }), 0.90);
+}
+
+/* == 7. scheduler: queue, caps, leeches ================================ */
+group('Queue building — lowest-retrievability first, capped by TIME', 'pedagogy-spec §1.6 + build-constraints §9.6 (caps actually enforced; unseen cards are not unconditionally due).');
+{
+  const mk = (id, s, last, extra = {}) => ({
+    ...F.initCard(id), stability: s, difficulty: 5, last,
+    due: F.addDays(last, 1), state: 'review', ...extra,
+  });
+  const pool = [mk('a', 100, '2026-07-01'), mk('b', 3, '2026-07-01'), mk('c', 30, '2026-07-01')];
+  is('sorted by ascending retrievability', S.dueCards(pool, '2026-07-26').map((x) => x.id).join(''), 'bca');
+  ok('the weakest memory really is first',
+    F.retrievability(S.dueCards(pool, '2026-07-26')[0], '2026-07-26')
+    < F.retrievability(S.dueCards(pool, '2026-07-26')[2], '2026-07-26'));
+  is('a never-seen card is NOT in the due queue (§9.6)', S.dueCards([F.initCard('n1')], '2026-07-26').length, 0);
+  is('a card due exactly today IS due', S.dueCards([mk('t', 10, '2026-07-25')], '2026-07-26').length, 1, 'due = 2026-07-26');
+  is('a card due tomorrow is NOT due today', S.dueCards([mk('t', 10, '2026-07-26')], '2026-07-26').length, 0, 'due = 2026-07-27');
+  is('…but a 1-day horizon finds it', S.dueCards([mk('t', 10, '2026-07-26')], '2026-07-26', { horizonDays: 1 }).length, 1);
+  is('dueCards returns the SAME objects (identity preserved)', S.dueCards(pool, '2026-07-26')[0], pool[1]);
+
+  const big = Array.from({ length: 300 }, (_, i) => mk('m' + String(i).padStart(3, '0'), 5 + i, '2026-07-01'));
+  const capped = S.dueCards(big, '2026-07-26', { timeBudgetMin: 25, secondsPerReview: 20 });
+  is('a 25-minute budget at 20 s/card takes 75 cards', capped.length, 75);
+  ok('the queue never exceeds its budget', capped.length * 20 <= 25 * 60);
+
+  const leech = { ...mk('L', 2, '2026-07-01'), lapses: 6 };
+  ok('lapses ≥ 6 is a leech', S.isLeech(leech));
+  ok('lapses = 5 is not', !S.isLeech({ ...leech, lapses: 5 }));
+  is('leechCheck auto-suspends', S.leechCheck(leech).suspended, true);
+  is('leechCheck flags it for rewrite', S.leechCheck(leech).leech, true);
+  is('a suspended leech leaves the queue', S.dueCards([S.leechCheck(leech)], '2026-07-26').length, 0);
+  is('…but is surfaced for the rewrite', S.leeches([S.leechCheck(leech), ...pool]).length, 1);
+  is('a rewritten card comes back', S.dueCards([S.clearLeech(S.leechCheck(leech), '2026-07-26')], '2026-07-26').length, 1);
+  is('the rewrite preserves the history honestly', S.clearLeech(S.leechCheck(leech), '2026-07-26').lapsesBeforeRewrite, 6);
+  is('a 6th lapse reached through review auto-suspends', S.rateCard({ ...mk('R', 5, '2026-07-01'), lapses: 5 }, 'again', '2026-07-26').leechTriggered, true);
+
+  const news = Array.from({ length: 40 }, (_, i) => ({ ...F.initCard('n' + String(i).padStart(2, '0')), order: i }));
+  is('the daily new cap defaults to 12', S.newQueue(news, '2026-07-26').length, 12);
+  is('a caller asking for 99 still gets 15 (hard ceiling)', S.newQueue(news, '2026-07-26', { newPerDay: 99 }).length, 15);
+  is('cards already introduced today come off the allowance',
+    S.newQueue(news, '2026-07-26', { newDoneToday: 10 }).length, 2);
+  is('the allowance can be exhausted', S.newQueue(news, '2026-07-26', { newDoneToday: 12 }).length, 0);
+  is('new cards are served in curriculum order', S.newQueue(news, '2026-07-26')[0].id, 'n00');
+
+  const sess = S.buildSession(big.concat(news), '2026-07-26', { timeBudgetMin: 25 });
+  ok('a session fits its budget', sess.budget.estSeconds <= 25 * 60);
+  ok('a session still encodes despite a 300-card backlog', sess.counts.newQueued > 0);
+  ok('…without breaking the new cap', sess.counts.newQueued <= 12);
+  is('the label speaks minutes, never a due count (§1.6)', sess.label, '25 minutes');
+  ok('the cutoff reason is reported honestly', sess.budget.cutoff === 'time-budget');
+  is('the session is deterministic', JSON.stringify(S.buildSession(big.concat(news), '2026-07-26', { timeBudgetMin: 25 }).queue.map((c) => c.id)),
+    JSON.stringify(sess.queue.map((c) => c.id)), 'no fuzz, no Math.random — ambiguity A4');
+}
+
+/* == 8. grade-button previews ========================================== */
+group('Grade-button previews show the interval ACTUALLY applied', 'build-constraints §9.9. A preview that disagrees with the scheduler is the defect this test exists to catch.');
+{
+  const fresh = F.initCard('p');
+  const pv = S.gradePreview(fresh, '2026-07-26');
+  is('again → 1 day', pv[0].intervalDays, 1);
+  is('hard → 1 day', pv[1].intervalDays, 1);
+  is('good → 4 days', pv[2].intervalDays, 4);
+  is('easy → 14 days', pv[3].intervalDays, 14);
+  for (const p of pv) {
+    const applied = S.rateCard(fresh, p.rating, '2026-07-26').card;
+    is(`preview(${p.rating}).due === applied.due`, p.due, applied.due);
+    is(`preview(${p.rating}).stability === applied.stability`, p.stability, applied.stability);
+  }
+  ok('labels are honest day counts, never "<10m"', pv.every((p) => /day|days/.test(p.label)));
+  is('a 4-day label', pv[2].label, '4 days');
+  is('a long interval also shows months', F.formatIntervalDays(94), '94 days (~3.1 mo)');
+  const mature = { ...fresh, stability: 250, difficulty: 5.5, last: '2026-01-01', due: '2026-08-01', reps: 9, lapses: 1, state: 'review' };
+  const mp = S.gradePreview(mature, '2026-07-26');
+  is('mature again → 11 days', mp[0].intervalDays, 11);
+  is('mature hard → 321 days', mp[1].intervalDays, 321);
+  is('mature good → 365 days (the cap)', mp[2].intervalDays, 365);
+  ok('previews are strictly ordered again ≤ hard ≤ good ≤ easy',
+    mp[0].intervalDays <= mp[1].intervalDays && mp[1].intervalDays <= mp[2].intervalDays
+    && mp[2].intervalDays <= mp[3].intervalDays);
+}
+
+/* == 9. retention gates =============================================== */
+group('Retention gates — +2 d / +7 d / +21 d → RETAINED', 'pedagogy-spec §1.6. Red / amber / green. The next topic unlocks on MASTERED, not RETAINED.');
+{
+  let c = F.initCard('g');
+  is('an unmastered card is red', S.gateChecks(c, '2026-07-26').status, 'NOT_MASTERED');
+  is('…and does not unlock the next topic', S.gateChecks(c, '2026-07-26').unlocksNextTopic, false);
+  c = S.markMastered(c, '2026-07-01');
+  is('mastery unlocks the next topic immediately', S.gateChecks(c, '2026-07-01').unlocksNextTopic, true);
+  is('day +1: in progress (amber)', S.gateChecks(c, '2026-07-02').status, 'IN_PROGRESS');
+  is('day +2: the first check is due', S.gateChecks(c, '2026-07-03').status, 'CHECK_DUE');
+  is('the gate dates are +2/+7/+21', S.gateChecks(c, '2026-07-03').gates.map((g) => g.dueOn).join(' '), '2026-07-03 2026-07-08 2026-07-22');
+  is('next gate is reported', S.gateChecks(c, '2026-07-02').nextGate.day, 2);
+  c = S.recordGate(c, 2, 'pass', '2026-07-03');
+  is('after +2 passes: back to amber', S.gateChecks(c, '2026-07-04').status, 'IN_PROGRESS');
+  is('1 of 3 gates passed', S.gateChecks(c, '2026-07-04').passed, 1);
+  c = S.recordGate(c, 7, 'pass', '2026-07-08');
+  c = S.recordGate(c, 21, 'pass', '2026-07-22');
+  is('all three passed → RETAINED', S.gateChecks(c, '2026-07-22').status, 'RETAINED');
+  is('…and green', S.gateChecks(c, '2026-07-22').tone, 'green');
+  is('…and retained', S.gateChecks(c, '2026-07-22').retained, true);
+  const failed = S.recordGate(S.markMastered(F.initCard('g2'), '2026-07-01'), 7, 'fail', '2026-07-08');
+  is('a failed gate is red', S.gateChecks(failed, '2026-07-09').tone, 'red');
+  is('…and reported as FAILED', S.gateChecks(failed, '2026-07-09').status, 'FAILED');
+  is('an overdue gate reports how overdue', S.gateChecks(S.markMastered(F.initCard('g3'), '2026-07-01'), '2026-07-26').gates[0].overdueDays, 23);
+  is('gatesDue finds the checks owed today', S.gatesDue([S.markMastered(F.initCard('g4'), '2026-07-01')], '2026-07-26').length, 1);
+  let threw = false; try { S.recordGate(c, 3, 'pass', '2026-07-26'); } catch { threw = true; }
+  ok('an invented gate day is refused', threw);
+  is('markMastered is idempotent', S.markMastered(c, '2026-08-01').masteredOn, '2026-07-01');
+}
+
+/* == 10. retention metrics ============================================ */
+group('Retention metrics exclude the 0–3 d re-encoding window', 'build-constraints §9.9 + engram.py:3366-3415. A sub-4-day retrieval is still encoding, and pooling it would make the north star a liar.');
+{
+  is('day 0 is not retention evidence', S.isRetentionEligible({ days_since_encode: 0 }), false);
+  is('day 3 is not retention evidence', S.isRetentionEligible({ days_since_encode: 3 }), false);
+  is('day 4 is', S.isRetentionEligible({ days_since_encode: 4 }), true);
+  is('bucket(0) → early', S.bucketOf(0), 'early');
+  is('bucket(3) → early', S.bucketOf(3), 'early');
+  is('bucket(4) → 7d', S.bucketOf(4), '7d');
+  is('bucket(14) → 7d', S.bucketOf(14), '7d');
+  is('bucket(15) → 30d', S.bucketOf(15), '30d');
+  is('bucket(59) → 30d', S.bucketOf(59), '30d');
+  is('bucket(60) → 90d', S.bucketOf(60), '90d');
+  is('bucket(180) → 180d+', S.bucketOf(180), '180d+');
+  is('bucket(11) does NOT fall in a gap', S.bucketOf(11), '7d', 'engram.py:3357-3362 — the day-11 bug the buckets were rewritten to fix');
+  const entries = [
+    { days_since_encode: 0, rating: 'good' }, { days_since_encode: 3, rating: 'again' },
+    { days_since_encode: 5, rating: 'good' }, { days_since_encode: 20, rating: 'good' },
+    { days_since_encode: 25, rating: 'again' }, { days_since_encode: 40, rating: 'hard' },
+  ];
+  const rs = S.retentionStats(entries);
+  is('the two early grades are reported…', rs.excludedEarly, 2);
+  is('…and excluded from the pooled figure', rs.pooled.n, 4);
+  is('the 30d bucket holds 3 reviews', rs.buckets['30d'].n, 3);
+  is('rate = (recalled + partial) / n, 3 dp (engram.py:3415)', rs.buckets['30d'].rate, 0.667);
+  is('hard counts as partial, not a failure', rs.buckets['30d'].partial, 1);
+  is('again counts as lapsed', rs.buckets['30d'].lapsed, 1);
+  is('the headline is the 30-day bucket', rs.headline.bucket, '30d');
+  is('with no eligible reviews the read is honest',
+    S.retentionStats([{ days_since_encode: 1, rating: 'good' }]).read,
+    'insufficient-data (no reviews past the 3-day re-encoding window yet)');
+  is('an explicit grade beats the derived one', S.gradeOf({ rating: 'good', grade: 'partial' }), 'partial');
+  is('a missing grade is derived from the rating', S.gradeOf({ rating: 'easy' }), 'recalled');
+}
+
+/* == 11. engram.py replay bridge ====================================== */
+group('Review-log bridge (contract R3)', 'The browser is provisional. Every review must survive the trip into engram.py via `rate --file`.');
+{
+  const c0 = F.initCard('abc123def456', { topic: 'Mole-Concept', subject: 'Chemistry' });
+  const r1 = S.rateCard(c0, 'good', '2026-07-26');
+  const e = r1.entry;
+  is('the entry names the topic', e.topic, 'Mole-Concept');
+  is('the entry names the node', e.node, 'abc123def456');
+  is('the entry carries the rating verbatim', e.rating, 'good');
+  is('kind defaults to "review" (engram.py KINDS)', e.kind, 'review');
+  is('the grade is the engram bijection', e.grade, 'recalled');
+  is('the client date rides along (A9)', e.ts_client, '2026-07-26');
+  ok('a deterministic sid makes replay idempotent', typeof e.sid === 'string' && e.sid.length > 0);
+  is('the same review produces the same sid', S.rateCard(c0, 'good', '2026-07-26').entry.sid, e.sid);
+  is('the mirrored interval matches the card', e.interval_days, 4);
+  is('the mirrored due matches the card', e.due_next, r1.card.due);
+  const rt = F.fromEngramFsrs(F.toEngramFsrs(r1.card));
+  is('card → engram fsrs → card round-trips stability', rt.stability, r1.card.stability);
+  is('…and due', rt.due, r1.card.due);
+  is('a corrupt fsrs block degrades, never throws (engram.py:139-153)', F.fromEngramFsrs('garbage').stability, null);
+  const log = [
+    { rating: 'good', ts_client: '2026-07-26' },
+    { rating: 'good', ts_client: '2026-07-30' },
+    { rating: 'again', ts_client: '2026-08-14' },
+  ];
+  const replayed = F.replay(F.initCard('z'), log);
+  const stepwise = F.applyRating(F.applyRating(F.applyRating(F.initCard('z'), 'good', '2026-07-26'), 'good', '2026-07-30'), 'again', '2026-08-14');
+  is('replaying a log === applying it step by step', replayed.stability, stepwise.stability);
+  is('…including lapses', replayed.lapses, 1);
+  is('…and state', replayed.state, 'learning');
+}
+
+/* == 12. cross-module field tolerance ================================= */
+group('Cross-module field tolerance', 'store.js persists its SRS record as {due, stability, difficulty, reps, lapses, lastISO}. The canonical field is `last` (engram.py:596); accepting `lastISO`/`dueISO` on READ stops a naming mismatch from silently treating every card as reviewed today — a bug that looks like a plateau, not like a crash. WRITES are always canonical.');
+{
+  const canonical = { ...F.initCard('k'), stability: 10, difficulty: 5, last: '2026-07-16', due: '2026-07-26', reps: 3, state: 'review' };
+  const storeShape = { ...F.initCard('k'), stability: 10, difficulty: 5, lastISO: '2026-07-16', dueISO: '2026-07-26', reps: 3, state: 'review' };
+  is('cardLast() reads `last`', F.cardLast(canonical), '2026-07-16');
+  is('cardLast() also reads `lastISO`', F.cardLast(storeShape), '2026-07-16');
+  is('cardDue() also reads `dueISO`', F.cardDue(storeShape), '2026-07-26');
+  is('retrievability agrees across both shapes', F.retrievability(storeShape, '2026-07-26'), F.retrievability(canonical, '2026-07-26'));
+  is('…and is NOT 1.0 (the failure mode this guards)', F.retrievability(storeShape, '2026-07-26') < 1, true);
+  is('applyRating agrees across both shapes', F.applyRating(storeShape, 'good', '2026-07-26').stability, F.applyRating(canonical, 'good', '2026-07-26').stability);
+  is('a lastISO card is still found as due', S.dueCards([storeShape], '2026-07-26').length, 1);
+  is('writes are canonical `last`', F.applyRating(storeShape, 'good', '2026-07-26').last, '2026-07-26');
+  is('writes are canonical `due`', F.applyRating(storeShape, 'good', '2026-07-26').due, '2026-08-30',
+    'S 10 → 35.08389427030441 (engram.py golden leaf) → round → 35 d');
+}
+
+render(null);
+</script>
+</body>
+</html>

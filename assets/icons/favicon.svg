@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="engram-brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc371"/>
+      <stop offset="0.6" stop-color="#d97757"/>
+      <stop offset="1" stop-color="#c45a39"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0a0d12"/>
+  <rect x="6" y="6" width="52" height="52" rx="12" fill="url(#engram-brand)"/>
+  <path d="M24 19h17v6H31v5h9v6h-9v5h10v6H24z" fill="#1a0d06"/>
+</svg>

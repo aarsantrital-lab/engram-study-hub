@@ -1,0 +1,11 @@
+# Keeps data/ in the repo even when every pack is absent.
+#
+# This folder holds the authored JSON packs the app fetches at runtime:
+#   questions.json · numericals/*.json (+ index.json) · formulas.json
+#   diagrams.json · examCalendar.json · quotes.json
+#
+# generate_data.py MERGES packs from <vault>/data into here and never prunes
+# this folder, because content agents commit packs straight into the hub repo.
+# Directory listings do not exist over HTTP: a numericals template that is not
+# named in data/numericals/index.json is never loaded. Run
+# `python generate_data.py --fix-index` to add one.
